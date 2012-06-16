@@ -1,0 +1,85 @@
+﻿@using InTheBoks.Resources
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/themes/base/css", "~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+
+    <div id="fb-root"></div>
+
+    <script src="//connect.facebook.net/@Resource.FacebookCulture()/all.js"></script>
+    @Scripts.Render("~/bundles/fb")
+
+    <header id="header">
+
+        <a href="/" id="logo"><img src="~/Content/intheboks_logo_light.png" /></a>
+        <div class="loading">
+            <img src="../../Content/ajax-loader.gif" /></div>
+
+      <div id="auth-status">
+
+     <div class="initializing auth-box">
+             <img src="~/Content/ajax-loader.gif" />
+             @Text.Loading...
+     </div>
+
+    <div id="auth-loggedout" class="anonymous">
+        <img id="auth-loginlink" src="../../Content/Facebook.png" />
+    </div>
+
+    <div id="auth-loggedin" class="authenticated">
+        
+        <div id="profileInfo">
+            @Text.Hi, <span id="auth-displayname"></span>  
+            <a href="#" id="auth-logoutlink">@Text.Logout</a>
+            <img src="" id="profileImage" height="16" width="16" />
+        </div>
+
+    </div>
+</div>
+
+    </header>
+
+    <div id="content" class="authenticated content">
+
+        @RenderBody()
+
+    </div>
+
+    <div id="anonymous" class="anonymous content-box">
+
+        @Html.Raw(Text.AnonymousWelcomeText)
+
+    </div>
+
+    <div class="initializing content-box">
+
+        @Text.Initializing...
+
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/app")
+
+    <script>
+    $(function () {
+        // Define the resources on a global level. We should do this before
+        // we create any view models, etc.
+        Resource = $.parseJSON($("#resources").html());
+    });
+    </script>
+
+    <script id="resources" type="application/json">
+        @Html.Raw(Resource.RenderJson())
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

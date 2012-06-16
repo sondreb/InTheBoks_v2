@@ -1,0 +1,168 @@
+﻿body {
+    font-size: .85em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    color: #232323;
+    color: white;
+    background-color: #fff;
+    
+    background-image: url('bg.png');
+    background-repeat: repeat-x;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer, nav, section {
+    display: block;
+}
+
+header {
+    
+    margin: 10px;
+    
+}
+
+    header div {
+        
+        float: right;
+        font-size: 1.1em;
+    }
+
+.auth-box {
+    text-align: right;
+}
+    
+.auth-box, #profileInfo {
+    padding-top: 10px;
+    padding-left: 15px;
+    width: 265px;
+    height: 37px;
+}
+    
+#profileInfo {
+    border-radius: 10px;
+    background-color: gray;
+    background-image: url('button_bg_2.png');
+    background-size: contain;
+}
+
+
+#auth-loginlink {
+    cursor: pointer;
+}
+
+.anonymous {
+   display: none;
+}
+
+.authenticated {
+    display: none;
+}
+
+.initializing {
+    
+}
+
+/* Displays whenever any AJAX call is executed */
+.loading {
+    
+   position: absolute;
+   left: 255px;
+   top: 26px;
+   display: none;
+   
+}
+
+#logo {
+
+}
+
+a {
+    color: white;
+}
+
+    a:visited {
+        color: #c4c4c4;
+    }
+
+    a:hover {
+        color: #797979;
+    }
+
+
+.content-box {
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    font-size: 1.6em;
+    text-align: center;
+}
+
+.content {
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    font-size: 1.2em;
+    text-align: left;
+}
+
+.button {
+    padding: 30px;
+    background-color: gray;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+li {
+   list-style-type: none;
+}
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}

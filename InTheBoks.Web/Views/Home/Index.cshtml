@@ -1,0 +1,32 @@
+﻿@using InTheBoks.Resources
+
+@{
+    ViewBag.Title = "InTheBoks.com - Organize Your Stuff";
+}
+
+<h2>@Text.YourCollections</h2>
+
+<ul data-bind="foreach: Items">
+    <li class="button" data-bind="text: Name, click: $parent.Select"></li>
+</ul>
+
+@section scripts
+{
+<script>
+
+    var catalogVM = null;
+
+    function InitializeUserData() {
+
+        if (catalogVM == null) {
+            catalogVM = new catalogsViewModel();
+            ko.applyBindings(catalogVM, document.getElementById("content"));
+        }
+
+        catalogVM.Load();
+    }
+
+</script>
+
+    
+}
