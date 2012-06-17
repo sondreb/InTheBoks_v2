@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>SolutionInfo.cs</Link>
+    </Compile>
     <Compile Include="Text.NO.Designer.cs">
       <DependentUpon>Text.NO.resx</DependentUpon>
       <AutoGen>True</AutoGen>

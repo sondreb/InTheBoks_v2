@@ -135,6 +135,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>SolutionInfo.cs</Link>
+    </Compile>
     <Compile Include="Api\CatalogsController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -153,6 +156,7 @@
     <Content Include="Content\bg.png" />
     <Content Include="Content\button_bg.png" />
     <Content Include="Content\button_bg_2.png" />
+    <Content Include="Content\gear.png" />
     <Content Include="Content\intheboks_logo.png" />
     <Content Include="Content\intheboks_logo_light.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

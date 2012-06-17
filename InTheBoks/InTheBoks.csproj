@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionInfo.cs">
+      <Link>SolutionInfo.cs</Link>
+    </Compile>
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Models\Catalog.cs" />
     <Compile Include="Models\User.cs" />

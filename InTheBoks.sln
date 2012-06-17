@@ -13,7 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InTheBoks.Resources", "InTh
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C0349731-1959-4400-8150-74B6ABD209DE}"
 	ProjectSection(SolutionItems) = preProject
+		License.txt = License.txt
 		ReadMe.txt = ReadMe.txt
+		SolutionInfo.cs = SolutionInfo.cs
 	EndProjectSection
 EndProject
 Global
