@@ -1,4 +1,7 @@
-﻿html {
+﻿@import url(http://fonts.googleapis.com/css?family=Pontano+Sans|Gudea);
+
+
+html {
     height: 100%;
 }
 
@@ -8,15 +11,35 @@ body {
     -ms-content-zooming: none;
     
     font-size: .85em;
-    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    font-family: "Gudea", "Segoe UI", Verdana, Helvetica, Sans-Serif;
+
     color: #232323;
     color: white;
-    background-color: #fff;
+    background-color: #0E0E0E;
     
     background-image: url('bg.png');
     background-repeat: repeat-x;
     margin: 0;
     padding: 0;
+}
+
+
+.button {
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    background-color: rgba(234, 234, 234, 0.1);
+    font-family: 'Pontano Sans', sans-serif;
+    font-size: 1.1em;
+    
+background-image: linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
+background-image: -o-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
+background-image: -moz-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
+background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
+background-image: -ms-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
+
+    
 }
 
 header, footer, nav, section {
@@ -98,9 +121,7 @@ footer {
 }
     
 .auth-box, #profileInfo {
-    padding-top: 10px;
-    padding-left: 15px;
-    width: 265px;
+    padding: 10px 15px 0px 15px;
     height: 37px;
 }
     
@@ -179,15 +200,6 @@ a {
     text-align: left;
 }
 
-.button {
-    padding: 30px;
-    margin-left: 4px;
-    background-color: gray;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    cursor: pointer;
-    background-color: rgba(234, 234, 234, 0.1);
-}
 
 .button:hover {
     padding: 30px;
@@ -208,6 +220,29 @@ ul {
     margin: 0;
     padding: 0;
 }
+
+button {
+    font-size: 1.2em;
+    padding: 7px 12px 7px 12px;
+
+}
+
+.settings {
+    width: 100%;
+    display: none;
+    overflow: auto;
+    background-color: rgba(61, 61, 61, 0.7);
+}
+
+    .settings > div {
+        
+        margin: 20px;
+        min-width: 300px;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+        
+    }
 
 /* Styles for basic forms
 -----------------------------------------------------------*/

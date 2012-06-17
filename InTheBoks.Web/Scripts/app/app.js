@@ -21,6 +21,18 @@ $(function () {
 
 });
 
+function ToggleSettings()
+{
+    if ($('#settings').is(':visible')) {
+
+        $(".settings").hide();
+        $(".content").fadeIn(300);
+
+    } else {
+        $(".content").hide();
+        $(".settings").fadeIn(300);
+    }
+}
 
 function ChangeState(state) {
     console.log("ChangeState: " + state);

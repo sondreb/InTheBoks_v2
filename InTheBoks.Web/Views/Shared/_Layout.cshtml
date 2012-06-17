@@ -6,6 +6,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <meta name="description" content="InTheBoks - Organize Your Stuff">
+    <meta name="author" content="Sondre Bjellås">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <link rel="apple-touch-icon" href="~/Content/intheboks_72.png" />
+    <link rel="apple-touch-icon" href="~/Content/intheboks_114.png" sizes="114x114"/>
+
+    <link rel="shortcut icon" href="/favicon.ico" />
+
     @Styles.Render("~/Content/themes/base/css", "~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -25,8 +36,11 @@
 
       <div id="auth-status">
 
-          <img src="~/Content/gear.png" class="authenticated" height="32" width="32"
-              style="margin-top: 8px; margin-right: 10px; cursor: pointer; float: left;" title="Settings" />
+        <img src="../../Content/icons/white/search.png" title="Search" class="authenticated" width="40" height="40"
+            style="margin-top: 4px; margin-right: 10px; cursor: pointer; float: left;" />
+
+          <img src="~/Content/icons/white/settings.png" class="authenticated" onclick="ToggleSettings();" height="40" width="40"
+              style="margin-top: 4px; margin-right: 10px; cursor: pointer; float: left;" title="Settings" />
 
      <div class="initializing auth-box">
              <img src="~/Content/ajax-loader.gif" />
@@ -54,13 +68,24 @@
     <div id="content" class="authenticated content stretch">
         <div id="left-sidebar" class="stretch">
 
+            &nbsp;
+            <img src="../../Content/icons/white/add.png" title="New Collection" width="32" height="32" />
+            <img src="../../Content/icons/white/edit.png" title="Edit Collection" width="32" height="32" />
+            <img src="../../Content/icons/white/delete.png" title="Delete Collection" width="32" height="32" />
+
+            <div class="margin" style="margin-right: 0px;">
         <ul data-bind="foreach: Items">
             <li class="button" data-bind="text: Name, click: $parent.Select"></li>
         </ul>
+                </div>
 
         </div>
         <div id="main-content" class="stretch">
+            <img src="../../Content/icons/white/add.png" title="New Item" width="32" height="32" />
+            <img src="../../Content/icons/white/delete.png" title="Delete Item(s)" width="32" height="32" />
+            
             <div class="margin">
+
                 @RenderBody()
             </div>
         </div>
@@ -71,8 +96,21 @@
     </div>
 
     <div class="initializing content-box stretch">
+        <p>&nbsp;</p>
         @Text.Initializing...
     </div>
+    
+        <div id="settings" class="stretch settings">
+            <div>
+            <h1>Settings</h1>
+
+            <p>Change your settings here.</p>
+                <p>
+                    <img onclick="ToggleSettings();" title="Save" src="../../Content/icons/white/save.png" />
+                    &nbsp;<img onclick="ToggleSettings();" title="Cancel" src="../../Content/icons/white/cancel.png" />
+                </p>
+            </div>
+        </div>
 
         <footer id="footer" class="authenticated">
             <div>
@@ -109,10 +147,8 @@
         var windowheight = $(window).height();
 
         var height = windowheight - (headerheight + footerheight);
-        console.log(height);
 
         $(".stretch").height(windowheight - (headerheight + footerheight));
-
         $("#main-content").width($(window).width() - 200);
     }
     </script>
