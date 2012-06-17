@@ -25,6 +25,10 @@ $(function () {
 function ChangeState(state) {
     console.log("ChangeState: " + state);
 
+    // Due to issues with Chrome on the initial loading, we'll
+    // make an extra call to the resize method here.
+    ResizeContent();
+
     switch (state) {
         case 0: // State.Initializing
 

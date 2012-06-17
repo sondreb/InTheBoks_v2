@@ -1,4 +1,12 @@
-﻿body {
+﻿html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    overflow: hidden;
+    -ms-content-zooming: none;
+    
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     color: #232323;
@@ -17,7 +25,7 @@ header, footer, nav, section {
 
 header {
     
-    margin: 10px;
+    margin: 0px;
     
 }
 
@@ -27,6 +35,64 @@ header {
         font-size: 1.1em;
     }
 
+    
+    
+#AppContainer {
+    margin: 0;
+    padding: 0;
+    display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 5000;
+}
+
+#header {
+    width: 100%;
+}
+
+#content {
+    width: 100%;
+}
+
+.stretch {
+}
+
+#content #left-sidebar {
+    width: 200px;
+    overflow: auto;
+    float: left;
+}
+ 
+/*
+#content #right-sidebar {
+    width: 200px;
+    background: green;
+}*/
+ 
+#content #main-content {
+    overflow: auto;
+    width: 100%;
+    float: left;
+}
+
+.margin {
+    margin: 10px;
+}
+ 
+footer {
+    width: 100%;
+    height: 22px;
+    clear: both;
+    background-color: rgba(69, 69, 69, 0.44);
+}
+
+    footer div {
+        
+        margin-left: 5px;
+        margin-top: 1px;
+    }
+    
 .auth-box {
     text-align: right;
 }
@@ -72,8 +138,16 @@ header {
    
 }
 
-#logo {
+img {
+    border: 0;
+}
 
+#logo img {
+    margin: 10px 0 0 10px;
+}
+
+#auth-status {
+    margin: 10px 10px 0 0;
 }
 
 a {
@@ -107,14 +181,32 @@ a {
 
 .button {
     padding: 30px;
+    margin-left: 4px;
     background-color: gray;
     border-radius: 10px;
     margin-bottom: 5px;
     cursor: pointer;
+    background-color: rgba(234, 234, 234, 0.1);
+}
+
+.button:hover {
+    padding: 30px;
+    background-color: gray;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+   background-color: rgba(234, 234, 234, 0.2);
 }
 
 li {
    list-style-type: none;
+   margin: 0;
+   padding: 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
 }
 
 /* Styles for basic forms

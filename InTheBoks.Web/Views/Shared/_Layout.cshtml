@@ -11,8 +11,9 @@
 </head>
 <body>
 
-    <div id="fb-root"></div>
+    <div id="AppContainer">
 
+    <div id="fb-root"></div>
     <script src="//connect.facebook.net/@Resource.FacebookCulture()/all.js"></script>
     @Scripts.Render("~/bundles/fb")
 
@@ -25,7 +26,7 @@
       <div id="auth-status">
 
           <img src="~/Content/gear.png" class="authenticated" height="32" width="32"
-              style="margin-top: 8px; margin-right: 10px; cursor: pointer;" title="Settings" />
+              style="margin-top: 8px; margin-right: 10px; cursor: pointer; float: left;" title="Settings" />
 
      <div class="initializing auth-box">
              <img src="~/Content/ajax-loader.gif" />
@@ -49,23 +50,36 @@
 
     </header>
 
-    <div id="content" class="authenticated content">
 
-        @RenderBody()
+    <div id="content" class="authenticated content stretch">
+        <div id="left-sidebar" class="stretch">
 
+        <ul data-bind="foreach: Items">
+            <li class="button" data-bind="text: Name, click: $parent.Select"></li>
+        </ul>
+
+        </div>
+        <div id="main-content" class="stretch">
+            <div class="margin">
+                @RenderBody()
+            </div>
+        </div>
     </div>
 
-    <div id="anonymous" class="anonymous content-box">
-
+    <div id="anonymous" class="anonymous content-box stretch">
         @Html.Raw(Text.AnonymousWelcomeText)
-
     </div>
 
-    <div class="initializing content-box">
-
+    <div class="initializing content-box stretch">
         @Text.Initializing...
-
     </div>
+
+        <footer id="footer" class="authenticated">
+            <div>
+           Status:
+            <div id="log"></div>
+                </div>
+        </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/app")
@@ -75,7 +89,32 @@
         // Define the resources on a global level. We should do this before
         // we create any view models, etc.
         Resource = $.parseJSON($("#resources").html());
+
+
+        $(window).resize(function () {
+            $('#log').append('<div>Handler for .resize() called.</div>');
+
+            ResizeContent();
+
+        });
+
+        ResizeContent();
+
     });
+
+    function ResizeContent()
+    {
+        var headerheight = $("#header").height();
+        var footerheight = $("#footer").height();
+        var windowheight = $(window).height();
+
+        var height = windowheight - (headerheight + footerheight);
+        console.log(height);
+
+        $(".stretch").height(windowheight - (headerheight + footerheight));
+
+        $("#main-content").width($(window).width() - 200);
+    }
     </script>
 
     <script id="resources" type="application/json">
@@ -83,6 +122,8 @@
     </script>
 
     @RenderSection("scripts", required: false)
+
+</div>
 
 </body>
 </html>
