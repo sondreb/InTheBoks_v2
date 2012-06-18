@@ -25,16 +25,21 @@ namespace InTheBoks.Web
 
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+            GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always; 
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            //_log.Debug("BeginRequest: " + Request.Url.ToString());
+        }
+
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
-            _log.Debug("Application_AuthenticateRequest");
+            //_log.Debug("Application_AuthenticateRequest");
 
             var accessToken = Request.Headers["AccessToken"];
 
@@ -57,14 +62,14 @@ namespace InTheBoks.Web
 
         private long CreateUserIfNotExists(long id, dynamic me, string token)
         {
-            _log.Info("Creating User: " + id + " - " + me.name);
-
             using (DataContext db = new DataContext())
             {
                 var dbUser = db.Users.SingleOrDefault(u => u.FacebookId == id);
 
                 if (dbUser == null)
                 {
+                    _log.Info("Creating User: " + id + " - " + me.name);
+
                     dbUser = new Models.User();
                     dbUser.FacebookId = id;
                     dbUser.Name = me.name;
@@ -78,6 +83,12 @@ namespace InTheBoks.Web
 
                 return dbUser.Id;
             }
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception ex = Server.GetLastError();
+            _log.ErrorException("Global Application Error", ex);
         }
     }
 }
