@@ -39,6 +39,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.2.6.2.859\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration">
+      <HintPath>..\packages\Autofac.2.6.2.859\lib\NET40\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc4.2.6.2.859\lib\NET40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi">
+      <HintPath>..\packages\Autofac.WebApi.2.6.2.859\lib\NET40\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="Facebook">
       <HintPath>..\packages\Facebook.6.0.20\lib\net40-client\Facebook.dll</HintPath>
     </Reference>
@@ -54,6 +66,9 @@
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.4.5.7\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -152,13 +167,95 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\ajax-loader.gif" />
+    <Content Include="Content\albums\41A-jqYmLiL.jpg" />
+    <Content Include="Content\albums\516ZF6YQKAL.jpg" />
+    <Content Include="Content\albums\518UVI8xp8L.jpg" />
+    <Content Include="Content\albums\51BtHBW4gQL.jpg" />
+    <Content Include="Content\albums\51MP8TKAFVL.jpg" />
+    <Content Include="Content\albums\51PpJAOkqLL.jpg" />
+    <Content Include="Content\albums\51SSmALB9nL.jpg" />
+    <Content Include="Content\albums\51VfE5rU9OL.jpg" />
+    <Content Include="Content\albums\51vhtc7Lj0L.jpg" />
     <Content Include="Content\bg.jpg" />
     <Content Include="Content\bg.png" />
     <Content Include="Content\button_bg.png" />
     <Content Include="Content\button_bg_2.png" />
+    <Content Include="Content\drop_box256x256.png" />
     <Content Include="Content\gear.png" />
+    <Content Include="Content\icons\black\add.png" />
+    <Content Include="Content\icons\black\back.png" />
+    <Content Include="Content\icons\black\basecircle.png" />
+    <Content Include="Content\icons\black\camera.png" />
+    <Content Include="Content\icons\black\cancel.png" />
+    <Content Include="Content\icons\black\check.png" />
+    <Content Include="Content\icons\black\delete.png" />
+    <Content Include="Content\icons\black\download.png" />
+    <Content Include="Content\icons\black\edit.png" />
+    <Content Include="Content\icons\black\favs.addto.png" />
+    <Content Include="Content\icons\black\favs.png" />
+    <Content Include="Content\icons\black\ff.png" />
+    <Content Include="Content\icons\black\flag.png" />
+    <Content Include="Content\icons\black\folder.png" />
+    <Content Include="Content\icons\black\heart.png" />
+    <Content Include="Content\icons\black\i.png" />
+    <Content Include="Content\icons\black\mail.png" />
+    <Content Include="Content\icons\black\minus.png" />
+    <Content Include="Content\icons\black\next.png" />
+    <Content Include="Content\icons\black\overflowdots.png" />
+    <Content Include="Content\icons\black\parent.png" />
+    <Content Include="Content\icons\black\pause.png" />
+    <Content Include="Content\icons\black\phone.png" />
+    <Content Include="Content\icons\black\play.png" />
+    <Content Include="Content\icons\black\questionmark.png" />
+    <Content Include="Content\icons\black\refresh.png" />
+    <Content Include="Content\icons\black\rew.png" />
+    <Content Include="Content\icons\black\save.png" />
+    <Content Include="Content\icons\black\search.png" />
+    <Content Include="Content\icons\black\settings.png" />
+    <Content Include="Content\icons\black\share.png" />
+    <Content Include="Content\icons\black\upload.png" />
+    <Content Include="Content\icons\black\video.png" />
+    <Content Include="Content\icons\white\add.png" />
+    <Content Include="Content\icons\white\back.png" />
+    <Content Include="Content\icons\white\basecircle.png" />
+    <Content Include="Content\icons\white\camera.png" />
+    <Content Include="Content\icons\white\cancel.png" />
+    <Content Include="Content\icons\white\check.png" />
+    <Content Include="Content\icons\white\delete.png" />
+    <Content Include="Content\icons\white\download.png" />
+    <Content Include="Content\icons\white\edit.png" />
+    <Content Include="Content\icons\white\favs.addto.png" />
+    <Content Include="Content\icons\white\favs.png" />
+    <Content Include="Content\icons\white\ff.png" />
+    <Content Include="Content\icons\white\flag.png" />
+    <Content Include="Content\icons\white\folder.png" />
+    <Content Include="Content\icons\white\heart.png" />
+    <Content Include="Content\icons\white\i.png" />
+    <Content Include="Content\icons\white\mail.png" />
+    <Content Include="Content\icons\white\minus.png" />
+    <Content Include="Content\icons\white\next.png" />
+    <Content Include="Content\icons\white\overflowdots.png" />
+    <Content Include="Content\icons\white\parent.png" />
+    <Content Include="Content\icons\white\pause.png" />
+    <Content Include="Content\icons\white\phone.png" />
+    <Content Include="Content\icons\white\play.png" />
+    <Content Include="Content\icons\white\questionmark.png" />
+    <Content Include="Content\icons\white\refresh.png" />
+    <Content Include="Content\icons\white\rew.png" />
+    <Content Include="Content\icons\white\save.png" />
+    <Content Include="Content\icons\white\search.png" />
+    <Content Include="Content\icons\white\settings.png" />
+    <Content Include="Content\icons\white\share.png" />
+    <Content Include="Content\icons\white\upload.png" />
+    <Content Include="Content\icons\white\video.png" />
+    <Content Include="Content\intheboks_114.png" />
+    <Content Include="Content\intheboks_57.png" />
+    <Content Include="Content\intheboks_72.png" />
+    <Content Include="Content\intheboks_ios.png" />
     <Content Include="Content\intheboks_logo.png" />
     <Content Include="Content\intheboks_logo_light.png" />
+    <Content Include="Content\startup_ipad.png" />
+    <Content Include="Content\startup_iphone.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -214,6 +311,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\Facebook.png" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include="Properties\PublishProfiles\nightly.intheboks.com.pubxml" />
@@ -222,6 +320,7 @@
     </None>
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\fb.js" />
+    <Content Include="Scripts\html5slider.js" />
     <Content Include="Scripts\jquery-1.7.2.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js">
       <DependentUpon>jquery-1.7.2.js</DependentUpon>

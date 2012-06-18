@@ -9,19 +9,51 @@ body {
     height: 100%;
     overflow: hidden;
     -ms-content-zooming: none;
-    
     font-size: .85em;
     font-family: "Gudea", "Segoe UI", Verdana, Helvetica, Sans-Serif;
-
     color: #232323;
     color: white;
     background-color: #0E0E0E;
-    
     background-image: url('bg.png');
     background-repeat: repeat-x;
     margin: 0;
     padding: 0;
 }
+
+.action {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    -moz-transition: opacity 0.1s linear;
+    -webkit-transition: opacity 0.1s linear;
+    -o-transition: opacity 0.1s linear;
+    transition: opacity 0.1s linear;
+}
+
+    .action:hover {
+        opacity: 0.65;
+    }
+
+.big {
+    width: 40px;
+    height: 40px;
+}
+
+#thumbnails {
+}
+
+    #thumbnails img {
+        height: 128px;
+        -moz-transition: opacity 0.2s linear;
+        -webkit-transition: opacity 0.2s linear;
+        -o-transition: opacity 0.2s linear;
+        transition: opacity 0.2s linear;
+    }
+
+        #thumbnails img:hover {
+            opacity: 0.5;
+        }
+
 
 
 .button {
@@ -32,14 +64,11 @@ body {
     background-color: rgba(234, 234, 234, 0.1);
     font-family: 'Pontano Sans', sans-serif;
     font-size: 1.1em;
-    
-background-image: linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
-background-image: -o-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
-background-image: -moz-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
-background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
-background-image: -ms-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
-
-    
+    background-image: linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
+    background-image: -o-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
+    background-image: -moz-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
+    background-image: -ms-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
 }
 
 header, footer, nav, section {
@@ -47,19 +76,16 @@ header, footer, nav, section {
 }
 
 header {
-    
     margin: 0px;
-    
 }
 
     header div {
-        
         float: right;
         font-size: 1.1em;
     }
 
-    
-    
+
+
 #AppContainer {
     margin: 0;
     padding: 0;
@@ -86,13 +112,13 @@ header {
     overflow: auto;
     float: left;
 }
- 
+
 /*
 #content #right-sidebar {
     width: 200px;
     background: green;
 }*/
- 
+
 #content #main-content {
     overflow: auto;
     width: 100%;
@@ -102,7 +128,7 @@ header {
 .margin {
     margin: 10px;
 }
- 
+
 footer {
     width: 100%;
     height: 22px;
@@ -111,20 +137,19 @@ footer {
 }
 
     footer div {
-        
         margin-left: 5px;
         margin-top: 1px;
     }
-    
+
 .auth-box {
     text-align: right;
 }
-    
+
 .auth-box, #profileInfo {
     padding: 10px 15px 0px 15px;
     height: 37px;
 }
-    
+
 #profileInfo {
     border-radius: 10px;
     background-color: gray;
@@ -138,7 +163,7 @@ footer {
 }
 
 .anonymous {
-   display: none;
+    display: none;
 }
 
 .authenticated {
@@ -146,17 +171,14 @@ footer {
 }
 
 .initializing {
-    
 }
 
 /* Displays whenever any AJAX call is executed */
 .loading {
-    
-   position: absolute;
-   left: 255px;
-   top: 26px;
-   display: none;
-   
+    position: absolute;
+    left: 255px;
+    top: 26px;
+    display: none;
 }
 
 img {
@@ -165,7 +187,15 @@ img {
 
 #logo img {
     margin: 10px 0 0 10px;
+    -moz-transition: opacity 0.2s linear;
+    -webkit-transition: opacity 0.2s linear;
+    -o-transition: opacity 0.2s linear;
+    transition: opacity 0.2s linear;
 }
+
+    #logo img:hover {
+        opacity: 0.85;
+    }
 
 #auth-status {
     margin: 10px 10px 0 0;
@@ -173,6 +203,10 @@ img {
 
 a {
     color: white;
+    -moz-transition: color 0.1s linear;
+    -webkit-transition: color 0.1s linear;
+    -o-transition: color 0.1s linear;
+    transition: color 0.1s linear;
 }
 
     a:visited {
@@ -200,20 +234,26 @@ a {
     text-align: left;
 }
 
-
-.button:hover {
-    padding: 30px;
-    background-color: gray;
-    border-radius: 10px;
-    margin-bottom: 5px;
-    cursor: pointer;
-   background-color: rgba(234, 234, 234, 0.2);
+.button {
+    -moz-transition: background-color 0.2s linear;
+    -webkit-transition: background-color 0.2s linear;
+    -o-transition: background-color 0.2s linear;
+    transition: background-color 0.2s linear;
 }
 
+    .button:hover {
+        padding: 30px;
+        background-color: gray;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        cursor: pointer;
+        background-color: rgba(234, 234, 234, 0.2);
+    }
+
 li {
-   list-style-type: none;
-   margin: 0;
-   padding: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 ul {
@@ -224,7 +264,6 @@ ul {
 button {
     font-size: 1.2em;
     padding: 7px 12px 7px 12px;
-
 }
 
 .settings {
@@ -235,13 +274,11 @@ button {
 }
 
     .settings > div {
-        
         margin: 20px;
         min-width: 300px;
         max-width: 500px;
         margin-left: auto;
         margin-right: auto;
-        
     }
 
 /* Styles for basic forms

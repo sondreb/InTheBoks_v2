@@ -26,10 +26,22 @@ Requirements:
 	- MVC 4 RC
 	- SQL Express
 
-
 Add the appId to the Scripts/app/fb.js file in the FB.init function call.
 The InTheBoks.Web is configured to run with port 7474, make sure you
 set that URL as the app URL within the Facebook app settings: http://localhost:7474/
+
+
+Get Started:
+
+If you are a developer and want to run InTheBoks on your own local machine,
+all you need to do is get the source and run the application.
+
+Should you have problems with the automatic database creation, try to create
+a database named "InTheBoks" on your local SQL Express instance manually.
+
+If you want to run the sample on a server, you need to ensure that NETWORK SERVICE
+have permissions to create the database, and/or the tables.
+
 
 Libraries:
 	- jQuery (MIT license)
@@ -38,6 +50,13 @@ Libraries:
 	- Modernizr (MIT license)
 	- JSON.NET (?)
 	- Microsoft Web Platform (?)
+	- html5slider
+	- Autofac
+	- NLog
+
+Thanks to all the developers of these great libaries, this project could not be
+realized without them.
+
 
 License:
 

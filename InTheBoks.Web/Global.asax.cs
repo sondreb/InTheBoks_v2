@@ -12,6 +12,7 @@ using System.Web.Routing;
 using Facebook;
 using InTheBoks.Data;
 using InTheBoks.Security;
+using NLog;
 
 namespace InTheBoks.Web
 {
@@ -20,6 +21,8 @@ namespace InTheBoks.Web
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        private static Logger _log = LogManager.GetCurrentClassLogger();
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -31,6 +34,8 @@ namespace InTheBoks.Web
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
+            _log.Debug("Application_AuthenticateRequest");
+
             var accessToken = Request.Headers["AccessToken"];
 
             if (string.IsNullOrWhiteSpace(accessToken))
@@ -46,10 +51,14 @@ namespace InTheBoks.Web
             var principal = new FacebookPrincipal(userId, facebookUserId, me.name, me.email, me.link, accessToken);
 
             Context.User = principal;
+
+            _log.Info("User Logged On: " + facebookUserId);
         }
 
         private long CreateUserIfNotExists(long id, dynamic me, string token)
         {
+            _log.Info("Creating User: " + id + " - " + me.name);
+
             using (DataContext db = new DataContext())
             {
                 var dbUser = db.Users.SingleOrDefault(u => u.FacebookId == id);

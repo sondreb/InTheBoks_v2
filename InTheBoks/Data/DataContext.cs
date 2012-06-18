@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using InTheBoks.Models;
-
-namespace InTheBoks.Data
+﻿namespace InTheBoks.Data
 {
+    using System.Data.Entity;
+    using InTheBoks.Models;
+
     public class DataContext : DbContext
     {
-        public DataContext() : base("InTheBoks")
+        public DataContext()
+            : base("InTheBoks")
         {
 
         }
@@ -17,5 +14,17 @@ namespace InTheBoks.Data
         public DbSet<User> Users { get; set; }
 
         public DbSet<Catalog> Catalogs { get; set; }
+
+        public DbSet<Log> Logs { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Log>()
+                .Property(f => f.Timestamp)
+                .HasColumnType("datetime2")
+                .HasPrecision(4);
+        }
     }
 }

@@ -8,7 +8,8 @@ namespace InTheBoks.Web
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/fb").Include(
-                "~/Scripts/app/fb.js"
+                "~/Scripts/app/fb.js",
+                "~/Scripts/html5slider.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(

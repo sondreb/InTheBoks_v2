@@ -1,7 +1,7 @@
 ﻿var facebookAccessToken = null;
 
 FB.init({
-    appId: '122645277750670',
+    appId: '122645277750670', /* (122645277750670:localhost:7474)  (407544339296631:preview.intheboks.com) */
     status: true, // check login status
     cookie: false, // enable cookies to allow the server to access the session
     xfbml: false,  // parse XFBML
@@ -52,7 +52,7 @@ FB.getLoginStatus(function (response) {
     } else if (response.status === 'not_authorized') {
             // the user is logged in to Facebook, 
             // but has not authenticated your app
-        alert("You have not autorized this app");
+        console.log("You have not autorized this app.");
     } else {
         // the user isn't logged in to Facebook.
         ChangeState(State.Anonymous);
