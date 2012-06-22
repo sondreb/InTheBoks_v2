@@ -80,6 +80,18 @@ function ToggleSettings()
     }
 }
 
+function ToggleSearch() {
+    if ($('#search').is(':visible')) {
+
+        $(".search").hide();
+        $(".content").fadeIn(300);
+
+    } else {
+        $(".content").hide();
+        $(".search").fadeIn(300);
+    }
+}
+
 function ChangeState(state) {
     console.log("ChangeState: " + state);
 
@@ -115,21 +127,82 @@ function ChangeState(state) {
 }
 
 
-var catalogsViewModel = function ()
+var mainViewModel = function ()
 {
     var self = this;
 
+    self.Catalogs = ko.observableArray();
     self.Items = ko.observableArray();
+    self.Results = ko.observableArray();
+    self.SelectedResults = ko.observableArray();
 
-    self.Select = function (catalog)
+    self.SelectCatalog = function (catalog)
     {
-        alert(Resource.YouSelected + ": " + catalog.Name);
+        self.SelectedCatalog(catalog);
     }
 
-    self.Load = function ()
+    self.SelectResult = function (item) {
+
+        if (item.Selected())
+        {
+            self.SelectedResults.remove(item);
+            item.Selected(false);
+        }
+        else
+        {
+            self.SelectedResults.push(item);
+            item.Selected(true);
+        }
+    }
+
+    self.SelectItem = function (item) {
+
+        item.Selected = true;
+        self.SelectedItem(item);
+    }
+
+    self.SelectedItem = ko.observable();
+    self.SelectedCatalog = ko.observable();
+
+
+    self.SearchForItem = ko.observable(false);
+
+    self.AddItem = function ()
     {
+        self.SearchForItem(true);
+        ToggleSearch();
+
+        //self.Search();
+    }
+
+    self.SearchTerm = ko.observable();
+
+    self.Search = function () {
         $.ajax({
-            url: "/Api/Catalogs",
+            url: "/Api/Search/" + self.SearchTerm(),
+            type: "GET",
+            dataType: "json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("AccessToken", facebookAccessToken);
+            }
+        }).done(function (data) {
+
+            self.Results.removeAll();
+            console.log(data);
+
+            for (i = 0; i < data.length; i++) {
+                var item = data[i];
+                item.Selected = ko.observable(false);
+                self.Results.push(item);
+            }
+
+        });
+    }
+
+
+    self.LoadItems = function () {
+        $.ajax({
+            url: "/Api/Items",
             type: "GET",
             dataType: "json",
             beforeSend: function (xhr) {
@@ -145,6 +218,27 @@ var catalogsViewModel = function ()
             }
 
         });
+    }
 
+
+    self.LoadCatalogs = function ()
+    {
+        $.ajax({
+            url: "/Api/Catalogs",
+            type: "GET",
+            dataType: "json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("AccessToken", facebookAccessToken);
+            }
+        }).done(function (data) {
+
+            self.Catalogs.removeAll();
+            console.log(data);
+
+            for (i = 0; i < data.length; i++) {
+                self.Catalogs.push(data[i]);
+            }
+
+        });
     }
 }

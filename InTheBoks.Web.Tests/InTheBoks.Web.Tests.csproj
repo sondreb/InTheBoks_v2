@@ -59,6 +59,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
@@ -117,6 +118,7 @@
       <Link>SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ItemServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.config" />
@@ -125,9 +127,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\InTheBoks.Resources\InTheBoks.Resources.csproj">
+      <Project>{b6422df5-9540-449f-900e-8f0808c4e318}</Project>
+      <Name>InTheBoks.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InTheBoks.Services\InTheBoks.Services.csproj">
+      <Project>{9a17f2ef-df81-4faf-b61c-8763104fc7b7}</Project>
+      <Name>InTheBoks.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\InTheBoks.Web\InTheBoks.Web.csproj">
       <Project>{2B538BC0-BBE5-4C96-961D-497E62ABBE65}</Project>
       <Name>InTheBoks.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InTheBoks\InTheBoks.csproj">
+      <Project>{3ed5aeb2-a6e4-4222-b889-b0ed812a671c}</Project>
+      <Name>InTheBoks</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

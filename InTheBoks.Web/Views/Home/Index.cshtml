@@ -4,22 +4,32 @@
     ViewBag.Title = "InTheBoks.com - Organize Your Stuff";
 }
 <div id="thumbnails">
-    <img src="../../Content/albums/41A-jqYmLiL.jpg" /><img src="../../Content/albums/516ZF6YQKAL.jpg" /><img src="../../Content/albums/518UVI8xp8L.jpg" /><img src="../../Content/albums/51BtHBW4gQL.jpg" /><img src="../../Content/albums/51MP8TKAFVL.jpg" /><img src="../../Content/albums/51PpJAOkqLL.jpg" /><img src="../../Content/albums/51SSmALB9nL.jpg" /><img src="../../Content/albums/51VfE5rU9OL.jpg" /><img src="../../Content/albums/51vhtc7Lj0L.jpg" />
+
+    <a href="hello.pdf">Sweet PDF</a>
+
+    <div data-bind="foreach: Items">
+    <img src="" data-bind="attr: { src: ImageUrl, title: Title }, click: $parent.SelectItem" />
+    </div>
+    
+    <img src="../../Content/albums/41A-jqYmLiL.jpg" />
+    <img src="../../Content/albums/516ZF6YQKAL.jpg" />
+    <img src="../../Content/albums/518UVI8xp8L.jpg" /><img src="../../Content/albums/51BtHBW4gQL.jpg" /><img src="../../Content/albums/51MP8TKAFVL.jpg" /><img src="../../Content/albums/51PpJAOkqLL.jpg" /><img src="../../Content/albums/51SSmALB9nL.jpg" /><img src="../../Content/albums/51VfE5rU9OL.jpg" /><img src="../../Content/albums/51vhtc7Lj0L.jpg" />
+       
 </div>
 @section scripts
 {
 <script>
 
-    var catalogVM = null;
+    var mainVM = null;
 
     function InitializeUserData() {
 
-        if (catalogVM == null) {
-            catalogVM = new catalogsViewModel();
-            ko.applyBindings(catalogVM, document.getElementById("content"));
+        if (mainVM == null) {
+            mainVM = new mainViewModel();
+            ko.applyBindings(mainVM, document.getElementById("AppContainer"));
         }
 
-        catalogVM.Load();
+        mainVM.LoadCatalogs();
     }
 
 </script>

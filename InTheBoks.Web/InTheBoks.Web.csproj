@@ -154,6 +154,8 @@
       <Link>SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Api\CatalogsController.cs" />
+    <Compile Include="Api\ItemsController.cs" />
+    <Compile Include="Api\SearchController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -370,6 +372,10 @@
     <ProjectReference Include="..\InTheBoks.Resources\InTheBoks.Resources.csproj">
       <Project>{b6422df5-9540-449f-900e-8f0808c4e318}</Project>
       <Name>InTheBoks.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InTheBoks.Services\InTheBoks.Services.csproj">
+      <Project>{9a17f2ef-df81-4faf-b61c-8763104fc7b7}</Project>
+      <Name>InTheBoks.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\InTheBoks\InTheBoks.csproj">
       <Project>{3ed5aeb2-a6e4-4222-b889-b0ed812a671c}</Project>

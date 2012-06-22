@@ -74,14 +74,14 @@
             <img src="../../Content/icons/white/delete.png" class="action" title="Delete Collection" width="32" height="32" />
 
             <div class="margin" style="margin-right: 0px;">
-        <ul data-bind="foreach: Items">
-            <li class="button" data-bind="text: Name, click: $parent.Select"></li>
+        <ul data-bind="foreach: Catalogs">
+            <li class="button" data-bind="text: Name, click: $parent.SelectCatalog, css: { selected: $data == $root.SelectedCatalog() }"></li>
         </ul>
                 </div>
 
         </div>
         <div id="main-content" class="stretch">
-            <img src="../../Content/icons/white/add.png" class="action" title="New Item" />
+            <img src="../../Content/icons/white/add.png" data-bind="click: AddItem" class="action" title="New Item" />
             <img src="../../Content/icons/white/delete.png" class="action" title="Delete Item(s)"  />
             
             <img src="../../Content/icons/white/basecircle.png" title="List View" class="action" style="float: right; margin-right: 8px;" />
@@ -113,6 +113,36 @@
                     <img onclick="ToggleSettings();" class="action big" title="Save" src="../../Content/icons/white/save.png" />
                     &nbsp;<img onclick="ToggleSettings();" class="action big" title="Cancel" src="../../Content/icons/white/cancel.png" />
                 </p>
+            </div>
+        </div>
+
+        <div id="search" class="stretch search">
+            <div>
+                <a href="#" title="Go Back" onclick="ToggleSearch();"><img src="../../Content/icons/white/back.png"  class="action huge" style="float: left; margin-left: -70px; margin-top: -7px;" /></a>
+            <h1>Add New Items to Catalog</h1>
+                <p>Fill out search term or barcode:</p>
+                <p><input type="search" data-bind="value: SearchTerm" style="font-size: 1.6em; padding: 6px;" placeholder="Keyword or Barcode" />
+                    <button data-bind="click: Search">Search</button>
+                    <button>Scan Barcode with webcam</button>
+                </p>
+                
+                <div data-bind="visible: Results().length > 0">
+                Search Results:<br />
+                <div id="thumbnails" class="results">
+                    <div data-bind="foreach: Results">
+                    <img data-bind="attr: { src: ImageUrl, title: Title }, click: $parent.SelectResult, css: { picked: Selected }" />
+                    </div>
+                    <!--
+                    <img src="../../Content/albums/41A-jqYmLiL.jpg" />
+    
+    
+                    <img src="../../Content/albums/516ZF6YQKAL.jpg" /><img src="../../Content/albums/518UVI8xp8L.jpg" /><img src="../../Content/albums/51BtHBW4gQL.jpg" /><img src="../../Content/albums/51MP8TKAFVL.jpg" /><img src="../../Content/albums/51PpJAOkqLL.jpg" /><img src="../../Content/albums/51SSmALB9nL.jpg" /><img src="../../Content/albums/51VfE5rU9OL.jpg" /><img src="../../Content/albums/51vhtc7Lj0L.jpg" />
+                        -->
+                </div>
+                    <br />
+                <img title="Save Selected Item(s)" class="action huge" src="../../Content/icons/white/save.png" />
+                <img onclick="ToggleSearch();" class="action huge" title="Cancel" src="../../Content/icons/white/cancel.png" />
+                    </div>
             </div>
         </div>
 
