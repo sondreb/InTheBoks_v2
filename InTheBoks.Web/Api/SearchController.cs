@@ -35,7 +35,17 @@ namespace InTheBoks.Web.Api
                 var title = attributesNode.Element(ns + "Title").Value;
 
                 var largeImageNode = item.Element(ns + "LargeImage");
-                var largeImageUrl = largeImageNode.Element(ns + "URL").Value;
+                string largeImageUrl;
+
+                if (largeImageNode != null)
+                {
+                    largeImageUrl = largeImageNode.Element(ns + "URL").Value;
+                }
+                else
+                {
+                    largeImageUrl = "/Content/albums/missing.jpg";
+                }
+                
 
                 items.Add(new Item{ ASIN = asin, Url = url, ImageUrl = largeImageUrl, Title = title });
             }

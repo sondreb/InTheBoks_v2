@@ -70,7 +70,7 @@ namespace InTheBoks.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to this app. To get access, you need to authenticate using your Facebook account. Click the Connect using &lt;strong&gt;Facebook&lt;/strong&gt; button on the top right..
+        ///   Looks up a localized string similar to Welcome to &lt;strong&gt;InTheBoks&lt;/strong&gt;. To get access, you need to authenticate using your Facebook account. Click the Connect using &lt;strong&gt;Facebook&lt;/strong&gt; button on the top right..
         /// </summary>
         public static string AnonymousWelcomeText {
             get {

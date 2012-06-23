@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AnonymousWelcomeText" xml:space="preserve">
-    <value>Velkommen til denne app. For å få tilgang, må du godkjenne pålogging med din Facebook konto. Trykk på "Connect using &lt;strong&gt;Facebook&lt;/strong&gt;" oppe til høyre.</value>
+    <value>Velkommen til &lt;strong&gt;InTheBoks&lt;/strong&gt;. For å få tilgang, må du godkjenne pålogging med din Facebook konto. Trykk på "Connect using &lt;strong&gt;Facebook&lt;/strong&gt;" oppe til høyre.</value>
   </data>
   <data name="Hi" xml:space="preserve">
     <value>Hei</value>
@@ -145,7 +145,7 @@
     <value>Du valgte</value>
   </data>
   <data name="Albums" xml:space="preserve">
-    <value>Plater</value>
+    <value>Album</value>
   </data>
   <data name="Books" xml:space="preserve">
     <value>Bøker</value>

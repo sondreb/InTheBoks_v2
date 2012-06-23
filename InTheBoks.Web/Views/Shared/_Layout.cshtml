@@ -36,11 +36,13 @@
 
       <div id="auth-status">
 
-        <img src="../../Content/icons/white/search.png" title="Search" class="authenticated action big"
+          <span class="authenticated">
+        <img src="../../Content/icons/white/search.png" title="Search" class="action big"
             style="margin-top: 4px; margin-right: 10px; float: left;" />
 
-          <img src="~/Content/icons/white/settings.png" class="authenticated action big" onclick="ToggleSettings();"
+          <img src="~/Content/icons/white/settings.png" class="action big" onclick="ToggleSettings();"
               style="margin-top: 4px; margin-right: 10px; float: left;" title="Settings" />
+              </span>
 
      <div class="initializing auth-box">
              <img src="~/Content/ajax-loader.gif" />
@@ -55,8 +57,9 @@
         
         <div id="profileInfo">
             @Text.Hi, <span id="auth-displayname"></span>  
+            
+            <img src="" id="profileImage" height="18" width="18" />
             <a href="#" id="auth-logoutlink">@Text.Logout</a>
-            <img src="" id="profileImage" height="16" width="16" />
         </div>
 
     </div>
@@ -74,28 +77,71 @@
             <img src="../../Content/icons/white/delete.png" class="action" title="Delete Collection" width="32" height="32" />
 
             <div class="margin" style="margin-right: 0px;">
-        <ul data-bind="foreach: Catalogs">
-            <li class="button" data-bind="text: Name, click: $parent.SelectCatalog, css: { selected: $data == $root.SelectedCatalog() }"></li>
-        </ul>
-                </div>
+                <ul class="catalogsList" data-bind="foreach: Catalogs">
+                    <li class="button" data-bind="click: $parent.SelectCatalog, css: { selected: $data == $root.SelectedCatalog() }">
+                        <span data-bind="text: Name"></span>
+                        <span data-bind="text: Count" style="float: right;"></span>
+                    </li>
+                </ul>
+            </div>
 
         </div>
+
+             <div id="friends" class="stretch">
+                <div id="friendlist" style="width: 150px;">
+                    <div><img src="../../Content/friend.jpg" /> John Doe</div>
+                    <div><img src="../../Content/friend.jpg" width="24" /> Sondre Bjellås</div>
+                    <div><img src="../../Content/friend.jpg" width="24" /> Fredric Aasbø</div>
+                    <div><img src="../../Content/friend.jpg" width="24" /> Kenneth Moen</div>
+                    <div><img src="../../Content/friend.jpg" width="24" /> Robbie Nishida</div>
+                    <div><img src="../../Content/friend.jpg" width="24" /> Robbie Nishida</div>
+                    <div><img src="../../Content/friend.jpg" width="24" /> Robbie Nishida</div>
+                    <div><img src="../../Content/friend.jpg" width="24" /> Robbie Nishida</div>
+
+                </div>
+                <div id="friendfeed">
+                    <div><img src="../../Content/friend.jpg" /> John Doe added "The Matrix"</div>
+                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                </div>
+            </div>
+
         <div id="main-content" class="stretch">
-            <img src="../../Content/icons/white/add.png" data-bind="click: AddItem" class="action" title="New Item" />
-            <img src="../../Content/icons/white/delete.png" class="action" title="Delete Item(s)"  />
+
+
+
+            <img src="~/Content/icons/white/add.png" data-bind="click: AddItem" class="action" title="New Item" />
+            <img src="~/Content/icons/white/delete.png" class="action" title="Delete Item(s)"  />
             
-            <img src="../../Content/icons/white/basecircle.png" title="List View" class="action" style="float: right; margin-right: 8px;" />
-            <img src="../../Content/icons/white/basecircle.png" title="Thumbnails View" class="action" style="float: right; margin-right: 8px;" />
+            <img src="~/Content/icons/white/friends.png" onclick="ToggleFriends();" title="View/Hide Friends" class="action" style="float: right; margin-right: 8px;" />
+
+            <img src="~/Content/icons/white/basecircle.png" title="List View" class="action" style="float: right; margin-right: 8px;" />
+            <img src="~/Content/icons/white/basecircle.png" title="Thumbnails View" class="action" style="float: right; margin-right: 8px;" />
+            
             <input type="range" id="thumbnailSize" onchange="ThumbnailRender();" min="32" max="256" value="128" step="8" style="float: right; margin-right: 8px;" />
 
             <div class="margin">
                 @RenderBody()
             </div>
+
+
+
         </div>
+       
     </div>
 
     <div id="anonymous" class="anonymous content-box stretch">
         <p>&nbsp;</p>
+        <img src="~/Content/drop_box256x256.png" />
         @Html.Raw(Text.AnonymousWelcomeText)
     </div>
 
@@ -108,7 +154,19 @@
             <div>
             <h1>Settings</h1>
 
-            <p>Change your settings here.</p>
+                <p>
+                    Privacy:<br />
+                   <input type="checkbox" checked id="shareActivity" />
+                    <label for="shareActivity">Share my activity on InTheBoks Social</label>
+                </p>
+                <p>
+                    Language:<br />
+                    <select>
+                        <option>Auto-detect</option>
+                        <option>English</option>
+                        <option>Norwegian</option>
+                    </select>
+                </p>
                 <p>
                     <img onclick="ToggleSettings();" class="action big" title="Save" src="../../Content/icons/white/save.png" />
                     &nbsp;<img onclick="ToggleSettings();" class="action big" title="Cancel" src="../../Content/icons/white/cancel.png" />
@@ -119,7 +177,7 @@
         <div id="search" class="stretch search">
             <div>
                 <a href="#" title="Go Back" onclick="ToggleSearch();"><img src="../../Content/icons/white/back.png"  class="action huge" style="float: left; margin-left: -70px; margin-top: -7px;" /></a>
-            <h1>Add New Items to Catalog</h1>
+            <h1 data-bind="with: SelectedCatalog">Add New Items to "<span data-bind="text: Name"></span>"</h1>
                 <p>Fill out search term or barcode:</p>
                 <p><input type="search" data-bind="value: SearchTerm" style="font-size: 1.6em; padding: 6px;" placeholder="Keyword or Barcode" />
                     <button data-bind="click: Search">Search</button>
@@ -128,16 +186,8 @@
                 
                 <div data-bind="visible: Results().length > 0">
                 Search Results:<br />
-                <div id="thumbnails" class="results">
-                    <div data-bind="foreach: Results">
-                    <img data-bind="attr: { src: ImageUrl, title: Title }, click: $parent.SelectResult, css: { picked: Selected }" />
-                    </div>
-                    <!--
-                    <img src="../../Content/albums/41A-jqYmLiL.jpg" />
-    
-    
-                    <img src="../../Content/albums/516ZF6YQKAL.jpg" /><img src="../../Content/albums/518UVI8xp8L.jpg" /><img src="../../Content/albums/51BtHBW4gQL.jpg" /><img src="../../Content/albums/51MP8TKAFVL.jpg" /><img src="../../Content/albums/51PpJAOkqLL.jpg" /><img src="../../Content/albums/51SSmALB9nL.jpg" /><img src="../../Content/albums/51VfE5rU9OL.jpg" /><img src="../../Content/albums/51vhtc7Lj0L.jpg" />
-                        -->
+                <div class="thumbnails">
+                    <div data-bind="foreach: Results"><span><img data-bind="attr: { src: ImageUrl, title: Title }, click: $parent.SelectResult, css: { picked: Selected }" /></span></div>
                 </div>
                     <br />
                 <img title="Save Selected Item(s)" class="action huge" src="../../Content/icons/white/save.png" />
@@ -172,18 +222,6 @@
         ResizeContent();
 
     });
-
-    function ResizeContent()
-    {
-        var headerheight = $("#header").height();
-        var footerheight = $("#footer").height();
-        var windowheight = $(window).height();
-
-        var height = windowheight - (headerheight + footerheight);
-
-        $(".stretch").height(windowheight - (headerheight + footerheight));
-        $("#main-content").width($(window).width() - 200);
-    }
     </script>
 
     <script id="resources" type="application/json">

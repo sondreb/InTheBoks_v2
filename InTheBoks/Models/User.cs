@@ -24,5 +24,8 @@ namespace InTheBoks.Models
 
         [MaxLength(500)]
         public string Token { get; set; }
+
+        [MaxLength(10)]
+        public string Language { get; set; }
     }
 }

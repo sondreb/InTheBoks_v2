@@ -178,10 +178,13 @@
     <Content Include="Content\albums\51SSmALB9nL.jpg" />
     <Content Include="Content\albums\51VfE5rU9OL.jpg" />
     <Content Include="Content\albums\51vhtc7Lj0L.jpg" />
+    <Content Include="Content\albums\missing.jpg" />
     <Content Include="Content\bg.jpg" />
     <Content Include="Content\bg.png" />
     <Content Include="Content\button_bg.png" />
     <Content Include="Content\button_bg_2.png" />
+    <Content Include="Content\friend.jpg" />
+    <Content Include="Content\icons\checked.png" />
     <Content Include="Content\drop_box256x256.png" />
     <Content Include="Content\gear.png" />
     <Content Include="Content\icons\black\add.png" />
@@ -217,6 +220,7 @@
     <Content Include="Content\icons\black\share.png" />
     <Content Include="Content\icons\black\upload.png" />
     <Content Include="Content\icons\black\video.png" />
+    <Content Include="Content\icons\checked2.png" />
     <Content Include="Content\icons\white\add.png" />
     <Content Include="Content\icons\white\back.png" />
     <Content Include="Content\icons\white\basecircle.png" />
@@ -360,6 +364,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_Clean.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

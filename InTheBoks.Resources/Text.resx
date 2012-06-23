@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AnonymousWelcomeText" xml:space="preserve">
-    <value>Welcome to this app. To get access, you need to authenticate using your Facebook account. Click the Connect using &lt;strong&gt;Facebook&lt;/strong&gt; button on the top right.</value>
+    <value>Welcome to &lt;strong&gt;InTheBoks&lt;/strong&gt;. To get access, you need to authenticate using your Facebook account. Click the Connect using &lt;strong&gt;Facebook&lt;/strong&gt; button on the top right.</value>
   </data>
   <data name="Hi" xml:space="preserve">
     <value>Hi</value>

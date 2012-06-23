@@ -30,10 +30,13 @@ Add the appId to the Scripts/app/fb.js file in the FB.init function call.
 The InTheBoks.Web is configured to run with port 7474, make sure you
 set that URL as the app URL within the Facebook app settings: http://localhost:7474/
 
-To enable search on Amazon, you need to add a file to your disk. The file should
-be located in the C:\InTheBoks\ folder and be named InTheBoks.ini. This file is
-stored outside the source repository, since it contains private keys. See example
-file in the Solution Items.
+To enable search on Amazon, you need to modify the web.config and add your own
+secret and keys from the Amazon Web Services. Alternatively you can add a file 
+to your disk. The file should be located in the C:\InTheBoks\ folder and be named
+InTheBoks.ini. This file is stored outside the source repository, since it 
+contains private keys. See example file in the Solution Items.
+
+AWS Access Keys: https://portal.aws.amazon.com/gp/aws/securityCredentials
 
 
 Get Started:

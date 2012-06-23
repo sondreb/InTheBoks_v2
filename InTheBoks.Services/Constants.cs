@@ -15,28 +15,9 @@
             _configuration = File.ReadAllLines("C:\\InTheBoks\\InTheBoks.ini");
         }
 
-        public static string AWSAccessKeyId { get { return GetValue("AWSAccessKeyId"); } }
-        public static string AWSSecretAccessKey { get { return GetValue("AWSSecretAccessKey"); } }
-        public static string AWSAID { get { return GetValue("AWSAID"); } }
-
-        private static string GetValue(string key)
-        {
-            foreach (var line in _configuration)
-            {
-                var values = line.Split(':');
-
-                var configKey = values[0];
-                var configValue = values[1];
-
-                if (configKey == key)
-                {
-                    return configValue;
-                }
-
-            }
-
-            return string.Empty;
-        }
+        public static string AWSAccessKeyId { get { return AppConfig.Get("AWSAccessKeyId"); } }
+        public static string AWSSecretAccessKey { get { return AppConfig.Get("AWSSecretAccessKey"); } }
+        public static string AWSAID { get { return AppConfig.Get("AWSAID"); } }
     }
 
     public static class Constants

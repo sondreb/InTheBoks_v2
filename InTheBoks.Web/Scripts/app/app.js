@@ -24,7 +24,9 @@ $(function () {
 function ThumbnailRender()
 {
     var size = $("#thumbnailSize").val();
-    addCSSRule("#thumbnails img", "height", size + "px");
+    addCSSRule(".thumbnails span img", "height", size + "px");
+    addCSSRule(".thumbnails>span:before", "margin-left", size + "px");
+    
     console.log(size);
 }
 
@@ -92,6 +94,42 @@ function ToggleSearch() {
     }
 }
 
+function ToggleFriends() {
+
+    if ($('#friends').width() == 0) {
+
+        // Before we can resize the friends list, we must shrink it so
+        // it won't "jump" down below on the page.
+        var sidebarwidth = $("#left-sidebar").width();
+        $("#main-content").width($(window).width() - (sidebarwidth + 150));
+        $("#friends").animate({ width: 150 }, 300, function () { ResizeContent(); });
+
+    } else {
+
+        $("#friends").animate({ width: 0 }, 300, function () { ResizeContent(); });
+
+    }
+}
+
+function ResizeContent() {
+    var headerheight = $("#header").height();
+    var footerheight = $("#footer").height();
+    var friendswidth = $("#friends").width();
+    var sidebarwidth = $("#left-sidebar").width();
+
+    var windowheight = $(window).height();
+    var height = windowheight - (headerheight + footerheight);
+
+    $(".stretch").height(windowheight - (headerheight + footerheight));
+    $("#main-content").width($(window).width() - (sidebarwidth + friendswidth));
+
+    var friendlistheight = $("#friendlist").height();
+
+    $("#friendfeed").height(windowheight - friendlistheight - (headerheight + footerheight));
+
+}
+
+
 function ChangeState(state) {
     console.log("ChangeState: " + state);
 
@@ -135,6 +173,10 @@ var mainViewModel = function ()
     self.Items = ko.observableArray();
     self.Results = ko.observableArray();
     self.SelectedResults = ko.observableArray();
+    self.SelectedItem = ko.observable();
+    self.SelectedCatalog = ko.observable();
+    self.SearchForItem = ko.observable(false);
+    self.SearchTerm = ko.observable();
 
     self.SelectCatalog = function (catalog)
     {
@@ -161,21 +203,12 @@ var mainViewModel = function ()
         self.SelectedItem(item);
     }
 
-    self.SelectedItem = ko.observable();
-    self.SelectedCatalog = ko.observable();
-
-
-    self.SearchForItem = ko.observable(false);
-
     self.AddItem = function ()
     {
         self.SearchForItem(true);
         ToggleSearch();
-
         //self.Search();
     }
-
-    self.SearchTerm = ko.observable();
 
     self.Search = function () {
         $.ajax({
@@ -199,7 +232,6 @@ var mainViewModel = function ()
         });
     }
 
-
     self.LoadItems = function () {
         $.ajax({
             url: "/Api/Items",
@@ -220,7 +252,6 @@ var mainViewModel = function ()
         });
     }
 
-
     self.LoadCatalogs = function ()
     {
         $.ajax({
@@ -237,6 +268,11 @@ var mainViewModel = function ()
 
             for (i = 0; i < data.length; i++) {
                 self.Catalogs.push(data[i]);
+
+                if (i == 0)
+                {
+                    self.SelectCatalog(data[i]);
+                }
             }
 
         });

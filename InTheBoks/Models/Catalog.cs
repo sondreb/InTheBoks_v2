@@ -15,6 +15,8 @@ namespace InTheBoks.Models
         [MaxLength(150)]
         public string Name { get; set; }
 
+        public long Count { get; set; }
+
         public User User { get; set; }
 
         [ForeignKey("User")]

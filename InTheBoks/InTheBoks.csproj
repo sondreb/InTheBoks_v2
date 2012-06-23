@@ -67,6 +67,7 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="AppConfig.cs" />
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Models\Catalog.cs" />
