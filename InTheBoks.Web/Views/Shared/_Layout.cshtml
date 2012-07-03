@@ -31,13 +31,13 @@
     <header id="header">
 
         <a href="/" id="logo"><img title="InTheBoks.com - Organize Your Stuff" src="~/Content/intheboks_logo_light.png" /></a>
-        <div class="loading">
-            <img src="../../Content/ajax-loader.gif" /></div>
+        <div class="loading"><img src="../../Content/ajax-loader.gif" /></div>
 
       <div id="auth-status">
 
           <span class="authenticated">
-        <img src="../../Content/icons/white/search.png" title="Search" class="action big"
+              <input type="search" id="filterSearch" style="display: none; width: 0px; float: left; height: 32px; margin-right: 10px; margin-top: 5px; font-size: 1.2em; padding-left: 5px;" placeholder="Filter Your Items" />
+        <img src="../../Content/icons/white/search.png" onclick="ToggleFilter();" title="Filter" class="action big"
             style="margin-top: 4px; margin-right: 10px; float: left;" />
 
           <img src="~/Content/icons/white/settings.png" class="action big" onclick="ToggleSettings();"
@@ -65,17 +65,56 @@
     </div>
 </div>
 
-    </header>
-
-
-    <div id="content" class="authenticated content stretch">
-        <div id="left-sidebar" class="stretch">
+        <div id="toolbar" class="authenticated content" style="width: 100%;">
 
             &nbsp;
             <img src="../../Content/icons/white/add.png" class="action" title="New Collection" width="32" height="32" />
             <img src="../../Content/icons/white/edit.png" class="action" title="Edit Collection" width="32" height="32" />
             <img src="../../Content/icons/white/delete.png" class="action" title="Delete Collection" width="32" height="32" />
 
+
+
+            <img src="~/Content/icons/white/add.png" data-bind="click: AddItem" class="action" style="margin-left: 50px;" title="New Item" />
+            <img src="~/Content/icons/white/delete.png" class="action" title="Delete Item(s)"  />
+            
+            <img src="~/Content/icons/white/friends.png" onclick="ToggleFriends();" title="View/Hide Friends" class="action" style="float: right; margin-right: 8px;" />
+
+            <img src="~/Content/icons/white/sort.png" onclick="ToggleListOptions(this);" title="View sort and list options" class="action" style="float: right; margin-right: 8px;" />
+            
+            <div id="listOptions" style="float: right;">
+                <div class="balloon"><img src="../../Content/balloon.png" /></div><div class="options">
+                List Type:
+                <select size="2">
+                    <option>Details</option>
+                    <option>Thumbnails</option>
+                </select>
+                <br />
+                Sort By:
+                <select size="10">
+                    <option>Name</option>
+                    <option>Added</option>
+                    <option>Rating</option>
+                </select><br />
+                <select size="2">
+                    <option>Ascending</option>
+                    <option>Descending</option>
+                </select>
+
+                    </div>
+            </div>
+
+            <input type="range" id="thumbnailSize" onchange="ThumbnailRender();" min="32" max="256" value="128" step="8" style="float: right; margin-right: 8px;" />
+
+
+        </div>
+
+    </header>
+
+
+    <div id="content" class="authenticated content stretch" style="clear: both;">
+        <div id="left-sidebar" class="stretch">
+
+            
             <div class="margin" style="margin-right: 0px;">
                 <ul class="catalogsList" data-bind="foreach: Catalogs">
                     <li class="button" data-bind="click: $parent.SelectCatalog, css: { selected: $data == $root.SelectedCatalog() }">
@@ -118,17 +157,7 @@
         <div id="main-content" class="stretch">
 
 
-
-            <img src="~/Content/icons/white/add.png" data-bind="click: AddItem" class="action" title="New Item" />
-            <img src="~/Content/icons/white/delete.png" class="action" title="Delete Item(s)"  />
             
-            <img src="~/Content/icons/white/friends.png" onclick="ToggleFriends();" title="View/Hide Friends" class="action" style="float: right; margin-right: 8px;" />
-
-            <img src="~/Content/icons/white/basecircle.png" title="List View" class="action" style="float: right; margin-right: 8px;" />
-            <img src="~/Content/icons/white/basecircle.png" title="Thumbnails View" class="action" style="float: right; margin-right: 8px;" />
-            
-            <input type="range" id="thumbnailSize" onchange="ThumbnailRender();" min="32" max="256" value="128" step="8" style="float: right; margin-right: 8px;" />
-
             <div class="margin">
                 @RenderBody()
             </div>
@@ -174,11 +203,10 @@
             </div>
         </div>
 
-        <div id="search" class="stretch search">
-            <div>
+        <div id="search" class="stretchFull search">
+            <div id="searchContent">
                 <a href="#" title="Go Back" onclick="ToggleSearch();"><img src="../../Content/icons/white/back.png"  class="action huge" style="float: left; margin-left: -70px; margin-top: -7px;" /></a>
             <h1 data-bind="with: SelectedCatalog">Add New Items to "<span data-bind="text: Name"></span>"</h1>
-                <p>Fill out search term or barcode:</p>
                 <p><input type="search" data-bind="value: SearchTerm" style="font-size: 1.6em; padding: 6px;" placeholder="Keyword or Barcode" />
                     <button data-bind="click: Search">Search</button>
                     <button>Scan Barcode with webcam</button>
@@ -193,6 +221,13 @@
                 <img title="Save Selected Item(s)" class="action huge" src="../../Content/icons/white/save.png" />
                 <img onclick="ToggleSearch();" class="action huge" title="Cancel" src="../../Content/icons/white/cancel.png" />
                     </div>
+            </div>
+            <div id="searchTasks">
+                <div style="text-align: center;">
+                <img src="~/Content/icons/white/cancel.png" class="action big" /><br />
+                Clear Selection
+                </div>
+
             </div>
         </div>
 

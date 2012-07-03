@@ -45,6 +45,14 @@
       <RoleName>InTheBoks.Web</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
+    <ProjectReference Include="..\InTheBoks.Worker\InTheBoks.Worker.csproj">
+      <Name>InTheBoks.Worker</Name>
+      <Project>{eb9f9b30-1c37-4061-a612-62f1092e5f50}</Project>
+      <Private>True</Private>
+      <RoleType>Worker</RoleType>
+      <RoleName>InTheBoks.Worker</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
   </ItemGroup>
   <!-- Import the target files for this project template -->
   <PropertyGroup>

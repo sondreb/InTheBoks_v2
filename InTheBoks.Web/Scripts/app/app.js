@@ -19,13 +19,123 @@ $(function () {
         $(this).fadeOut();
     });
 
+    $('img').bind('dragstart', function (event) { event.preventDefault(); });
+
+    $(document).bind("dragstart", function () {
+        return false;
+    });
+
+
+
+    // register onLoad event with anonymous function
+    window.onload = function (e) {
+        var evt = e || window.event,// define event (cross browser)
+            imgs,                   // images collection
+            i;                      // used in local loop
+        // if preventDefault exists, then define onmousedown event handlers
+        if (evt.preventDefault) {
+            // collect all images on the page
+            imgs = document.getElementsByTagName('img');
+            // loop through fetched images
+            for (i = 0; i < imgs.length; i++) {
+                // and define onmousedown event handler
+                imgs[i].onmousedown = disableDragging;
+            }
+        }
+    };
+
+    // disable image dragging
+    function disableDragging(e) {
+        e.preventDefault();
+    }
+
+
+    var ctrlDown = false;
+    var ctrlKey = 17, vKey = 86, cKey = 67, aKey = 65;
+
+    $(document).keydown(function (e) {
+        if (e.keyCode == ctrlKey) ctrlDown = true;
+    }).keyup(function (e) {
+        if (e.keyCode == ctrlKey) ctrlDown = false;
+    });
+
+
+    var selectAll = false;
+    
+    $(document).keydown(function (e) {
+
+
+        if (ctrlDown && (e.keyCode == aKey))
+        {
+            selectAll = !selectAll;
+
+            if (selectAll)
+            {
+                $(".wrapper").addClass("selection");
+            }
+            else
+            {
+                $(".wrapper").removeClass("selection");
+            }
+
+
+            return false;
+        }
+        else if (ctrlDown && (e.keyCode == cKey))
+        {
+            var img;
+            var i = 0;
+
+            i = $('.selection').length;
+
+            //$('.wrapper .selected').each(function (index) {
+            //    //alert(index + ': ' + $(this).text());
+            //    i = index;
+            //});
+
+            alert("You selected " + i + " items to clipboard. These can now be pasted into another catalog.");
+
+        };
+
+
+    });
+
+
+
+    //$('.wrapper').mouseover(function (source) {
+    //    $(this).children(".description").fadeIn(300);
+    //}).mouseout(function () {
+    //    $(this).children(".description").fadeOut(100);
+    //});
+
+    $('.wrapper').bind('mouseenter', function (source) {
+        //$(this).children(".description").fadeIn(50);
+        $(this).children(".description").show();
+    }).bind('mouseleave', function (source) {
+
+        $(this).children(".description").hide();
+        //$(this).children(".description").fadeOut(150);
+    }).bind('click', function (source) {
+
+        if ($(this).hasClass("selection"))
+        {
+            $(this).removeClass("selection");
+        }
+    else
+    {
+            $(this).addClass("selection");
+
+        }
+
+    });
+
 });
 
 function ThumbnailRender()
 {
     var size = $("#thumbnailSize").val();
-    addCSSRule(".thumbnails span img", "height", size + "px");
-    addCSSRule(".thumbnails>span:before", "margin-left", size + "px");
+    addCSSRule(".thumbnails div img", "height", size + "px");
+    //addCSSRule(".thumbnails>span:before", "margin-left", size + "px");
     
     console.log(size);
 }
@@ -89,8 +199,44 @@ function ToggleSearch() {
         $(".content").fadeIn(300);
 
     } else {
+
         $(".content").hide();
         $(".search").fadeIn(300);
+    }
+}
+
+function ToggleFilter()
+{
+    if ($('#filterSearch').is(':visible')) {
+
+        /* for some unknown reason, the UI "jumps" if we animate to 0. */
+        $("#filterSearch").animate({ width: 50 }, 300, function () { 
+        
+            $("#filterSearch").hide();
+            $("#filterSearch").val("");
+        
+        });
+
+
+    } else {
+
+        $("#filterSearch").show();
+        $("#filterSearch").animate({ width: 200 }, 300);
+    }
+}
+
+function ToggleListOptions(button) {
+
+    var left = $(button).position().left - 110;
+    var top = $(button).position().top + 36;
+
+    $("#listOptions").css("left", left);
+    $("#listOptions").css("top", top);
+
+    if ($('#listOptions').is(':visible')) {
+        $("#listOptions").fadeOut(300);
+    } else {
+        $("#listOptions").fadeIn(300);
     }
 }
 
@@ -112,15 +258,18 @@ function ToggleFriends() {
 }
 
 function ResizeContent() {
-    var headerheight = $("#header").height();
+    var headerheight = $("#header").height() + $("#toolbar").height();
     var footerheight = $("#footer").height();
     var friendswidth = $("#friends").width();
     var sidebarwidth = $("#left-sidebar").width();
+
 
     var windowheight = $(window).height();
     var height = windowheight - (headerheight + footerheight);
 
     $(".stretch").height(windowheight - (headerheight + footerheight));
+    $(".stretchFull").height(windowheight - (headerheight + footerheight) + $("#toolbar").height());
+
     $("#main-content").width($(window).width() - (sidebarwidth + friendswidth));
 
     var friendlistheight = $("#friendlist").height();

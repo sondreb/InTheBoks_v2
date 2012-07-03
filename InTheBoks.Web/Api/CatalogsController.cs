@@ -1,10 +1,12 @@
-﻿using System;
-namespace InTheBoks.Web.Api
+﻿namespace InTheBoks.Web.Api
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Http;
     using InTheBoks.Data;
+    using InTheBoks.Data.Infrastructure;
+    using InTheBoks.Data.Repositories;
     using InTheBoks.Models;
     using InTheBoks.Resources;
     using InTheBoks.Security;
@@ -13,51 +15,36 @@ namespace InTheBoks.Web.Api
     public class CatalogsController : ApiController
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
-        private readonly DataContext _context;
+        private ICatalogRepository _catalogRepository;
+        private IUnitOfWork _unitOfWork;
 
-        public CatalogsController()
+        public CatalogsController(ICatalogRepository catalogRepository, IUnitOfWork unitOfWork)
         {
-            _log.Debug("Creating CatalogsController");
-
-            try
-            {
-                _context = new DataContext();
-            }
-            catch (Exception ex)
-            {
-                _log.ErrorException("Unable to create CatalogsController", ex);
-            }
+            _catalogRepository = catalogRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [Authorize]
         public IEnumerable<Catalog> Get()
         {
-            //ObjectContent<IEnumerable<Product>> responseContent = new ObjectContent<IEnumerable<Product>>(db.Products.Include(p => p.ProductSubcategory).AsEnumerable(), new XmlMediaTypeFormatter()); // change the formatters accordingly
-            //MemoryStream ms = new MemoryStream();
-
-            //// This line would cause the formatter's WriteToStream method to be invoked.
-            //// Any exceptions during WriteToStream would be thrown as part of this call
-            //responseContent.CopyToAsync(ms).Wait();
-
             try
             {
-                _log.Debug("Get Catalogs");
-
                 var user = (FacebookIdentity)User.Identity;
 
-                var any = _context.Catalogs.Where(c => c.User_Id == user.Id).Any();
+                var any = _catalogRepository.Query().Where(c => c.User_Id == user.Id).Any();
 
                 if (!any) // Populate some default catalogs for new users.
                 {
                     _log.Debug("Creating Sample Catalogs for User ID: " + user.Id);
 
-                    _context.Catalogs.Add(new Catalog() { Name = Text.Movies, User_Id = user.Id });
-                    _context.Catalogs.Add(new Catalog() { Name = Text.Albums, User_Id = user.Id });
-                    _context.Catalogs.Add(new Catalog() { Name = Text.Books, User_Id = user.Id });
-                    _context.SaveChanges();
+                    _catalogRepository.Add(new Catalog() { Name = Text.Movies, User_Id = user.Id });
+                    _catalogRepository.Add(new Catalog() { Name = Text.Albums, User_Id = user.Id });
+                    _catalogRepository.Add(new Catalog() { Name = Text.Books, User_Id = user.Id });
+
+                    _unitOfWork.Commit();
                 }
 
-                var query = _context.Catalogs.Where(c => c.User_Id == user.Id).OrderBy(c => c.Name);
+                var query = _catalogRepository.Query().Where(c => c.User_Id == user.Id).OrderBy(c => c.Name);
 
                 return query.ToList();
             }

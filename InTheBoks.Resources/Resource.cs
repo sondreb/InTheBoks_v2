@@ -12,6 +12,8 @@ namespace InTheBoks.Resources
     {
         public static string FacebookCulture()
         {
+            
+
             if (CultureInfo.CurrentUICulture.ThreeLetterWindowsLanguageName == "NOR")
             {
                 return "nb_NO";   
@@ -20,6 +22,16 @@ namespace InTheBoks.Resources
             {
                 return "en_US";
             }
+        }
+
+        public static string UserCulture()
+        {
+            return CultureInfo.CurrentUICulture.TextInfo.CultureName; // (eg: "nb-NO")
+        }
+
+        public static string UserDatePattern()
+        {
+            return CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern;
         }
 
         public static dynamic RenderJson()

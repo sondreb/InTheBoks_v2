@@ -19,6 +19,46 @@ body {
     padding: 0;
 }
 
+* {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+/*p {
+    -webkit-user-select: text;
+    -khtml-user-select: text;
+    -moz-user-select: text;
+    -o-user-select: text;
+    user-select: text;
+}*/
+
+#listOptions {
+    position: absolute;
+    color: black;
+    display: none;
+}
+
+    #listOptions .balloon {
+        padding-left: 20px;
+        margin: 0;
+        padding: 0;
+        height: 20px;
+    }
+
+        #listOptions .balloon img {
+            margin: 0;
+            padding: 0;
+            float: right;
+        }
+
+    #listOptions .options {
+        background-color: white;
+        padding: 10px;
+        border-radius: 7px;
+    }
 
 .action {
     cursor: pointer;
@@ -40,40 +80,116 @@ body {
 }
 
 .huge {
-     width: 48px;
+    width: 48px;
     height: 48px;
 }
 
 .thumbnails {
 }
 
-    .thumbnails span img {
+    .thumbnails div img {
         height: 128px;
         -moz-transition: opacity 0.2s linear;
         -webkit-transition: opacity 0.2s linear;
         -o-transition: opacity 0.2s linear;
         transition: opacity 0.2s linear;
+        /*border: 5px solid silver;*/
     }
 
-        .thumbnails span img:hover {
+        .thumbnails div img:hover {
             opacity: 0.5;
         }
 
 
-.thumbnails>span {
-    padding: 0;
-    margin: 0;
-    display: inline-block;
+    .thumbnails > span {
+        padding: 0;
+        margin: 0;
+        display: inline-block;
+        background-image: url(/Content/icons/checked2.png);
+        z-index: 10000;
+    }
+
+
+        .thumbnails > span:after {
+            content: url(/Content/icons/checked2.png);
+            position: relative;
+            pointer-events: none;
+            z-index: 6000;
+        }
+
+
+div.wrapper {
+    float: left; /* important */
+    position: relative; /* important(so we can absolutely position the description div */
+    margin-right: 3px;
+    border: 4px solid transparent;
 }
 
-    .thumbnails>span:before {
-                
-        content:url(/Content/icons/checked2.png);
+
+input[type='search'] {
+    color: white;
+     background-color: rgba(52, 52, 52, 0.42);
+}
+
+::-webkit-input-placeholder {
+    color: silver !important;
+    font-style: italic;
+}
+
+:-moz-placeholder {
+    color: silver !important;
+    font-style: italic;
+}
+
+:-ms-input-placeholder {
+    color: silver !important;
+    font-style: italic;
+}
+
+
+div.selection {
+    border: 4px solid white;
+    border-top-right-radius: 8px;
+}
+
+    div.selection:before {
+        content: url(/Content/icons/checked2.png);
+        float: right;
+        right: 3px;
+        top: 2px;
         position: absolute;
-        margin-left: 4px;
-        margin-top: 4px;
-        pointer-events: none;
+        display: inline;
     }
+
+    div.selection img {
+        opacity: 0.5;
+    }
+
+
+div.description {
+    display: none;
+    position: absolute; /* absolute position (so we can position it where we want)*/
+    bottom: 0px; /* position will be on bottom */
+    left: 0px;
+    width: 100%;
+    /* styling bellow */
+    background-color: black;
+    font-size: 15px;
+    color: white;
+    opacity: 0.6; /* transparency */
+    filter: alpha(opacity=60); /* IE transparency */
+    pointer-events: none;
+}
+
+    div.description:hover {
+    }
+
+p.description_content {
+    padding: 10px;
+    margin: 0px;
+}
+
+
 
 /*.results img {
     border: 3px solid transparent;
@@ -107,6 +223,7 @@ header {
 
 #header {
     width: 100%;
+    clear: both;
 }
 
 #content {
@@ -114,6 +231,9 @@ header {
 }
 
 .stretch {
+}
+
+.stretchFull {
 }
 
 #content #left-sidebar {
@@ -139,11 +259,11 @@ header {
     height: 100px;
 }
 
-#friendlist div img, #friendfeed div img {
-    vertical-align: middle;
-    width: 24px;
-    height: 24px;
-}
+    #friendlist div img, #friendfeed div img {
+        vertical-align: middle;
+        width: 24px;
+        height: 24px;
+    }
 
 
 /*
@@ -259,10 +379,10 @@ a {
     text-align: center;
 }
 
-.content-box img {
-    float: left;
-    margin-right: 20px;
-}
+    .content-box img {
+        float: left;
+        margin-right: 20px;
+    }
 
 .content {
     margin-left: auto;
@@ -285,7 +405,6 @@ a {
     background-image: -moz-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
     background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
     background-image: -ms-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
-
     -moz-transition: background-color 0.2s linear;
     -webkit-transition: background-color 0.2s linear;
     -o-transition: background-color 0.2s linear;
@@ -314,11 +433,11 @@ a {
     background-color: rgba(194, 194, 194, 0.73);
 }
 
-.selected:hover {
-    font-weight: bold;
-    background-color: rgba(194, 194, 194, 0.73);
-}
-    
+    .selected:hover {
+        font-weight: bold;
+        background-color: rgba(194, 194, 194, 0.73);
+    }
+
 li {
     list-style-type: none;
     margin: 0;
@@ -357,15 +476,21 @@ button {
     background-color: rgba(61, 61, 61, 0.7);
 }
 
-    .search > div {
+    #searchContent {
         margin: 20px;
-        min-width: 450px;
+        margin-left: 90px;
+        /*min-width: 450px;
         max-width: 650px;
         margin-left: auto;
-        margin-right: auto;
+        margin-right: auto;*/
     }
 
-    
+    #searchTasks {
+        background-color: black;
+        padding: 20px;
+    }
+
+
 /* Styles for basic forms
 -----------------------------------------------------------*/
 fieldset {

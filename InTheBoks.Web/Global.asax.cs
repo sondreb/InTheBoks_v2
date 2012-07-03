@@ -30,6 +30,9 @@ namespace InTheBoks.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            var config = GlobalConfiguration.Configuration;
+            Bootstrapper.Run(config);
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)

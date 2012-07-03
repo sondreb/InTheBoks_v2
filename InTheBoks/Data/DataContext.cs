@@ -17,6 +17,13 @@
 
         public DbSet<Log> Logs { get; set; }
 
+        public DbSet<Job> Jobs { get; set; }
+
+        public virtual void Commit()
+        {
+            base.SaveChanges();
+        }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
