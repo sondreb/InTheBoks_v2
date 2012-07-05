@@ -179,7 +179,7 @@
         @Text.Initializing...
     </div>
     
-        <div id="settings" class="stretch settings">
+        <div id="settings" class="stretchFull settings">
             <div>
             <h1>Settings</h1>
 
@@ -204,8 +204,12 @@
         </div>
 
         <div id="search" class="stretchFull search">
+
+            <a class="backButton" href="#" title="Go Back" onclick="ToggleSearch();"><img src="../../Content/icons/white/back.png"  class="action huge" /></a>
+
             <div id="searchContent">
-                <a href="#" title="Go Back" onclick="ToggleSearch();"><img src="../../Content/icons/white/back.png"  class="action huge" style="float: left; margin-left: -70px; margin-top: -7px;" /></a>
+
+
             <h1 data-bind="with: SelectedCatalog">Add New Items to "<span data-bind="text: Name"></span>"</h1>
                 <p><input type="search" data-bind="value: SearchTerm" style="font-size: 1.6em; padding: 6px;" placeholder="Keyword or Barcode" />
                     <button data-bind="click: Search">Search</button>
@@ -214,28 +218,50 @@
                 
                 <div data-bind="visible: Results().length > 0">
                 Search Results:<br />
-                <div class="thumbnails">
-                    <div data-bind="foreach: Results"><span><img data-bind="attr: { src: ImageUrl, title: Title }, click: $parent.SelectResult, css: { picked: Selected }" /></span></div>
+                <div class="thumbnails" data-bind="foreach: Results">
+
+
+                      <div class="wrapper">  
+                        <img data-bind="attr: { src: ImageUrl, title: Title }" src="../../Content/albums/41A-jqYmLiL.jpg" />  
+                        <div class="description">  
+                            <p class="description_content"><strong data-bind="text: Title">The Matrix</strong> (2000)</p>  
+                        </div>
+                    </div>  
+
+                        @*<span><img data-bind="attr: { src: ImageUrl, title: Title }, click: $parent.SelectResult, css: { picked: Selected }" /></span>*@
+
                 </div>
                     <br />
-                <img title="Save Selected Item(s)" class="action huge" src="../../Content/icons/white/save.png" />
-                <img onclick="ToggleSearch();" class="action huge" title="Cancel" src="../../Content/icons/white/cancel.png" />
+
                     </div>
             </div>
             <div id="searchTasks">
-                <div style="text-align: center;">
-                <img src="~/Content/icons/white/cancel.png" class="action big" /><br />
+                <div style="padding: 12px 20px 12px 20px;">
+                    
+                <div style="float: right;">
+                <img title="Save Selected Item(s)" class="action huge" src="../../Content/icons/white/save.png" />
+                <br />Save Selected Item(s)
+                </div>
+
+                <div style="float: left;">
+                <img src="~/Content/icons/white/cancel.png" class="action huge" /><br />
                 Clear Selection
                 </div>
 
+
+                    @*<div style="float: right; text-align: center;">
+                    <img onclick="ToggleSearch();" class="action huge" title="Cancel" src="../../Content/icons/white/cancel.png" />
+                    <br />
+                    </div>*@
+                    </div>
             </div>
         </div>
 
         <footer id="footer" class="authenticated">
-            <div>
+           @* <div>
            Status:
             <div id="log"></div>
-                </div>
+                </div>*@
         </footer>
 
     @Scripts.Render("~/bundles/jquery")
@@ -248,7 +274,8 @@
         Resource = $.parseJSON($("#resources").html());
 
         $(window).resize(function () {
-            $('#log').append('<div>Handler for .resize() called.</div>');
+
+            //$('#log').append('<div>Handler for .resize() called.</div>');
 
             ResizeContent();
 

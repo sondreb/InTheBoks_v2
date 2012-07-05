@@ -116,7 +116,6 @@ $(function () {
         $(this).children(".description").hide();
         //$(this).children(".description").fadeOut(150);
     }).bind('click', function (source) {
-
         if ($(this).hasClass("selection"))
         {
             $(this).removeClass("selection");
@@ -124,12 +123,32 @@ $(function () {
     else
     {
             $(this).addClass("selection");
-
         }
-
     });
 
 });
+
+
+
+
+function HookUpThumbnailEvents(wrapper)
+{
+    $(wrapper).bind('mouseenter', function (source) {
+        //$(this).children(".description").fadeIn(50);
+        $(this).children(".description").show();
+    }).bind('mouseleave', function (source) {
+
+        $(this).children(".description").hide();
+        //$(this).children(".description").fadeOut(150);
+    }).bind('click', function (source) {
+        if ($(this).hasClass("selection")) {
+            $(this).removeClass("selection");
+        }
+        else {
+            $(this).addClass("selection");
+        }
+    });
+}
 
 function ThumbnailRender()
 {
@@ -258,6 +277,9 @@ function ToggleFriends() {
 }
 
 function ResizeContent() {
+
+    var logoHeight = $("#header").height();
+
     var headerheight = $("#header").height() + $("#toolbar").height();
     var footerheight = $("#footer").height();
     var friendswidth = $("#friends").width();
@@ -275,6 +297,14 @@ function ResizeContent() {
     var friendlistheight = $("#friendlist").height();
 
     $("#friendfeed").height(windowheight - friendlistheight - (headerheight + footerheight));
+
+    var searchTasksHeight = $("#searchTasks").height();
+    var searchheight = $("#search").height();
+
+    console.log("searchheight: " + searchheight);
+    console.log("searchTasksHeight: " + searchTasksHeight);
+
+    $("#searchContent").height(windowheight - (logoHeight + footerheight + searchTasksHeight));
 
 }
 
