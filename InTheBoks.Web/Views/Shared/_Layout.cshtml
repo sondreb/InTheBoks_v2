@@ -64,13 +64,44 @@
 
     </div>
 </div>
+@*
+        <div id="propertiesDialog" data-bind="with: SelectedCatalog">
+
+            <div id="propertiesHeader">
+                <table>
+                    <tr>
+                        <td>
+
+            <a class="backButton" href="#" title="Go Back" onclick="ToggleSearch();"><img src="../../Content/icons/white/back.png"  class="action" /></a>
+
+                        </td>
+                        <td>
+
+                            Edit Catalog
+                        </td>
+                    </tr>
+                </table>
+             </div>
+
+            <div id="propertiesBody">
+                <div class="margin">
+                <p>Name</p>
+                <p>
+                <input type="text" data-bind="value: Name" />
+                </p>
+                </div>
+            </div>
+
+        </div>
+*@
+
 
         <div id="toolbar" class="authenticated content" style="width: 100%;">
 
             &nbsp;
-            <img src="../../Content/icons/white/add.png" class="action" title="New Collection" width="32" height="32" />
-            <img src="../../Content/icons/white/edit.png" class="action" title="Edit Collection" width="32" height="32" />
-            <img src="../../Content/icons/white/delete.png" class="action" title="Delete Collection" width="32" height="32" />
+            <img src="../../Content/icons/white/add.png" data-bind="click: CreateCatalog" class="action" title="New Collection" width="32" height="32" />
+            <img src="../../Content/icons/white/edit.png" data-bind="click: EditCatalog" class="action" title="Edit Collection" width="32" height="32" />
+            <img src="../../Content/icons/white/delete.png" data-bind="click: DeleteCatalog" class="action" title="Delete Collection" width="32" height="32" />
 
 
 
@@ -127,7 +158,7 @@
         </div>
 
              <div id="friends" class="stretch">
-                <div id="friendlist" style="width: 150px;">
+                <div id="friendlist">
                     <div><img src="../../Content/friend.jpg" /> John Doe</div>
                     <div><img src="../../Content/friend.jpg" width="24" /> Sondre Bjellås</div>
                     <div><img src="../../Content/friend.jpg" width="24" /> Fredric Aasbø</div>
@@ -240,12 +271,12 @@
                     
                 <div style="float: right;">
                 <img title="Save Selected Item(s)" class="action huge" src="../../Content/icons/white/save.png" />
-                <br />Save Selected Item(s)
+                <br />Save selected item(s)
                 </div>
 
                 <div style="float: left;">
                 <img src="~/Content/icons/white/cancel.png" class="action huge" /><br />
-                Clear Selection
+                Clear selection
                 </div>
 
 
@@ -263,6 +294,101 @@
             <div id="log"></div>
                 </div>*@
         </footer>
+
+        <div id="notificationDialog" style="
+            background-color: white;
+            color: black;
+            height: 84px;
+            border: 2px solid gray;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 370px;
+            font-size: 1.2em;
+            display: none;
+            opacity: 0.95;
+            ">
+            <div style="padding: 10px;">
+
+            The collection was saved.
+                </div>
+        </div>
+
+        <div data-bind="with: SelectedObject" id="confirmationDialog" 
+            style="background-color: white; 
+top: 25%; position: absolute; 
+border: 2px solid black; 
+opacity: 0;
+padding: 15px;
+display: none;
+color: Black;
+width: 450px;">
+            <div style="padding: 30px;">
+            <h1>Are you sure you want to delete the collection "<span data-bind="text: Name"></span>" and all it's items?
+                </h1>
+            <p>
+                <button>&nbsp;OK&nbsp;</button>
+                <button onclick="HideConfirmationDialog();">Cancel</button>
+            </p>
+                </div>
+        </div>
+
+        <div id="propertiesDialog" data-bind="with: SelectedObject" style="display: none; width: 0px; background-color:#dedede; color: gray; position: absolute; top: 0px; right: 0px; bottom: 0px;">
+            
+            <div style="width: 300px;">
+            <div style="background-color: gray; height: 80px;">
+                <div style="padding-top: 26px; padding-left: 30px; color: white; font-size: 2em;">
+                    <a class="backButtonProperties" href="#" title="Go Back" onclick="HideProperties();"><img src="../../Content/icons/white/back.png" class="action" style="vertical-align: middle;" /></a>
+                    
+                    <span data-bind="text: $parent.SelectedAction"></span>
+
+                </div>
+            </div>
+            <div>
+                <div style="padding-left: 30px;">
+                <p>Name</p>
+                <p><input type="text" data-bind="value: Name" placeholder="Enter name" /></p>
+                    <p>Visibility</p>
+                    <p><select>
+                        <option>Private</option>
+                        <option>Friends</option>
+                        <option>Public</option>
+                       </select></p>
+                <p>
+                    <button data-bind="click:$parent.SaveCatalog">Save</button>
+                </p>
+                    </div>
+            </div>
+                </div>
+        </div>
+
+
+
+
+    @*    <div id="propertiesDialog">
+
+            <table id="propertiesHeader">
+
+                <tr>
+                    <td width="60">
+                        <a class="backButtonProperties" href="#" title="Go Back" onclick="ToggleSearch();"><img src="../../Content/icons/white/back.png" class="action" /></a>
+                    </td>
+                    <td style="vertical-align: middle;">
+                        Edit Catalog
+                    </td>
+                </tr>
+            </table>
+
+            <div>
+
+            <div></div>
+            Properties
+
+            </div>
+        </div>*@
+
+
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/app")

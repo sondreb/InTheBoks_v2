@@ -25,8 +25,6 @@ $(function () {
         return false;
     });
 
-
-
     // register onLoad event with anonymous function
     window.onload = function (e) {
         var evt = e || window.event,// define event (cross browser)
@@ -63,8 +61,6 @@ $(function () {
     var selectAll = false;
     
     $(document).keydown(function (e) {
-
-
         if (ctrlDown && (e.keyCode == aKey))
         {
             selectAll = !selectAll;
@@ -96,8 +92,6 @@ $(function () {
             alert("You selected " + i + " items to clipboard. These can now be pasted into another catalog.");
 
         };
-
-
     });
 
 
@@ -128,7 +122,18 @@ $(function () {
 
 });
 
+function HideConfirmationDialog()
+{
 
+    $("#confirmationDialog").animate({ opacity: 0, left: 10 }, 500, function () {
+
+        $("#confirmationDialog").hide();
+
+
+    });
+
+
+}
 
 
 function HookUpThumbnailEvents(wrapper)
@@ -156,7 +161,6 @@ function ThumbnailRender()
     addCSSRule(".thumbnails div img", "height", size + "px");
     //addCSSRule(".thumbnails>span:before", "margin-left", size + "px");
     
-    console.log(size);
 }
 
 function addCSSRule(sel, prop, val) {
@@ -222,6 +226,40 @@ function ToggleSearch() {
         $(".content").hide();
         $(".search").fadeIn(300);
     }
+}
+
+function HideProperties()
+{
+
+    $("#propertiesDialog").animate({ width: 0 }, 300, function () {
+        $("#propertiesDialog").hide();
+    });
+}
+
+var previousAction = "";
+
+function ToggleProperties(title, action)
+{
+    if (previousAction != action && !$("#propertiesDialog").is(":visible"))
+    {
+        $("#propertiesDialog").show();
+        $("#propertiesDialog").animate({ width: 300 }, 300, function () {
+
+        });
+    }
+    else if (previousAction == action && $("#propertiesDialog").is(":visible")) {
+
+        HideProperties();
+
+    } else {
+
+        $("#propertiesDialog").show();
+        $("#propertiesDialog").animate({ width: 300 }, 300, function () {
+
+        });
+    }
+
+    previousAction = action;
 }
 
 function ToggleFilter()
@@ -301,9 +339,6 @@ function ResizeContent() {
     var searchTasksHeight = $("#searchTasks").height();
     var searchheight = $("#search").height();
 
-    console.log("searchheight: " + searchheight);
-    console.log("searchTasksHeight: " + searchTasksHeight);
-
     $("#searchContent").height(windowheight - (logoHeight + footerheight + searchTasksHeight));
 
 }
@@ -357,9 +392,51 @@ var mainViewModel = function ()
     self.SearchForItem = ko.observable(false);
     self.SearchTerm = ko.observable();
 
+    self.SelectedObject = ko.observable();
+
+    self.SelectedAction = ko.observable("Edit Catalog");
+
     self.SelectCatalog = function (catalog)
     {
         self.SelectedCatalog(catalog);
+        self.SelectedObject(catalog);
+    }
+
+    self.SaveCatalog = function ()
+    {
+        HideProperties();
+
+        $("#notificationDialog").fadeIn().delay(2000).fadeOut();
+    }
+
+    self.DeleteCatalog = function ()
+    {
+        var documentWidth = $(document).width();
+        var confirmationWidth = $("#confirmationDialog").width();
+        var leftPosition = (documentWidth / 2) - (confirmationWidth / 2);
+
+        $("#confirmationDialog").show();
+        $("#confirmationDialog").css("left", (leftPosition - 50) + "px");
+        $("#confirmationDialog").animate({ opacity: 1, left: leftPosition }, 500);
+    }
+
+    self.CreateCatalog = function ()
+    {
+        self.SelectedAction("Add Collection");
+        
+        var newCatalog = { "Id": -1, "Name": "", "Count": 0 };
+        self.SelectedObject(newCatalog);
+
+        ToggleProperties("Add Collection", "Add");
+    }
+
+    self.EditCatalog = function ()
+    {
+        self.SelectedAction("Edit Collection");
+
+        self.SelectedObject(self.SelectedCatalog());
+
+        ToggleProperties("Edit Collection", "Edit");
     }
 
     self.SelectResult = function (item) {
