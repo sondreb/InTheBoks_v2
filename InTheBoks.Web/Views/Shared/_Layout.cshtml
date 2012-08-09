@@ -158,16 +158,12 @@
         </div>
 
              <div id="friends" class="stretch">
-                <div id="friendlist">
-                    <div><img src="../../Content/friend.jpg" /> John Doe</div>
-                    <div><img src="../../Content/friend.jpg" width="24" /> Sondre Bjellås</div>
-                    <div><img src="../../Content/friend.jpg" width="24" /> Fredric Aasbø</div>
-                    <div><img src="../../Content/friend.jpg" width="24" /> Kenneth Moen</div>
-                    <div><img src="../../Content/friend.jpg" width="24" /> Robbie Nishida</div>
-                    <div><img src="../../Content/friend.jpg" width="24" /> Robbie Nishida</div>
-                    <div><img src="../../Content/friend.jpg" width="24" /> Robbie Nishida</div>
-                    <div><img src="../../Content/friend.jpg" width="24" /> Robbie Nishida</div>
-
+                <div id="friendlist" data-bind="foreach: Friends">
+                    <div>
+                        <a href="#" data-bind="attr: { title: Name }">
+                            <img data-bind="attr: { src: ImageUrl, title: Name }" /><span data-bind="text: Name"></span>
+                        </a>
+                    </div>
                 </div>
                 <div id="friendfeed">
                     <div><img src="../../Content/friend.jpg" /> John Doe added "The Matrix"</div>

@@ -7,6 +7,7 @@
     {
         public UserRepository(IDatabaseFactory databaseFactory) : base(databaseFactory)
         {
+
         }
     }
 

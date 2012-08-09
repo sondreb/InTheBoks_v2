@@ -11,6 +11,8 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Facebook;
 using InTheBoks.Data;
+using InTheBoks.Data.Infrastructure;
+using InTheBoks.Data.Repositories;
 using InTheBoks.Security;
 using NLog;
 
@@ -51,11 +53,15 @@ namespace InTheBoks.Web
                 return;
             }
 
+            int accessTokenExpiresIn;
+            int.TryParse(Request.Headers["AccessTokenExpiresIn"], out accessTokenExpiresIn);
+            DateTime tokenExpireDate = DateTime.UtcNow + TimeSpan.FromSeconds(accessTokenExpiresIn);
+
             var fb = new FacebookClient(accessToken);
             dynamic me = fb.Get("me"); // TODO: Add exception handling for renewing old tokens.
             long facebookUserId = long.Parse(me.id);
 
-            var userId = CreateUserIfNotExists(facebookUserId, me, accessToken);
+            var userId = CreateUserIfNotExists(facebookUserId, me, accessToken, tokenExpireDate);
             var principal = new FacebookPrincipal(userId, facebookUserId, me.name, me.email, me.link, accessToken);
 
             Context.User = principal;
@@ -63,7 +69,7 @@ namespace InTheBoks.Web
             _log.Info("User Logged On: " + facebookUserId);
         }
 
-        private long CreateUserIfNotExists(long id, dynamic me, string token)
+        private long CreateUserIfNotExists(long id, dynamic me, string token, DateTime expireDate)
         {
             using (DataContext db = new DataContext())
             {
@@ -79,8 +85,21 @@ namespace InTheBoks.Web
                     dbUser.Email = me.email;
                     dbUser.Link = me.link;
                     dbUser.Token = token;
+                    dbUser.TokenExpire = expireDate;
 
                     db.Users.Add(dbUser);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    _log.Info("Updating User: " + id + " - " + me.name);
+
+                    dbUser.Name = me.name;
+                    dbUser.Email = me.email;
+                    dbUser.Link = me.link;
+                    dbUser.Token = token;
+                    dbUser.TokenExpire = expireDate;
+
                     db.SaveChanges();
                 }
 

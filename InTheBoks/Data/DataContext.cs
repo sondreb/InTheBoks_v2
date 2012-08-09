@@ -19,6 +19,8 @@
 
         public DbSet<Job> Jobs { get; set; }
 
+        public DbSet<Friend> Friends { get; set; }
+
         public virtual void Commit()
         {
             base.SaveChanges();

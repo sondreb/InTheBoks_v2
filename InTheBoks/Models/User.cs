@@ -27,5 +27,9 @@ namespace InTheBoks.Models
 
         [MaxLength(10)]
         public string Language { get; set; }
+
+        public DateTime? FriendsLastChecked { get; set; }
+
+        public DateTime? TokenExpire { get; set; }
     }
 }

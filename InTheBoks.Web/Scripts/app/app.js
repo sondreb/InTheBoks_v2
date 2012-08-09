@@ -125,7 +125,7 @@ $(function () {
 function HideConfirmationDialog()
 {
 
-    $("#confirmationDialog").animate({ opacity: 0, left: 10 }, 500, function () {
+    $("#confirmationDialog").animate({ opacity: 0, right: 10 }, 500, function () {
 
         $("#confirmationDialog").hide();
 
@@ -384,6 +384,7 @@ var mainViewModel = function ()
     var self = this;
 
     self.Catalogs = ko.observableArray();
+    self.Friends = ko.observableArray();
     self.Items = ko.observableArray();
     self.Results = ko.observableArray();
     self.SelectedResults = ko.observableArray();
@@ -416,8 +417,8 @@ var mainViewModel = function ()
         var leftPosition = (documentWidth / 2) - (confirmationWidth / 2);
 
         $("#confirmationDialog").show();
-        $("#confirmationDialog").css("left", (leftPosition - 50) + "px");
-        $("#confirmationDialog").animate({ opacity: 1, left: leftPosition }, 500);
+        $("#confirmationDialog").css("right", (leftPosition - 50) + "px");
+        $("#confirmationDialog").animate({ opacity: 1, right: leftPosition }, 500);
     }
 
     self.CreateCatalog = function ()
@@ -473,6 +474,7 @@ var mainViewModel = function ()
             dataType: "json",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("AccessToken", facebookAccessToken);
+                xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
             }
         }).done(function (data) {
 
@@ -495,6 +497,7 @@ var mainViewModel = function ()
             dataType: "json",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("AccessToken", facebookAccessToken);
+                xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
             }
         }).done(function (data) {
 
@@ -508,6 +511,42 @@ var mainViewModel = function ()
         });
     }
 
+    self.LoadFriends = function ()
+    {
+        $.ajax({
+            url: "/Api/Friends",
+            type: "GET",
+            dataType: "json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("AccessToken", facebookAccessToken);
+                xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
+            }
+        }).done(function (data) {
+
+            self.Friends.removeAll();
+            console.log(data);
+
+            for (i = 0; i < data.length; i++) {
+
+                data[i].ImageUrl = ko.observable("https://graph.facebook.com/" + data[i].FacebookId + "/picture");
+
+                self.Friends.push(data[i]);
+
+                //if (i == 0) {
+                //    self.SelectCatalog(data[i]);
+                //    self.SelectedObject(data[i]);
+                //}
+            }
+
+        });
+    }
+
+    self.LoadData = function ()
+    {
+        self.LoadCatalogs();
+        self.LoadFriends();
+    }
+
     self.LoadCatalogs = function ()
     {
         $.ajax({
@@ -516,6 +555,7 @@ var mainViewModel = function ()
             dataType: "json",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("AccessToken", facebookAccessToken);
+                xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
             }
         }).done(function (data) {
 
@@ -528,6 +568,7 @@ var mainViewModel = function ()
                 if (i == 0)
                 {
                     self.SelectCatalog(data[i]);
+                    self.SelectedObject(data[i]);
                 }
             }
 

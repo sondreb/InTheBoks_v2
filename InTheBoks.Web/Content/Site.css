@@ -280,6 +280,22 @@ header {
         height: 24px;
     }
 
+    #friendlist div {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        white-space: nowrap;
+        width: 100%;
+    }
+    
+        #friendlist div a {
+        text-decoration: none;
+    }
+    
+        #friendlist div img {
+        margin-right: 4px;
+    }
+
 
 /*
 #content #right-sidebar {

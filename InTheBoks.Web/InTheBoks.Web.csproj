@@ -156,6 +156,7 @@
       <Link>SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Api\CatalogsController.cs" />
+    <Compile Include="Api\FriendsController.cs" />
     <Compile Include="Api\ItemsController.cs" />
     <Compile Include="Api\SearchController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />

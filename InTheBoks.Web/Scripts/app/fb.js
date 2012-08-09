@@ -1,4 +1,5 @@
 ﻿var facebookAccessToken = null;
+var facebookAccessTokenExpiresIn = null;
 
 window.fbAsyncInit = function () {
 
@@ -20,6 +21,8 @@ window.fbAsyncInit = function () {
             // Don't trust this user ID on the server-side. Can be used for lookup profile photo, etc.
             var uid = response.authResponse.userID;
 
+            facebookAccessTokenExpiresIn = response.authResponse.expiresIn; // 5184000
+            
             // The token which we should send to our server on AJAX requests.
             var accessToken = response.authResponse.accessToken;
             facebookAccessToken = accessToken;

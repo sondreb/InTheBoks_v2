@@ -85,6 +85,7 @@
     <Compile Include="Command\ValidationHandlerNotFoundException.cs" />
     <Compile Include="Data\DataContext.cs" />
     <Compile Include="Data\Repositories\CatalogRepository.cs" />
+    <Compile Include="Data\Repositories\FriendRepository.cs" />
     <Compile Include="Data\Repositories\JobRepository.cs" />
     <Compile Include="Data\Repositories\LogRepository.cs" />
     <Compile Include="Data\Repositories\ItemRepository.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Data\Infrastructure\UnitOfWork.cs" />
     <Compile Include="JobManager.cs" />
     <Compile Include="Models\Catalog.cs" />
+    <Compile Include="Models\Friend.cs" />
     <Compile Include="Models\Item.cs" />
     <Compile Include="Models\Job.cs" />
     <Compile Include="Models\Log.cs" />
