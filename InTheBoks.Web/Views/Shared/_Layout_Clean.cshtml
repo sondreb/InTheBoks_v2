@@ -1,0 +1,54 @@
+﻿<html>
+    <head>
+
+
+        <style>
+            body {
+                background-color: black;
+                color: white;
+            }
+            
+            
+            img {
+                border: 2px solid red;
+            }
+
+                img:hover:after {
+                    
+                    content:url(/Content/icons/checked.png);
+                    
+                }
+
+
+            .thumbnail {
+                
+                border: 2px solid blue;
+                
+                
+            }
+            
+            .thumbnail:before {
+                
+                content:url(/Content/icons/checked.png);
+                border: 2px solid yellow;
+                
+            }
+        </style>
+
+    </head>
+    <body>
+
+        <h2>_Layout_Clean</h2>
+
+            <span class="thumbnail">
+        <img src="../../Content/albums/41A-jqYmLiL.jpg" />
+                </span>
+
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <img src="../../Content/icons/checked.png" />
+
+        @RenderBody()
+
+    </body>
+</html>
