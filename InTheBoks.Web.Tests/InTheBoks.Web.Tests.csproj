@@ -109,9 +109,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\InTheBoks.Resources\InTheBoks.Resources.csproj">
+      <Project>{6a8af7be-dbe1-4348-a778-569dd723b6af}</Project>
+      <Name>InTheBoks.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InTheBoks.Services\InTheBoks.Services.csproj">
+      <Project>{6a9df656-0bce-4e6b-8265-391f8bbe23c8}</Project>
+      <Name>InTheBoks.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\InTheBoks.Web\InTheBoks.Web.csproj">
-      <Project>{915C5319-7159-4AFE-B9AA-3EC34147CE62}</Project>
+      <Project>{915c5319-7159-4afe-b9aa-3ec34147ce62}</Project>
       <Name>InTheBoks.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\InTheBoks\InTheBoks.csproj">
+      <Project>{13bab0dc-4879-47b0-bdf1-a35adb9118b5}</Project>
+      <Name>InTheBoks</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

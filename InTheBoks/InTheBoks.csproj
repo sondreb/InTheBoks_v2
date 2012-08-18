@@ -131,14 +131,14 @@
     <Folder Include="Commands\User\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\InTheBoks.Resources\InTheBoks.Resources.csproj">
       <Project>{6a8af7be-dbe1-4348-a778-569dd723b6af}</Project>
       <Name>InTheBoks.Resources</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
