@@ -1,52 +1,24 @@
-﻿<html>
-    <head>
+﻿@using InTheBoks.Resources
 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title // InTheBoks</title>
+    <meta name="description" content="InTheBoks - Organize Your Stuff">
+    <meta name="author" content="Sondre Bjellås">
+    <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
 
-        <style>
-            body {
-                background-color: black;
-                color: white;
-            }
-            
-            
-            img {
-                border: 2px solid red;
-            }
+    <link rel="apple-touch-icon" href="~/Content/intheboks_72.png" />
+    <link rel="apple-touch-icon" href="~/Content/intheboks_114.png" sizes="114x114"/>
 
-                img:hover:after {
-                    
-                    content:url(/Content/icons/checked.png);
-                    
-                }
-
-
-            .thumbnail {
-                
-                border: 2px solid blue;
-                
-                
-            }
-            
-            .thumbnail:before {
-                
-                content:url(/Content/icons/checked.png);
-                border: 2px solid yellow;
-                
-            }
-        </style>
+    <link rel="shortcut icon" href="/favicon.ico" />
 
     </head>
     <body>
-
-        <h2>_Layout_Clean</h2>
-
-            <span class="thumbnail">
-        <img src="../../Content/albums/41A-jqYmLiL.jpg" />
-                </span>
-
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <img src="../../Content/icons/checked.png" />
 
         @RenderBody()
 

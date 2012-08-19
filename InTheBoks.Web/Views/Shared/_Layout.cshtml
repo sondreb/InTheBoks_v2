@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <title>@ViewBag.Title // InTheBoks</title>
     <meta name="description" content="InTheBoks - Organize Your Stuff">
     <meta name="author" content="Sondre Bjellås">
     <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
@@ -44,14 +44,12 @@
               style="margin-top: 4px; margin-right: 10px; float: left;" title="Settings" />
               </span>
 
-     <div class="initializing auth-box">
+@*     <div class="initializing auth-box">
              <img src="~/Content/ajax-loader.gif" />
              @Text.Loading...
-     </div>
+     </div>*@
 
-    <div id="auth-loggedout" class="anonymous">
-        <img id="auth-loginlink" src="../../Content/Facebook.png" />
-    </div>
+
 
     <div id="auth-loggedin" class="authenticated">
         
@@ -195,13 +193,29 @@
        
     </div>
 
-    <div id="anonymous" class="anonymous content-box stretch">
-        <p>&nbsp;</p>
-        <img src="~/Content/drop_box256x256.png" />
-        @Html.Raw(Text.AnonymousWelcomeText)
+    <div id="anonymous" class="anonymous welcome-box stretch">
+        <h1>Organize Your Stuff.</h1>
+        <p><img src="~/Content/intheboks_128.png" />
+            Keep track of your music, movies, books, games, software and more.
+        </p>
+        <p>
+            Click the Connect using <strong>Facebook</strong> button to logon using your Facebook account.
+        </p>
+
+       <div id="auth-loggedout" class="anonymous">
+        <img id="auth-loginlink" src="../../Content/Facebook.png" />
+        </div>
+
+        <p style="clear: both; margin-top: 4px;font-size: 0.8em;">By clicking Connect, you agree to the <a href="/Terms">terms & conditions</a> and <a href="/Privacy">privacy policy</a>.</p>
+        <p>
+            Want to learn more first? <a href="javascript:DisplayIntroduction();">Click here</a>!
+
+        </p>
+        @*@Html.Raw(Text.AnonymousWelcomeText)*@
     </div>
 
-    <div class="initializing content-box stretch">
+
+    <div class="initializing welcome-box">
         <p>&nbsp;</p>
         @Text.Initializing...
     </div>
@@ -361,6 +375,7 @@ width: 450px;">
 
 
 
+
     @*    <div id="propertiesDialog">
 
             <table id="propertiesHeader">
@@ -412,6 +427,67 @@ width: 450px;">
     @RenderSection("scripts", required: false)
 
 </div>
+
+    <div id="introduction" class="introduction">
+        <h1>Introduction</h1>
+        <p>Music, Movies, Books, Games, Software and more. 
+            </p>
+
+        <ul>
+            <li>Register everything you own</li>
+            <li>Remember what you borrow or rent</li>
+            <li>Share your list items with friends and family</li>
+            <li>Keep a wish-list of items</li>
+
+        </ul>
+
+Register everything you own of the above items and everything you'd want to own. Boks helps you remember and you can search your catalogs from anywhere, making sure you don't purchace multiple copies. You can register which items you are borrowing or renting from your friends, making it easier to remember to return them. 
+
+    </div>
+
+        <div class="introduction">
+            <h1>What is it?</h1>
+<p>Boks is a rich interactive application that you can use to organize all your stuff, like books, CDs, movies and more. Basically it's a way to throw everything into a box, for storage and retrieval purposes. It will help you remember which movies, CDs and books you have purchased, which ones you have already read, planning on reading or watching. You can rent items out to your friends and colleagues and add an expiration date when they have to deliver the borrowed items back.
+    </p>
+            <p>
+Registration of new items is really simple, you either type the title of what you're trying to archive or scan the bar code using a webcam. Boks will query different services for you, allowing you to find items for a variety of different items (books, movies, albums, software, games and in the future a lot more).
+                </p>
+            <p>
+Boks runs within your browser and stores all the information in the online cloud. This means all your items are available anywhere you are connected and from many different devices. Boks runs on Mac and PC and there is an optimized web client for iPhone and other mobiles. You can use any standard webcam to scan the barcode of your items and the app will recognize which product you try to add.
+        </p>
+                </div>
+    <div class="introduction">
+        <h1>Works on every device</h1>
+        <p>
+            InTheBoks is built using modern web techniques and is thus supported on virtually every modern mobile device, including phones, tablets, laptops and desktop computers.
+
+        </p>
+    </div>
+    <div class="introduction">
+        <h1>Open Source</h1>
+        <p>
+         For your own safety and your enjoyment, the
+            source code for this system is available.
+        </p>
+        <p>
+            You can download a copy of the source, or clone the source, on
+            the GitHub website:
+
+        </p>
+        <p>
+            <a href="https://github.com/sondreb/InTheBoks" target="_blank">https://github.com/sondreb/InTheBoks</a>
+
+        </p>
+    </div>
+    <div class="introduction">
+
+        <a href="/">Home</a> | 
+        <a href="/Terms">Terms & Conditions</a> | 
+        <a href="/Privacy">Privacy Policy</a> | 
+        <a href="http://www.facebook.com/pages/Boks-Organize-Your-Stuff/270278054270">Facebook</a> | 
+        <a href="http://twitter.com/InTheBoks/">Twitter</a>
+        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=10337833">Donate</a>
+    </div>
 
 </body>
 </html>

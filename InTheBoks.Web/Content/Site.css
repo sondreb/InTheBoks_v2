@@ -2,21 +2,36 @@
 
 html {
     height: 100%;
+    background: url(splash_1080.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
+
 
 body {
     height: 100%;
-    overflow: hidden;
     -ms-content-zooming: none;
     font-size: .85em;
     font-family: "Gudea", "Segoe UI", Verdana, Helvetica, Sans-Serif;
     color: #232323;
     color: white;
+    /*
+    background-color: #0E0E0E;
+    background-image: url('bg.png');
+    background-repeat: repeat-x;*/
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+}
+
+.bodybg {
+
     background-color: #0E0E0E;
     background-image: url('bg.png');
     background-repeat: repeat-x;
-    margin: 0;
-    padding: 0;
+    overflow: hidden;
 }
 
 * {
@@ -52,14 +67,14 @@ header {
 
 #AppContainer {
     margin: 0;
-    padding: 0;
+    padding: 0px;
     display: block;
-    position: fixed;
+    /*position: fixed;
     width: 100%;
-    height: 100%;
+    height: 100%;*/
     z-index: 5000;
+    clear: both;
 }
-
 
 #listOptions {
     position: absolute;
@@ -333,6 +348,9 @@ footer {
 
 #auth-loginlink {
     cursor: pointer;
+    float: left;
+    clear: both;
+    margin-bottom: 16px;
 }
 
 .anonymous {
@@ -344,6 +362,8 @@ footer {
 }
 
 .initializing {
+    color: black;
+    text-align: center;
 }
 
 /* Displays whenever any AJAX call is executed */
@@ -357,6 +377,16 @@ footer {
 img {
     border: 0;
 }
+
+#logo {
+    padding: 50px 50px 0px 50px;
+    display: block;
+}
+
+.logo_authenticated {
+    padding: 0px;
+}
+
 
 #logo img {
     margin: 10px 0 0 10px;
@@ -390,6 +420,50 @@ a {
         color: #797979;
     }
 
+div {
+    border: 0px solid red;
+}
+
+
+.introduction {
+    display: none;
+    color: black;
+    background-color: white;
+    padding: 25px 50px 25px 50px;
+}
+
+    .introduction a {
+        color: black;
+    }
+
+.introduction a:hover {
+    text-decoration: none;
+}
+
+.welcome-box {
+    margin-left: 50px;
+    padding: 0;
+    font-size: 1.4em;
+    width: 360px;
+    color: rgba(61, 61, 61, 0.7);
+}
+
+    .welcome-box a {
+        color:rgba(61, 61, 61, 0.7);
+    }
+
+    .welcome-box a:hover {
+        text-decoration: none;
+    }
+
+    .welcome-box h1 {
+        color: rgba(61, 61, 61, 0.7);
+    }
+
+    .welcome-box img {
+        float: right;
+        margin-right: 20px;
+    }
 
 .content-box {
     margin-left: auto;

@@ -1,4 +1,4 @@
-﻿
+﻿ 
 var State = { "Initializing": 0, "Authenticated": 1, "Anonymous": 2 };
 
 // Onload event handler
@@ -318,11 +318,13 @@ function ResizeContent() {
 
     var logoHeight = $("#header").height();
 
-    var headerheight = $("#header").height() + $("#toolbar").height();
+    var headerheight = $("#header").outerHeight() + $("#toolbar").height() + 20;
+
     var footerheight = $("#footer").height();
     var friendswidth = $("#friends").width();
     var sidebarwidth = $("#left-sidebar").width();
 
+    console.log($("#header").outerHeight());
 
     var windowheight = $(window).height();
     var height = windowheight - (headerheight + footerheight);
@@ -343,6 +345,14 @@ function ResizeContent() {
 
 }
 
+function DisplayIntroduction()
+{
+    $(".introduction").show();
+
+    //$(body).css("overflow", "scroll");
+    document.getElementById("introduction").scrollIntoView(true);
+
+}
 
 function ChangeState(state) {
     console.log("ChangeState: " + state);
@@ -363,16 +373,28 @@ function ChangeState(state) {
         case 1: // State.Authenticated
 
             // Hide the loading indicator for auth status.
+            $("#logo").animate({ padding: "0px" }, 100);
+
+            $("body").addClass("bodybg");
+
             $(".anonymous, .initializing").hide();
             $(".authenticated").fadeIn(700);
+            $("#logo").addClass("logo_authenticated");
 
+            //$("#AppContainer").css("padding", "0px");
+
+            
             break;
 
         case 2: // State.Anonymous
 
             // Hide the loading indicator for auth status.
+            $("body").removeClass("bodybg");
+            $("#logo").animate({ padding: "50px" }, 500);
+
             $(".authenticated, .initializing").hide();
             $(".anonymous").fadeIn(700);
+            $("#logo").removeClass("logo_authenticated");
 
             break;
     }
