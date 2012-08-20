@@ -17,7 +17,9 @@
 
     <link rel="shortcut icon" href="/favicon.ico" />
 
-    @Styles.Render("~/Content/themes/base/css", "~/Content/css")
+    @*@Styles.Render("~/Content/themes/base/css", "~/Content/css")*@
+    @Styles.Render("~/Content/themes/ui-darkness/css", "~/Content/css")
+
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -29,6 +31,10 @@
     @Scripts.Render("~/bundles/fb")
 
     <header id="header">
+
+
+        
+
 
         <a href="/" id="logo"><img title="InTheBoks.com - Organize Your Stuff" src="~/Content/intheboks_logo_light.png" /></a>
         <div class="loading"><img src="../../Content/ajax-loader.gif" /></div>
@@ -96,6 +102,9 @@
 
         <div id="toolbar" class="authenticated content" style="width: 100%;">
 
+
+            
+
             &nbsp;
             <img src="../../Content/icons/white/add.png" data-bind="click: CreateCatalog" class="action" title="New Collection" width="32" height="32" />
             <img src="../../Content/icons/white/edit.png" data-bind="click: EditCatalog" class="action" title="Edit Collection" width="32" height="32" />
@@ -108,7 +117,7 @@
             
             <img src="~/Content/icons/white/friends.png" onclick="ToggleFriends();" title="View/Hide Friends" class="action" style="float: right; margin-right: 8px;" />
 
-            <img src="~/Content/icons/white/sort.png" onclick="ToggleListOptions(this);" title="View sort and list options" class="action" style="float: right; margin-right: 8px;" />
+            <img src="~/Content/icons/white/sort_options.png" onclick="ToggleListOptions(this);" title="View sort and list options" class="action" style="float: right; margin-right: 110px;" />
             
             <div id="listOptions" style="float: right;">
                 <div class="balloon"><img src="../../Content/balloon.png" /></div><div class="options">
@@ -132,8 +141,13 @@
                     </div>
             </div>
 
-            <input type="range" id="thumbnailSize" onchange="ThumbnailRender();" min="32" max="256" value="128" step="8" style="float: right; margin-right: 8px;" />
+            <img src="~/Content/icons/white/sort.png" onclick="ChangeListType(2);" title="List View" class="action" style="float: right; margin-right: 8px;" />
+            <img src="~/Content/icons/white/listview1.png" onclick="ChangeListType(1);" class="action" style="float: right; margin-right: 8px;" title="Thumbnails" />
+            
+            @*<input type="range" id="thumbnailSize" onchange="ThumbnailRender();" min="32" max="256" value="128" step="8" style="float: right; margin-right: 8px;" />*@
 
+            <div id="slider" style="width: 200px; margin-top: 10px; margin-right: 20px;" title="Thumbnail Size"></div>
+            
 
         </div>
 
@@ -194,6 +208,10 @@
     </div>
 
     <div id="anonymous" class="anonymous welcome-box stretch">
+
+
+        
+
         <h1>Organize Your Stuff.</h1>
         <p><img src="~/Content/intheboks_128.png" />
             Keep track of your music, movies, books, games, software and more.
@@ -202,9 +220,9 @@
             Click the Connect using <strong>Facebook</strong> button to logon using your Facebook account.
         </p>
 
-       <div id="auth-loggedout" class="anonymous">
+       @*<div id="auth-loggedout" class="anonymous">*@
         <img id="auth-loginlink" src="../../Content/Facebook.png" />
-        </div>
+        @*</div>*@
 
         <p style="clear: both; margin-top: 4px;font-size: 0.8em;">By clicking Connect, you agree to the <a href="/Terms">terms & conditions</a> and <a href="/Privacy">privacy policy</a>.</p>
         <p>
@@ -398,8 +416,80 @@ width: 450px;">
             </div>
         </div>*@
 
+
+
+</div>
+
+
+    <div id="gradient_transparent" class="gradient"></div>
+
+    <div class="introduction_container">
+
+    <div id="introduction" class="introduction box">
+        <h1>Introduction</h1>
+        <p>Music, Movies, Books, Games, Software and more. 
+            </p>
+
+        <ul>
+            <li>Register everything you own</li>
+            <li>Remember what you borrow or rent</li>
+            <li>Share your list items with friends and family</li>
+            <li>Keep a wish-list of items</li>
+
+        </ul>
+
+Register everything you own of the above items and everything you'd want to own. Boks helps you remember and you can search your catalogs from anywhere, making sure you don't purchace multiple copies. You can register which items you are borrowing or renting from your friends, making it easier to remember to return them. 
+
+    </div>
+
+        <div class="introduction box">
+            <h1>What is it?</h1>
+<p>Boks is a rich interactive application that you can use to organize all your stuff, like books, CDs, movies and more. Basically it's a way to throw everything into a box, for storage and retrieval purposes. It will help you remember which movies, CDs and books you have purchased, which ones you have already read, planning on reading or watching. You can rent items out to your friends and colleagues and add an expiration date when they have to deliver the borrowed items back.
+    </p>
+            <p>
+Registration of new items is really simple, you either type the title of what you're trying to archive or scan the bar code using a webcam. Boks will query different services for you, allowing you to find items for a variety of different items (books, movies, albums, software, games and in the future a lot more).
+                </p>
+            <p>
+Boks runs within your browser and stores all the information in the online cloud. This means all your items are available anywhere you are connected and from many different devices. Boks runs on Mac and PC and there is an optimized web client for iPhone and other mobiles. You can use any standard webcam to scan the barcode of your items and the app will recognize which product you try to add.
+        </p>
+                </div>
+    <div class="introduction box">
+        <h1>Works on every device</h1>
+        <p>
+            InTheBoks is built using modern web techniques and is thus supported on virtually every modern mobile device, including phones, tablets, laptops and desktop computers.
+
+        </p>
+    </div>
+    <div class="introduction box">
+        <h1>Open Source</h1>
+        <p>
+         For your own safety and your enjoyment, the
+            source code for this system is available.
+        </p>
+        <p>
+            You can download a copy of the source, or clone the source, on
+            the GitHub website:
+
+        </p>
+        <p>
+            <a href="https://github.com/sondreb/InTheBoks" target="_blank">https://github.com/sondreb/InTheBoks</a>
+
+        </p>
+    </div>
+    <div class="introduction" style="clear: both;">
+
+        <a href="/">Home</a> // 
+        <a href="/Terms">Terms & Conditions</a> // 
+        <a href="/Privacy">Privacy Policy</a> // 
+        <a href="http://www.facebook.com/pages/Boks-Organize-Your-Stuff/270278054270">Facebook</a> // 
+        <a href="http://twitter.com/InTheBoks/">Twitter</a> // 
+        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=10337833">Donate</a>
+    </div>
+        </div>
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/jqueryui")
 
     <script>
         $(function () {
@@ -425,69 +515,6 @@ width: 450px;">
     </script>
 
     @RenderSection("scripts", required: false)
-
-</div>
-
-    <div id="introduction" class="introduction">
-        <h1>Introduction</h1>
-        <p>Music, Movies, Books, Games, Software and more. 
-            </p>
-
-        <ul>
-            <li>Register everything you own</li>
-            <li>Remember what you borrow or rent</li>
-            <li>Share your list items with friends and family</li>
-            <li>Keep a wish-list of items</li>
-
-        </ul>
-
-Register everything you own of the above items and everything you'd want to own. Boks helps you remember and you can search your catalogs from anywhere, making sure you don't purchace multiple copies. You can register which items you are borrowing or renting from your friends, making it easier to remember to return them. 
-
-    </div>
-
-        <div class="introduction">
-            <h1>What is it?</h1>
-<p>Boks is a rich interactive application that you can use to organize all your stuff, like books, CDs, movies and more. Basically it's a way to throw everything into a box, for storage and retrieval purposes. It will help you remember which movies, CDs and books you have purchased, which ones you have already read, planning on reading or watching. You can rent items out to your friends and colleagues and add an expiration date when they have to deliver the borrowed items back.
-    </p>
-            <p>
-Registration of new items is really simple, you either type the title of what you're trying to archive or scan the bar code using a webcam. Boks will query different services for you, allowing you to find items for a variety of different items (books, movies, albums, software, games and in the future a lot more).
-                </p>
-            <p>
-Boks runs within your browser and stores all the information in the online cloud. This means all your items are available anywhere you are connected and from many different devices. Boks runs on Mac and PC and there is an optimized web client for iPhone and other mobiles. You can use any standard webcam to scan the barcode of your items and the app will recognize which product you try to add.
-        </p>
-                </div>
-    <div class="introduction">
-        <h1>Works on every device</h1>
-        <p>
-            InTheBoks is built using modern web techniques and is thus supported on virtually every modern mobile device, including phones, tablets, laptops and desktop computers.
-
-        </p>
-    </div>
-    <div class="introduction">
-        <h1>Open Source</h1>
-        <p>
-         For your own safety and your enjoyment, the
-            source code for this system is available.
-        </p>
-        <p>
-            You can download a copy of the source, or clone the source, on
-            the GitHub website:
-
-        </p>
-        <p>
-            <a href="https://github.com/sondreb/InTheBoks" target="_blank">https://github.com/sondreb/InTheBoks</a>
-
-        </p>
-    </div>
-    <div class="introduction">
-
-        <a href="/">Home</a> | 
-        <a href="/Terms">Terms & Conditions</a> | 
-        <a href="/Privacy">Privacy Policy</a> | 
-        <a href="http://www.facebook.com/pages/Boks-Organize-Your-Stuff/270278054270">Facebook</a> | 
-        <a href="http://twitter.com/InTheBoks/">Twitter</a>
-        <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=10337833">Donate</a>
-    </div>
 
 </body>
 </html>

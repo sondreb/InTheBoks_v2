@@ -62,6 +62,7 @@ Libraries:
 	- html5slider
 	- Autofac
 	- NLog
+	- Windows Phone 7 inspired icons (http://metro.windowswiki.info/mi/)
 
 Thanks to all the developers of these great libaries, this project could not be
 realized without them.

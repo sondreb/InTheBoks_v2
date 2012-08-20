@@ -1,5 +1,9 @@
 ﻿@import url(http://fonts.googleapis.com/css?family=Pontano+Sans|Gudea);
 
+/*div {
+    border: 1px solid red;
+}*/
+
 html {
     height: 100%;
     background: url(splash_1080.jpg) no-repeat center center fixed;
@@ -9,6 +13,18 @@ html {
     background-size: cover;
 }
 
+@media only screen and (max-width: 640px) {
+
+    html {
+        background: white;
+    }
+
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0;
+    padding: 0;
+}
 
 body {
     height: 100%;
@@ -158,6 +174,28 @@ header {
             z-index: 6000;
         }
 
+.list_details {
+
+    float: left;
+    position: relative;
+    font-size: 1.2em;
+    display: none;
+    line-height: 70px;
+    white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.right {
+    float: right;
+    width: auto;
+}
+
+div.thumbnail_container {
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 div.wrapper {
     float: left; /* important */
@@ -166,6 +204,9 @@ div.wrapper {
     margin-bottom: 3px;
     border: 3px solid transparent;
     overflow: hidden;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 input {
@@ -420,25 +461,87 @@ a {
         color: #797979;
     }
 
-div {
-    border: 0px solid red;
+
+
+#gradient_transparent {
+    height: 100px;
 }
 
+.gradient {
 
-.introduction {
+    /* IE10 */
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1.0));
+
+    /* WebKit */
+    background-image: -webkit-linear-gradient(bottom, rgba(255, 255, 255, 1.0) 0%, rgba(255, 255, 255, 0) 100%);
+
+    /* Opera */
+    background-image: -o-linear-gradient(bottom, rgba(255, 255, 255, 1.0) 0%, rgba(255, 255, 255, 0) 100%);
+
+    /* Mozilla */
+    background-image: -moz-linear-gradient(bottom, rgba(255, 255, 255, 1.0) 0%, rgba(255, 255, 255, 0) 100%);
+
+    /*background-image: linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
+    background-image: -o-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
+    background-image: -moz-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
+    background-image: -ms-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);*/
+
+
+        /* webkit example */
+        /*background-image: -webkit-gradient(
+          linear, right top, left top, from(rgba(255, 255, 255, 1.0)),
+          to(rgba(255, 255, 255, 0))
+        );*/
+
+        /* mozilla example - FF3.6+ */
+        /*background-image: -moz-linear-gradient(
+          right center,
+          rgba(255, 255, 255, 1.0) 20%, rgba(255, 255, 255, 0) 95%
+        );*/
+
+        /* IE 5.5 - 7 */
+        /*filter: progid:DXImageTransform.Microsoft.gradient(
+          gradientType=1, startColor=0, endColorStr=#FFFFFF
+        );*/
+
+        /* IE8 uses -ms-filter for whatever reason... */
+        /*-ms-filter: progid:DXImageTransform.Microsoft.gradient(
+          gradientType=0, startColor=0, endColoStr=#FFFFFF
+        );*/
+    }
+
+#gradient_transparent {
+    display: none;
+}
+
+.introduction_container {
+    overflow: hidden;
+    background-color: white;
+    width: 100%;
+
     display: none;
     color: black;
-    background-color: white;
+}
+
+.introduction {
     padding: 25px 50px 25px 50px;
+    float: left;
 }
 
     .introduction a {
         color: black;
     }
 
-.introduction a:hover {
-    text-decoration: none;
-}
+        .introduction a:hover {
+            text-decoration: none;
+        }
+
+    .box {
+        max-width: 280px;
+        min-width: 150px;
+    }
+
 
 .welcome-box {
     margin-left: 50px;

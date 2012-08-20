@@ -246,6 +246,9 @@
     <Content Include="Content\icons\white\friends.png" />
     <Content Include="Content\icons\white\heart.png" />
     <Content Include="Content\icons\white\i.png" />
+    <Content Include="Content\icons\white\listview1.png" />
+    <Content Include="Content\icons\white\listview2.png" />
+    <Content Include="Content\icons\white\listview3.png" />
     <Content Include="Content\icons\white\mail.png" />
     <Content Include="Content\icons\white\minus.png" />
     <Content Include="Content\icons\white\next.png" />
@@ -265,6 +268,7 @@
     <Content Include="Content\icons\white\upload.png" />
     <Content Include="Content\icons\white\video.png" />
     <Content Include="Content\intheboks_114.png" />
+    <Content Include="Content\intheboks_128.png" />
     <Content Include="Content\intheboks_57.png" />
     <Content Include="Content\intheboks_72.png" />
     <Content Include="Content\intheboks_ios.png" />
@@ -328,11 +332,10 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\ui-darkness\jquery-ui.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Content\albums\Thumbs.db" />
-    <Content Include="Content\icons\Thumbs.db" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <None Include="Scripts\jquery-1.8.0.intellisense.js" />
     <Content Include="Scripts\app\app.js" />
