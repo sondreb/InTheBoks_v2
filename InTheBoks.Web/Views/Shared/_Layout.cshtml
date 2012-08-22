@@ -99,14 +99,10 @@
         <div id="toolbar" class="authenticated content" style="width: 100%;">
 
 
-            
-
             &nbsp;
             <img src="../../Content/icons/white/add.png" data-bind="click: CreateCatalog" class="action" title="New Collection" width="32" height="32" />
             <img src="../../Content/icons/white/edit.png" data-bind="click: EditCatalog" class="action" title="Edit Collection" width="32" height="32" />
             <img src="../../Content/icons/white/delete.png" data-bind="click: DeleteCatalog" class="action" title="Delete Collection" width="32" height="32" />
-
-
 
             <img src="~/Content/icons/white/add.png" data-bind="click: AddItem" class="action" style="margin-left: 50px;" title="New Item" />
             <img src="~/Content/icons/white/delete.png" class="action" title="Delete Item(s)"  />
@@ -142,7 +138,7 @@
             
             @*<input type="range" id="thumbnailSize" onchange="ThumbnailRender();" min="32" max="256" value="128" step="8" style="float: right; margin-right: 8px;" />*@
 
-            <div id="slider" style="width: 200px; margin-top: 10px; margin-right: 20px;" title="Thumbnail Size"></div>
+            <div id="slider" class="wide" style="width: 200px; margin-top: 10px; margin-right: 20px;" title="Thumbnail Size"></div>
             
 
         </div>
@@ -154,7 +150,7 @@
         <div id="left-sidebar" class="stretch">
 
             
-            <div class="margin" style="margin-right: 0px;">
+            <div style="margin-top: 10px;">
                 <ul class="catalogsList" data-bind="foreach: Catalogs">
                     <li class="button" data-bind="click: $parent.SelectCatalog, css: { selected: $data == $root.SelectedCatalog() }">
                         <span data-bind="text: Name"></span>
@@ -166,26 +162,27 @@
         </div>
 
              <div id="friends" class="stretch">
-                <div id="friendlist" data-bind="foreach: Friends">
-                    <div>
-                        <a href="#" data-bind="attr: { title: Name }">
-                            <img data-bind="attr: { src: ImageUrl, title: Name }" /><span data-bind="text: Name"></span>
+                
+                 <div id="friendlist">
+                    <div data-bind="foreach: Friends">
+                        <div>
+                        <a href="#" class="friendLink" data-bind="attr: { title: Name }">
+                            <img class="friendFace" data-bind="attr: { src: ImageUrl, title: Name }" /><span data-bind="text: Name"></span>
                         </a>
+                        </div>
                     </div>
+                    <div data-bind="visible: Friends().length == 0" style="overflow: auto; margin-bottom: 10px;">
+                     None of your Facebook friends use InTheBoks. <a href="#">Invite them</a> to tip your friends about our great app!
+                 </div>
                 </div>
+
                 <div id="friendfeed">
-                    <div><img src="../../Content/friend.jpg" /> John Doe added "The Matrix"</div>
-                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
-                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
-                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
-                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
-                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
-                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
-                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
-                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
-                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
-                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
-                    <div><img src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img class="friendFace" src="../../Content/friend.jpg" /> John Doe added "The Matrix"</div>
+                    <div><img class="friendFace" src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img class="friendFace" src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img class="friendFace" src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img class="friendFace" src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+                    <div><img class="friendFace" src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
                 </div>
             </div>
 
@@ -204,9 +201,6 @@
     </div>
 
     <div id="anonymous" class="anonymous welcome-box stretch">
-
-
-        
 
         <h1>Organize Your Stuff.</h1>
         <p><img src="~/Content/intheboks_128.png" />

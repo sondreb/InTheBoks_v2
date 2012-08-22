@@ -316,16 +316,22 @@ p.description_content {
     overflow: auto;
 }
 
-#friendlist {
-    border-bottom: 2px solid silver;
-    height: 100px;
-}
-
-    #friendlist div img, #friendfeed div img {
+.friendFace {
         vertical-align: middle;
         width: 24px;
         height: 24px;
-    }
+        margin-right: 4px;
+}
+
+.friendLink {
+    text-decoration: none;
+}
+
+#friendlist {
+    border-bottom: 2px solid silver;
+    height: 100px;
+    margin-bottom: 5px;
+}
 
     #friendlist div {
         overflow: hidden;
@@ -334,15 +340,6 @@ p.description_content {
         white-space: nowrap;
         width: 100%;
     }
-
-        #friendlist div a {
-            text-decoration: none;
-        }
-
-        #friendlist div img {
-            margin-right: 4px;
-        }
-
 
 /*
 #content #right-sidebar {
@@ -594,8 +591,7 @@ a {
 
 .button {
     padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 5px;
+    margin-left: 0px;
     cursor: pointer;
     background-color: rgba(234, 234, 234, 0.1);
     font-family: 'Pontano Sans', sans-serif;
@@ -605,16 +601,35 @@ a {
     background-image: -moz-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
     background-image: -webkit-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
     background-image: -ms-linear-gradient(bottom, rgba(0,0,0,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(0,0,0, 0.1) 100%);
+
+
+    background-image: linear-gradient(to right, rgba(0,0,0,0.1) 0%, rgba(0,0,0, 0.1) 100%);
+
+
+    /* IE10 */
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 1.0) 0%, rgba(50, 50, 50, 0.1) 90%, rgba(0, 0, 0, 0) 100%);
+
+    /* WebKit */
+    background-image: -webkit-linear-gradient(right, rgba(0, 0, 0, 1.0) 0%, rgba(50, 50, 50, 0.1) 90%, rgba(0, 0, 0, 0) 100%);
+
+    /* Opera */
+    background-image: -o-linear-gradient(right, rgba(0, 0, 0, 1.0) 0%, rgba(50, 50, 50, 0.1) 90%, rgba(0, 0, 0, 0) 100%);
+
+    /* Mozilla */
+    background-image: -moz-linear-gradient(right, rgba(0, 0, 0, 1.0) 0%, rgba(50, 50, 50, 0.1) 90%, rgba(0, 0, 0, 0) 100%);
+
+
     -moz-transition: background-color 0.2s linear;
     -webkit-transition: background-color 0.2s linear;
     -o-transition: background-color 0.2s linear;
     transition: background-color 0.2s linear;
+
+
+    border-top: 1px solid #212121;
+    border-bottom: 1px solid black;
 }
 
     .button:hover {
-        background-color: gray;
-        border-radius: 10px;
-        margin-bottom: 5px;
         cursor: pointer;
         background-color: rgba(234, 234, 234, 0.2);
     }
@@ -629,14 +644,14 @@ a {
 }*/
 
 .selected {
-    font-weight: bold;
-    background-color: rgba(194, 194, 194, 0.73);
+    background-color: rgba(220, 220, 220, 0);
+    color: #CC8B3F;
 }
 
-    .selected:hover {
+    /*.selected:hover {
         font-weight: bold;
         background-color: rgba(194, 194, 194, 0.73);
-    }
+    }*/
 
 li {
     list-style-type: none;

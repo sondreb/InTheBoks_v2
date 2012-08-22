@@ -391,7 +391,7 @@ function ResizeContent() {
 
     $("#main-content").width($(window).width() - (sidebarwidth + friendswidth));
 
-    var friendlistheight = $("#friendlist").height();
+    var friendlistheight = $(".friendlist").height();
 
     $("#friendfeed").height(windowheight - friendlistheight - (headerheight + footerheight));
 
@@ -438,7 +438,7 @@ function ChangeState(state) {
             HideIntroduction();
 
             // Hide the loading indicator for auth status.
-            $("#logo").animate({ padding: "0px" }, 100);
+            $("#logo").animate({ padding: "0px" }, 200);
 
             $("body").addClass("bodybg");
 
