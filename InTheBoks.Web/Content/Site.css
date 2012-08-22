@@ -8,7 +8,6 @@ html {
     height: 100%;
     background: url(splash_1080.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
-    -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
 }
@@ -17,6 +16,10 @@ html {
 
     html {
         background: white;
+    }
+
+    .wide {
+        display: none;
     }
 
 }
@@ -184,11 +187,11 @@ header {
     white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+    margin-right: 10px;
 }
 
 .right {
     float: right;
-    width: auto;
 }
 
 div.thumbnail_container {
@@ -421,7 +424,7 @@ img {
 
 #logo {
     padding: 50px 50px 0px 50px;
-    display: block;
+    display: inline-block;
 }
 
 .logo_authenticated {

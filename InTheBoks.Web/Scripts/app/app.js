@@ -177,19 +177,20 @@ function ChangeListType(type)
     if (listViewType == 1)
     {
         $("#slider").show();
+
         addCSSRule("div.thumbnail_container", "clear", "none");
+        addCSSRule("div.thumbnail_container", "width", "inherit");
+
         $(".list_details").hide();
-
-        $(".thumbnail_container").css("width", "100%");
-
     }
     else
     {
         $("#slider").hide();
-        addCSSRule("div.thumbnail_container", "clear", "both");
-        $(".list_details").show();
 
-        $(".thumbnail_container").css("width", "auto");
+        addCSSRule("div.thumbnail_container", "clear", "both");
+        addCSSRule("div.thumbnail_container", "width", "100%");
+
+        $(".list_details").show();
     }
 
     ThumbnailRender();
@@ -201,12 +202,20 @@ function ThumbnailRender()
 
     var size = thumbnailSize;
 
-    if (listViewType == 2)
-    {
+    if (listViewType == 2) {
         size = 64;
+
+        // Fix the height of the container to avoid content wrapping.
+        addCSSRule("div.thumbnail_container", "height", size + 12 + "px");
+    }
+    else {
+        
+        addCSSRule("div.thumbnail_container", "height", "auto");
     }
 
     addCSSRule(".thumbnails div img", "height", size + "px");
+    
+
     //addCSSRule(".thumbnails>span:before", "margin-left", size + "px");
 
 }
@@ -400,7 +409,12 @@ function DisplayIntroduction()
 
     //$(body).css("overflow", "scroll");
     document.getElementById("gradient_transparent").scrollIntoView(true);
+}
 
+function HideIntroduction()
+{
+    $(".introduction_container").hide();
+    $("#gradient_transparent").hide();
 }
 
 function ChangeState(state) {
@@ -420,6 +434,8 @@ function ChangeState(state) {
             break;
 
         case 1: // State.Authenticated
+
+            HideIntroduction();
 
             // Hide the loading indicator for auth status.
             $("#logo").animate({ padding: "0px" }, 100);

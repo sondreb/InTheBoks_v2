@@ -32,10 +32,6 @@
 
     <header id="header">
 
-
-        
-
-
         <a href="/" id="logo"><img title="InTheBoks.com - Organize Your Stuff" src="~/Content/intheboks_logo_light.png" /></a>
         <div class="loading"><img src="../../Content/ajax-loader.gif" /></div>
 
@@ -60,7 +56,7 @@
     <div id="auth-loggedin" class="authenticated">
         
         <div id="profileInfo">
-            @Text.Hi, <span id="auth-displayname"></span>  
+            <span class="wide">@Text.Hi, <span id="auth-displayname"></span></span>
             
             <img src="" id="profileImage" height="18" width="18" />
             <a href="#" id="auth-logoutlink">@Text.Logout</a>
@@ -488,9 +484,9 @@ Boks runs within your browser and stores all the information in the online cloud
         </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/app")
     @Scripts.Render("~/bundles/jqueryui")
-
+    @Scripts.Render("~/bundles/app")
+    
     <script>
         $(function () {
             // Define the resources on a global level. We should do this before
