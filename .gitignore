@@ -40,6 +40,10 @@ local.properties
 *.suo
 *.user
 *.sln.docstates
+*.mdf
+*.ldf
+.mdf
+.ldf
 
 # Build results
 [Dd]ebug/
@@ -63,10 +67,6 @@ local.properties
 .builds
 *.dotCover
 *.pubxml
-
-# Ignore the database files
-*.mdf
-*.ldf
 
 ## TODO: If you have NuGet Package Restore enabled, uncomment this
 #packages/
