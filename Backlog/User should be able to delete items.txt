@@ -1,0 +1,3 @@
+Story: User should be able to select a single or multiple items and delete them.
+Assigned To: [None]
+State: Proposed
