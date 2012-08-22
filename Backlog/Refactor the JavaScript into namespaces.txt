@@ -1,0 +1,3 @@
+Story: Too many functions defined at a global level, not enough in the ViewModel. Consider implementing the use of namespaces.
+Assigned To: [None]
+State: Proposed

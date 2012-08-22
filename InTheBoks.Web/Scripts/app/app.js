@@ -1,4 +1,4 @@
-﻿ 
+﻿
 var State = { "Initializing": 0, "Authenticated": 1, "Anonymous": 2 };
 
 // Onload event handler
@@ -17,7 +17,62 @@ $(function () {
         $(this).fadeIn();
     }).ajaxComplete(function () {
         $(this).fadeOut();
+    }).ajaxError(function (event, request, settings) {
+
+        //console.log(event);
+        //console.log(request);
+        //console.log(settings);
+
+        var exception = null;
+
+        var errorMessage = "Error";
+
+        if (request.responseText && request.responseText[0] == "{") {
+            errorMessage = JSON.parse(request.responseText).message;
+        }
+
+        //ShowInformationDialog("There was a problem", request.statusText + " (" + request.status + "): " + errorMessage, "Close", "");
+
+        if (request.status == 401) { // Access is denied
+
+            // Perhaps show popup for Facebook-logo?
+            return;
+        }
+
+        if (request.status === 0) {
+            console.log('Not connect.\n Verify Network.');
+        } else if (request.status == 404) {
+            console.log('Requested page not found. [404]');
+        } else if (request.status == 400) {
+
+            console.log("System Failure: Error.");
+            ShowInformationDialog("System Failure", "Unable to process the request. Please contact your system administrator.<br />" + errorMessage, "Close");
+
+        } else if (request.status == 500) {
+            console.log("System Failure: Unable to process the request.");
+            console.log(request);
+
+            ShowInformationDialog("System Failure", "Unable to process the request. Internal Server Error.<br />" + errorMessage, "Close");
+
+        } else if (exception === 'parsererror') {
+
+            ShowInformationDialog("System Failure", "Requested JSON parse failed.<br />Invalid response from server.<br />" + errorMessage, "Close");
+
+        } else if (exception === 'timeout') {
+
+            ShowInformationDialog("System Failure", "Time out error.<br />Please try again.<br />" + errorMessage, "Close");
+
+        } else if (exception === 'abort') {
+
+            console.log('Ajax request aborted.');
+
+        } else {
+
+            console.log('Uncaught Error.\n' + request.responseText);
+            ShowInformationDialog("There was a problem", errorMessage, "Close");
+        }
     });
+
 
     $('img').bind('dragstart', function (event) { event.preventDefault(); });
 
@@ -59,26 +114,22 @@ $(function () {
 
 
     var selectAll = false;
-    
+
     $(document).keydown(function (e) {
-        if (ctrlDown && (e.keyCode == aKey))
-        {
+        if (ctrlDown && (e.keyCode == aKey)) {
             selectAll = !selectAll;
 
-            if (selectAll)
-            {
+            if (selectAll) {
                 $(".wrapper").addClass("selection");
             }
-            else
-            {
+            else {
                 $(".wrapper").removeClass("selection");
             }
 
 
             return false;
         }
-        else if (ctrlDown && (e.keyCode == cKey))
-        {
+        else if (ctrlDown && (e.keyCode == cKey)) {
             var img;
             var i = 0;
 
@@ -95,6 +146,13 @@ $(function () {
     });
 
 
+    // When clicking on the button close or the mask layer the popup closed
+    $('#mask').live('click', function () {
+
+        HideInformationDialog();
+
+        return false;
+    });
 
     //$('.wrapper').mouseover(function (source) {
     //    $(this).children(".description").fadeIn(300);
@@ -110,12 +168,10 @@ $(function () {
         $(this).children(".description").hide();
         //$(this).children(".description").fadeOut(150);
     }).bind('click', function (source) {
-        if ($(this).hasClass("selection"))
-        {
+        if ($(this).hasClass("selection")) {
             $(this).removeClass("selection");
         }
-    else
-    {
+        else {
             $(this).addClass("selection");
         }
     });
@@ -134,22 +190,55 @@ $(function () {
 
 });
 
-function HideConfirmationDialog()
-{
-
-    $("#confirmationDialog").animate({ opacity: 0, right: 10 }, 500, function () {
-
+function HideConfirmationDialog() {
+    $("#confirmationDialog").animate({ opacity: 0 }, 500, function () {
         $("#confirmationDialog").hide();
-
-
     });
+}
 
+function HideInformationDialog() {
+    $('#mask , #infoDialog').fadeOut(300, function () {
+        $('#mask').remove();
+    });
+}
 
+function ShowInformationDialog(title, body, button1, button2) {
+    $("#infoDialogTitle").html(title);
+    $("#infoDialogBody").html(body);
+
+    if (button1 == null || button1 == "") {
+        $("#infoDialogButton1").hide();
+    }
+    else {
+        $("#infoDialogButton1").show();
+        $("#infoDialogButton1").text(button1);
+    }
+
+    if (button2 == null || button2 == "") {
+        $("#infoDialogButton2").hide();
+    }
+    else {
+        $("#infoDialogButton2").show();
+        $("#infoDialogButton2").text(button2);
+    }
+
+    var dialog = $("#infoDialog");
+
+    $(dialog).fadeIn(300);
+
+    //Set the center alignment padding + border see css style
+    var popMargTop = ($(dialog).height() + 24) / 2;
+    //var popMargLeft = ($(dialog).width() + 24) / 2;
+
+    $(dialog).css("margin-top", -popMargTop);
+
+    // Add the mask to body
+    $('body').append('<div id="mask"></div>');
+    $('#mask').fadeIn(300);
 }
 
 
-function HookUpThumbnailEvents(wrapper)
-{
+function HookUpThumbnailEvents(wrapper) {
     $(wrapper).bind('mouseenter', function (source) {
         //$(this).children(".description").fadeIn(50);
         $(this).children(".description").show();
@@ -170,12 +259,10 @@ function HookUpThumbnailEvents(wrapper)
 var listViewType = 1; // 1 = Thumbnail, 2 = Medium, 3 = List
 var thumbnailSize = 128;
 
-function ChangeListType(type)
-{
+function ChangeListType(type) {
     listViewType = type;
 
-    if (listViewType == 1)
-    {
+    if (listViewType == 1) {
         $("#slider").show();
 
         addCSSRule("div.thumbnail_container", "clear", "none");
@@ -183,8 +270,7 @@ function ChangeListType(type)
 
         $(".list_details").hide();
     }
-    else
-    {
+    else {
         $("#slider").hide();
 
         addCSSRule("div.thumbnail_container", "clear", "both");
@@ -196,8 +282,7 @@ function ChangeListType(type)
     ThumbnailRender();
 }
 
-function ThumbnailRender()
-{
+function ThumbnailRender() {
     //var size = $("#thumbnailSize").val();
 
     var size = thumbnailSize;
@@ -209,12 +294,12 @@ function ThumbnailRender()
         addCSSRule("div.thumbnail_container", "height", size + 12 + "px");
     }
     else {
-        
+
         addCSSRule("div.thumbnail_container", "height", "auto");
     }
 
     addCSSRule(".thumbnails div img", "height", size + "px");
-    
+
 
     //addCSSRule(".thumbnails>span:before", "margin-left", size + "px");
 
@@ -259,8 +344,7 @@ function addCSSRule(sel, prop, val) {
 }
 
 
-function ToggleSettings()
-{
+function ToggleSettings() {
     if ($('#settings').is(':visible')) {
 
         $(".settings").hide();
@@ -283,10 +367,11 @@ function ToggleSearch() {
         $(".content").hide();
         $(".search").fadeIn(300);
     }
+
+    ResizeContent();
 }
 
-function HideProperties()
-{
+function HideProperties() {
 
     $("#propertiesDialog").animate({ width: 0 }, 300, function () {
         $("#propertiesDialog").hide();
@@ -295,10 +380,8 @@ function HideProperties()
 
 var previousAction = "";
 
-function ToggleProperties(title, action)
-{
-    if (previousAction != action && !$("#propertiesDialog").is(":visible"))
-    {
+function ToggleProperties(title, action) {
+    if (previousAction != action && !$("#propertiesDialog").is(":visible")) {
         $("#propertiesDialog").show();
         $("#propertiesDialog").animate({ width: 300 }, 300, function () {
 
@@ -319,16 +402,15 @@ function ToggleProperties(title, action)
     previousAction = action;
 }
 
-function ToggleFilter()
-{
+function ToggleFilter() {
     if ($('#filterSearch').is(':visible')) {
 
         /* for some unknown reason, the UI "jumps" if we animate to 0. */
-        $("#filterSearch").animate({ width: 50 }, 300, function () { 
-        
+        $("#filterSearch").animate({ width: 50 }, 300, function () {
+
             $("#filterSearch").hide();
             $("#filterSearch").val("");
-        
+
         });
 
 
@@ -387,7 +469,11 @@ function ResizeContent() {
     var height = windowheight - (headerheight + footerheight);
 
     $(".stretch").height(windowheight - (headerheight + footerheight));
-    $(".stretchFull").height(windowheight - (headerheight + footerheight) + $("#toolbar").height());
+
+    $(".stretchFull").height(windowheight - (headerheight + footerheight));
+
+
+
 
     $("#main-content").width($(window).width() - (sidebarwidth + friendswidth));
 
@@ -402,8 +488,7 @@ function ResizeContent() {
 
 }
 
-function DisplayIntroduction()
-{
+function DisplayIntroduction() {
     $(".introduction_container").show();
     $("#gradient_transparent").show();
 
@@ -411,8 +496,7 @@ function DisplayIntroduction()
     document.getElementById("gradient_transparent").scrollIntoView(true);
 }
 
-function HideIntroduction()
-{
+function HideIntroduction() {
     $(".introduction_container").hide();
     $("#gradient_transparent").hide();
 }
@@ -448,7 +532,7 @@ function ChangeState(state) {
 
             //$("#AppContainer").css("padding", "0px");
 
-            
+
             break;
 
         case 2: // State.Anonymous
@@ -466,8 +550,7 @@ function ChangeState(state) {
 }
 
 
-var mainViewModel = function ()
-{
+var mainViewModel = function () {
     var self = this;
 
     self.Catalogs = ko.observableArray();
@@ -484,21 +567,18 @@ var mainViewModel = function ()
 
     self.SelectedAction = ko.observable("Edit Catalog");
 
-    self.SelectCatalog = function (catalog)
-    {
+    self.SelectCatalog = function (catalog) {
         self.SelectedCatalog(catalog);
         self.SelectedObject(catalog);
     }
 
-    self.SaveCatalog = function ()
-    {
+    self.SaveCatalog = function () {
         HideProperties();
 
         $("#notificationDialog").fadeIn().delay(2000).fadeOut();
     }
 
-    self.DeleteCatalog = function ()
-    {
+    self.DeleteCatalog = function () {
         var documentWidth = $(document).width();
         var confirmationWidth = $("#confirmationDialog").width();
         var leftPosition = (documentWidth / 2) - (confirmationWidth / 2);
@@ -508,18 +588,16 @@ var mainViewModel = function ()
         $("#confirmationDialog").animate({ opacity: 1, right: leftPosition }, 500);
     }
 
-    self.CreateCatalog = function ()
-    {
+    self.CreateCatalog = function () {
         self.SelectedAction("Add Collection");
-        
+
         var newCatalog = { "Id": -1, "Name": "", "Count": 0 };
         self.SelectedObject(newCatalog);
 
         ToggleProperties("Add Collection", "Add");
     }
 
-    self.EditCatalog = function ()
-    {
+    self.EditCatalog = function () {
         self.SelectedAction("Edit Collection");
 
         self.SelectedObject(self.SelectedCatalog());
@@ -529,13 +607,11 @@ var mainViewModel = function ()
 
     self.SelectResult = function (item) {
 
-        if (item.Selected())
-        {
+        if (item.Selected()) {
             self.SelectedResults.remove(item);
             item.Selected(false);
         }
-        else
-        {
+        else {
             self.SelectedResults.push(item);
             item.Selected(true);
         }
@@ -547,8 +623,7 @@ var mainViewModel = function ()
         self.SelectedItem(item);
     }
 
-    self.AddItem = function ()
-    {
+    self.AddItem = function () {
         self.SearchForItem(true);
         ToggleSearch();
         //self.Search();
@@ -598,8 +673,7 @@ var mainViewModel = function ()
         });
     }
 
-    self.LoadFriends = function ()
-    {
+    self.LoadFriends = function () {
         $.ajax({
             url: "/Api/Friends",
             type: "GET",
@@ -628,14 +702,12 @@ var mainViewModel = function ()
         });
     }
 
-    self.LoadData = function ()
-    {
+    self.LoadData = function () {
         self.LoadCatalogs();
         self.LoadFriends();
     }
 
-    self.LoadCatalogs = function ()
-    {
+    self.LoadCatalogs = function () {
         $.ajax({
             url: "/Api/Catalogs",
             type: "GET",
@@ -652,8 +724,7 @@ var mainViewModel = function ()
             for (i = 0; i < data.length; i++) {
                 self.Catalogs.push(data[i]);
 
-                if (i == 0)
-                {
+                if (i == 0) {
                     self.SelectCatalog(data[i]);
                     self.SelectedObject(data[i]);
                 }

@@ -22,7 +22,21 @@ namespace InTheBoks.Web.Api
             service.SearchType = SearchType.Keywords;
             service.Keywords = id;
 
-            var xml = service.ReturnAsXml();
+            XDocument xml = null;
+
+            try
+            {
+                xml = service.ReturnAsXml();
+            }
+            catch (System.Net.WebException wex)
+            {
+                if (wex.Message.Contains("403"))
+                {
+                    throw new ServiceUnavailableExceptions("Unable to connect with Amazon Service. Please verify your configuration settings.", wex);
+                }
+
+                throw;
+            }
 
             var ns = "{http://webservices.amazon.com/AWSECommerceService/2011-08-01}";
 
