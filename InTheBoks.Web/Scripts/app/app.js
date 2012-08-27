@@ -74,9 +74,9 @@ $(function () {
     });
 
 
-    $('img').bind('dragstart', function (event) { event.preventDefault(); });
+    $('img').live('dragstart', function (event) { event.preventDefault(); });
 
-    $(document).bind("dragstart", function () {
+    $(document).live("dragstart", function () {
         return false;
     });
 
@@ -116,16 +116,21 @@ $(function () {
     var selectAll = false;
 
     $(document).keydown(function (e) {
+
         if (ctrlDown && (e.keyCode == aKey)) {
             selectAll = !selectAll;
 
+            // TODO: We need to distinguish between catalog items and search result items.
+            // Calling .click on everything does not work very well...
+
             if (selectAll) {
                 $(".wrapper").addClass("selection");
+                //$(".wrapper").click();
             }
             else {
                 $(".wrapper").removeClass("selection");
+                //$(".wrapper").click();
             }
-
 
             return false;
         }
@@ -160,14 +165,14 @@ $(function () {
     //    $(this).children(".description").fadeOut(100);
     //});
 
-    $('.wrapper').bind('mouseenter', function (source) {
+    $('.wrapper').live('mouseenter', function (source) {
         //$(this).children(".description").fadeIn(50);
         $(this).children(".description").show();
-    }).bind('mouseleave', function (source) {
+    }).live('mouseleave', function (source) {
 
         $(this).children(".description").hide();
         //$(this).children(".description").fadeOut(150);
-    }).bind('click', function (source) {
+    }).live('click', function (source) {
         if ($(this).hasClass("selection")) {
             $(this).removeClass("selection");
         }
@@ -239,14 +244,14 @@ function ShowInformationDialog(title, body, button1, button2) {
 
 
 function HookUpThumbnailEvents(wrapper) {
-    $(wrapper).bind('mouseenter', function (source) {
+    $(wrapper).live('mouseenter', function (source) {
         //$(this).children(".description").fadeIn(50);
         $(this).children(".description").show();
-    }).bind('mouseleave', function (source) {
+    }).live('mouseleave', function (source) {
 
         $(this).children(".description").hide();
         //$(this).children(".description").fadeOut(150);
-    }).bind('click', function (source) {
+    }).live('click', function (source) {
         if ($(this).hasClass("selection")) {
             $(this).removeClass("selection");
         }
@@ -460,7 +465,7 @@ function ResizeContent() {
     var friendswidth = $("#friends").width();
     var sidebarwidth = $("#left-sidebar").width();
 
-    console.log("logoHeight: " + logoHeight);
+    //console.log("logoHeight: " + logoHeight);
 
     var windowheight = $(window).outerHeight();
     var height = windowheight - headerheight;
@@ -629,6 +634,40 @@ var mainViewModel = function () {
         self.SearchForItem(true);
         ToggleSearch();
         //self.Search();
+    }
+
+    self.SaveSelectedItems = function ()
+    {
+        var array = self.SelectedResults();
+
+        for (i = 0; i < array.length; i++) {
+
+            var item = array[i];
+            item.Catalog_Id = self.SelectedCatalog().Id;
+
+            var json = JSON.stringify(item);
+
+            alert(json);
+
+            $.ajax("/api/Items", {
+                data: json,
+                type: "post",
+                contentType: "application/json",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("AccessToken", facebookAccessToken);
+                    xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
+                },
+                done: function (result, textStatus, jqXHR) {
+
+                    alert(jqXHR.statusText);
+
+                }, error: function (jqXHR, textStatus, errorThrown) {
+
+                    alert(jqXHR.statusText);
+
+                }
+            });
+        }
     }
 
     self.Search = function () {

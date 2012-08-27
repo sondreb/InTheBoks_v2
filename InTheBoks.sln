@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		InTheBoks.ini = InTheBoks.ini
 		License.txt = License.txt
 		ReadMe - Database.txt = ReadMe - Database.txt
+		ReadMe - Source.txt = ReadMe - Source.txt
 		ReadMe.txt = ReadMe.txt
 		SolutionInfo.cs = SolutionInfo.cs
 	EndProjectSection

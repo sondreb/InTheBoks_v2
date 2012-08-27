@@ -14,7 +14,6 @@ namespace InTheBoks.Migrations
 
         protected override void Seed(InTheBoks.Data.DataContext context)
         {
-
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 

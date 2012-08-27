@@ -40,6 +40,9 @@
             // Set the dependency resolver implementation.
             var resolver = new AutofacWebApiDependencyResolver(container);
             configuration.DependencyResolver = resolver;
+
+            // Set the resolver for MVC Controllers.
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
     }
 }

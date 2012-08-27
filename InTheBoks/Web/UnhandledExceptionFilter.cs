@@ -23,6 +23,11 @@ namespace InTheBoks.Web
                 status = HttpStatusCode.NotFound;
             else if (exType == typeof(ServiceUnavailableExceptions))
                 status = HttpStatusCode.ServiceUnavailable;
+            else if (exType == typeof(InvalidOperationException)) // Happens when someone tries to Update on POST instead of PUT.
+                status = HttpStatusCode.MethodNotAllowed;
+            else if (exType == typeof(ItemNotFoundException))
+                status = HttpStatusCode.NotFound;
+
 
             var apiError = new ApiMessageError() { message = context.Exception.Message };
 

@@ -263,15 +263,18 @@
                 
                 <div data-bind="visible: Results().length > 0">
                 Search Results:<br />
-                <div class="thumbnails" data-bind="foreach: Results">
+                <div id="searchResults" class="thumbnails" data-bind="foreach: Results">
 
-
-                      <div class="wrapper">  
-                        <img data-bind="attr: { src: ImageUrl, title: Title }" src="../../Content/albums/41A-jqYmLiL.jpg" />  
-                        <div class="description">  
-                            <p class="description_content"><strong data-bind="text: Title">The Matrix</strong> (2000)</p>  
-                        </div>
-                    </div>  
+                    <div class="thumbnail_container">
+                        <div class="wrapper" data-bind="click: $parent.SelectResult">   
+                            <img data-bind="attr: { src: ImageUrl, title: Title }" src="../../Content/albums/41A-jqYmLiL.jpg" />  
+                            <div class="description">  
+                            <p class="description_content"><strong data-bind="text: Title">The Matrix</strong></p>  
+                            </div>  
+                        </div>  
+                        <span class="list_details"><strong data-bind="text: Title">The Matrix</strong></span>
+                        <span class="list_details right" data-bind="text: Title">Keanu Reeves, Laurence Fishburne, Carrie-anne Moss, et al.</span>
+                    </div>
 
                         @*<span><img data-bind="attr: { src: ImageUrl, title: Title }, click: $parent.SelectResult, css: { picked: Selected }" /></span>*@
 
@@ -284,7 +287,7 @@
                 <div style="padding: 12px 20px 12px 20px;">
                     
                 <div style="float: right;">
-                <img title="Save Selected Item(s)" class="action huge" src="../../Content/icons/white/save.png" />
+                <img data-bind="click: SaveSelectedItems" title="Save Selected Item(s)" class="action huge" src="../../Content/icons/white/save.png" />
                 <br />Save selected item(s)
                 </div>
 

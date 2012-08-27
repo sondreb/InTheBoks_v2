@@ -16,7 +16,11 @@ namespace InTheBoks
         {
 
         }
+
+        
     }
 
+    public class ItemNotFoundException : Exception
+    { }
 
 }

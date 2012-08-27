@@ -15,6 +15,8 @@
 
         public DbSet<Catalog> Catalogs { get; set; }
 
+        public DbSet<Item> Items { get; set; }
+
         public DbSet<Log> Logs { get; set; }
 
         public DbSet<Job> Jobs { get; set; }
@@ -34,6 +36,12 @@
                 .Property(f => f.Timestamp)
                 .HasColumnType("datetime2")
                 .HasPrecision(4);
+
+            // Remove the cascade delete or else we won't be able to build the model from our code.
+            modelBuilder.Entity<Item>()
+            .HasRequired(i => i.User)
+            .WithMany()
+            .WillCascadeOnDelete(false);
 
 
             //modelBuilder.Entity<User>().Property(p => p.FacebookId).IsRequired();
