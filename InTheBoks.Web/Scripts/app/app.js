@@ -455,36 +455,32 @@ function ToggleFriends() {
 
 function ResizeContent() {
 
-    var logoHeight = $("#header").height();
-
-    var headerheight = $("#header").outerHeight() + $("#toolbar").height() + 20;
-
-    var footerheight = $("#footer").height();
+    var logoHeight = $("#header").outerHeight();
+    var headerheight = $("#header").outerHeight() + $("#toolbar").outerHeight();
     var friendswidth = $("#friends").width();
     var sidebarwidth = $("#left-sidebar").width();
 
-    console.log($("#header").outerHeight());
+    console.log("logoHeight: " + logoHeight);
 
-    var windowheight = $(window).height();
-    var height = windowheight - (headerheight + footerheight);
+    var windowheight = $(window).outerHeight();
+    var height = windowheight - headerheight;
 
-    $(".stretch").height(windowheight - (headerheight + footerheight));
+    $(".stretch").height(windowheight - headerheight);
 
-    $(".stretchFull").height(windowheight - (headerheight + footerheight));
-
-
-
+    $(".stretchFull").height(windowheight - headerheight);
 
     $("#main-content").width($(window).width() - (sidebarwidth + friendswidth));
 
-    var friendlistheight = $(".friendlist").height();
+    var friendlistheight = $("#friendlist").outerHeight();
 
-    $("#friendfeed").height(windowheight - friendlistheight - (headerheight + footerheight));
+    //console.log("friendlistheight: " + friendlistheight);
 
-    var searchTasksHeight = $("#searchTasks").height();
-    var searchheight = $("#search").height();
+    $("#friendfeed").height(windowheight - headerheight - friendlistheight);
 
-    $("#searchContent").height(windowheight - (logoHeight + footerheight + searchTasksHeight));
+    var searchTasksHeight = $("#searchTasks").outerHeight();
+    var searchheight = $("#search").outerHeight();
+
+    $("#searchContent").height(windowheight - (logoHeight + searchTasksHeight));
 
 }
 
@@ -522,7 +518,12 @@ function ChangeState(state) {
             HideIntroduction();
 
             // Hide the loading indicator for auth status.
-            $("#logo").animate({ padding: "0px" }, 200);
+            $("#logo").animate({ padding: "0px" }, 200, function () {
+
+                // Resize the content for the new state to ensure everything is up-to-speed.
+                // It's important that we do this after the animation.
+                ResizeContent();
+            });
 
             $("body").addClass("bodybg");
 
@@ -547,6 +548,7 @@ function ChangeState(state) {
 
             break;
     }
+
 }
 
 

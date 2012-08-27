@@ -96,7 +96,7 @@
 *@
 
 
-        <div id="toolbar" class="authenticated content" style="width: 100%;">
+        <div id="toolbar" class="authenticated content">
 
 
             &nbsp;
@@ -150,7 +150,7 @@
         <div id="left-sidebar" class="stretch">
 
             
-            <div style="margin-top: 10px;">
+            <div>
                 <ul class="catalogsList" data-bind="foreach: Catalogs">
                     <li class="button" data-bind="click: $parent.SelectCatalog, css: { selected: $data == $root.SelectedCatalog() }">
                         <span data-bind="text: Name"></span>
@@ -188,13 +188,9 @@
 
         <div id="main-content" class="stretch">
 
-
-            
             <div class="margin">
                 @RenderBody()
             </div>
-
-
 
         </div>
        
@@ -305,13 +301,6 @@
                     </div>
             </div>
         </div>
-
-        <footer id="footer" class="authenticated">
-           @* <div>
-           Status:
-            <div id="log"></div>
-                </div>*@
-        </footer>
 
         <div id="notificationDialog" style="
             background-color: white;
