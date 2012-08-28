@@ -21,13 +21,17 @@
         private static Logger _log = LogManager.GetCurrentClassLogger();
 
         private readonly IItemRepository _itemRepository;
+        private readonly ICatalogRepository _catalogRepository;
         private readonly ICommandBus _commandBus;
 
-        public ItemsController(IItemRepository itemRepository, ICommandBus commandBus)
+        public ItemsController(IItemRepository itemRepository, ICatalogRepository catalogRepository, ICommandBus commandBus)
         {
             _itemRepository = itemRepository;
+            _catalogRepository = catalogRepository;
             _commandBus = commandBus;
         }
+
+
 
         // UPDATE
         public Item Put(int id, [FromBody]Item item)
@@ -57,10 +61,8 @@
                     _log.Error("User is trying to access item that does not exists. User ID: " + user.Id + " Item ID: " + item.Id);
                 }
 
-                throw new ItemNotFoundException();
+                throw new ItemNotFoundException("Item does not exists.");
             }
-
-
 
             return item;  
         }
@@ -76,6 +78,15 @@
                 throw new InvalidOperationException("Post should be used for new items. Use the Put method for updates.");
             }
 
+            // Verify if the user actually owns the specified catalog.
+            var catalogExists = _catalogRepository.Query().Where(c => c.User_Id == user.Id && c.Id == item.Catalog_Id).Any();
+
+            if (!catalogExists)
+            {
+                _log.Fatal("Someone is trying to insert item on invalid catalog, perhaps another user's. User ID: " + user.Id + " Catalog ID: " + item.Catalog_Id);
+                throw new ItemNotFoundException("Catalog does not exists.");
+            }
+
             item.User_Id = user.Id;
 
             CreateOrUpdateItemCommand cmd = new CreateOrUpdateItemCommand(item);
@@ -89,6 +100,14 @@
             {
                 throw new ApplicationException("Unable to save item");
             }
+        }
+
+        // GET
+        public IEnumerable<Item> Get(long id)
+        {
+            var user = (FacebookIdentity)User.Identity;
+            var query = _itemRepository.Query().Where(c => c.User_Id == user.Id && c.Catalog_Id == id);
+            return query.ToList();
         }
     }
 }

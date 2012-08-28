@@ -575,8 +575,12 @@ var mainViewModel = function () {
     self.SelectedAction = ko.observable("Edit Catalog");
 
     self.SelectCatalog = function (catalog) {
+
         self.SelectedCatalog(catalog);
         self.SelectedObject(catalog);
+
+        self.LoadItems(catalog.Id);
+
     }
 
     self.SaveCatalog = function () {
@@ -647,7 +651,7 @@ var mainViewModel = function () {
 
             var json = JSON.stringify(item);
 
-            alert(json);
+            //alert(json);
 
             $.ajax("/api/Items", {
                 data: json,
@@ -693,9 +697,9 @@ var mainViewModel = function () {
         });
     }
 
-    self.LoadItems = function () {
+    self.LoadItems = function (catalogId) {
         $.ajax({
-            url: "/Api/Items",
+            url: "/Api/Items/" + catalogId,
             type: "GET",
             dataType: "json",
             beforeSend: function (xhr) {

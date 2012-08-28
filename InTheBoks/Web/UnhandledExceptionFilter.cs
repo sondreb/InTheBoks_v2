@@ -28,13 +28,13 @@ namespace InTheBoks.Web
             else if (exType == typeof(ItemNotFoundException))
                 status = HttpStatusCode.NotFound;
 
-
             var apiError = new ApiMessageError() { message = context.Exception.Message };
 
             // create a new response and attach our ApiError object
             // which now gets returned on ANY exception result
             var errorResponse = context.Request.CreateResponse<ApiMessageError>(status, apiError);
             context.Response = errorResponse;
+            errorResponse.ReasonPhrase = context.Exception.Message;
 
             base.OnException(context);
         }

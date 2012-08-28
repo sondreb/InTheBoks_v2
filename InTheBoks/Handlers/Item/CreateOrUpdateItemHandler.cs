@@ -4,6 +4,7 @@
     using InTheBoks.Commands;
     using InTheBoks.Data.Infrastructure;
     using InTheBoks.Data.Repositories;
+    using InTheBoks.Dispatcher;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -13,11 +14,13 @@
     {
         private readonly IItemRepository _itemRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ICommandBus _commandBus;
 
-        public CreateOrUpdateItemHandler(IItemRepository itemRepository, IUnitOfWork unitOfWork)
+        public CreateOrUpdateItemHandler(IItemRepository itemRepository, IUnitOfWork unitOfWork, ICommandBus commandBus)
         {
             _itemRepository = itemRepository;
             _unitOfWork = unitOfWork;
+            _commandBus = commandBus;
         }
 
         public ICommandResult Execute(CreateOrUpdateItemCommand command)
@@ -42,6 +45,10 @@
             }
 
             _unitOfWork.Commit();
+
+            // Recalculate the total amount of items in the catalog.
+            ItemsModifiedCommand modifiedcmd = new ItemsModifiedCommand() { CatalogId = item.Catalog_Id };
+            _commandBus.Submit(modifiedcmd);
 
             return new CommandResult(true);
         }

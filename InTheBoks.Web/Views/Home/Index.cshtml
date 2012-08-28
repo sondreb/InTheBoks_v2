@@ -3,98 +3,21 @@
 @{
     ViewBag.Title = "InTheBoks.com - Organize Your Stuff";
 }
-<div class="thumbnails">
 
-    <div data-bind="foreach: Items">
-        <span><img data-bind="attr: { src: ImageUrl, title: Title }, click: $parent.SelectItem" /></span>
-    </div>
-    
+<div class="thumbnails" data-bind="foreach: Items">
 
-
-
-    <script>
-        //function ShowDescription(source)
-        //{
-        //    console.log(source);
-        //    $(source).children(".description").fadeIn(300);
-        //}
-
-        //function HideDescription(source) {
-        //    console.log(source);
-        //    $(source).children(".description").fadeOut(100);
-        //}
-    </script>
 
     <div class="thumbnail_container">
-        <div class="wrapper">  
-        
-            <img src="../../Content/albums/41A-jqYmLiL.jpg" />  
+        <div class="wrapper" data-bind="click: $parent.SelectItem">   
+            <img data-bind="attr: { src: ImageUrl, title: Title }" src="../../Content/albums/41A-jqYmLiL.jpg" />  
             <div class="description">  
-                <p class="description_content"><strong>The Matrix</strong> (2000)</p>  
-            </div>
-            
-        </div>
-        
-        <span class="list_details"><strong>The Matrix</strong></span>
-        <span class="list_details right">Keanu Reeves, Laurence Fishburne, Carrie-anne Moss, et al.</span>
-        
+            <p class="description_content"><strong data-bind="text: Title"></strong></p>  
+            </div>  
+        </div>  
+        <span class="list_details"><strong data-bind="text: Title"></strong></span>
+        <span class="list_details right" data-bind="text: Title"></span>
     </div>
 
-    <div class="thumbnail_container">
-    <div class="wrapper">   
-        <img src="../../Content/albums/41A-jqYmLiL.jpg" />  
-        <div class="description">  
-            <p class="description_content"><strong>The Matrix</strong> (2000) - bla, bla, bla.</p>  
-        </div>  
-
-    </div>  
-
-        <span class="list_details"><strong>The Matrix</strong></span>
-         <span class="list_details right">Keanu Reeves, Laurence Fishburne, Carrie-anne Moss, et al.</span>
-        
-
-        </div>
-
-
-    <div class="thumbnail_container">
-        <div class="wrapper">   
-        <img src="../../Content/albums/41A-jqYmLiL.jpg" />  
-        <div class="description">  
-            <p class="description_content"><strong>The Matrix</strong> (2000) - bla, bla, bla.</p>  
-        </div>  
-
-    </div>  
-        <span class="list_details"><strong>The Matrix</strong></span>
-                <span class="list_details right">Keanu Reeves, Laurence Fishburne, Carrie-anne Moss, et al.</span>
-        
-        </div>
-
-
-    <div class="thumbnail_container">
-        <div class="wrapper">   
-        <img src="../../Content/albums/41A-jqYmLiL.jpg" />  
-        <div class="description">  
-            <p class="description_content"><strong>The Matrix</strong> (2000) - bla, bla, bla.</p>  
-        </div>  
-    </div>  
-        </div>
-
-    <div class="thumbnail_container">
-        <div class="wrapper">   
-        <img src="../../Content/albums/41A-jqYmLiL.jpg" />  
-        <div class="description">  
-            <p class="description_content"><strong>The Matrix</strong> (2000) - bla, bla, bla.</p>  
-        </div>  
-    </div>  
-        </div>
-
-@*    <span><img src="../../Content/albums/41A-jqYmLiL.jpg" /></span>
-    <span><img src="../../Content/albums/516ZF6YQKAL.jpg" /></span><span><img class="selectedImage" src="../../Content/albums/518UVI8xp8L.jpg" /></span>
-    <span><img src="../../Content/albums/51BtHBW4gQL.jpg" /></span>
-    <span><img src="../../Content/albums/51MP8TKAFVL.jpg" /></span><span><img src="../../Content/albums/51PpJAOkqLL.jpg" /></span><span><img src="../../Content/albums/51SSmALB9nL.jpg" /></span>
-    <span><img src="../../Content/albums/51VfE5rU9OL.jpg" /></span>
-    <span><img src="../../Content/albums/51vhtc7Lj0L.jpg" /></span>*@
-       
 </div>
 @section scripts
 {
