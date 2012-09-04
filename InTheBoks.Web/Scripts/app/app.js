@@ -565,7 +565,9 @@ var mainViewModel = function () {
     self.Items = ko.observableArray();
     self.Results = ko.observableArray();
     self.SelectedResults = ko.observableArray();
-    self.SelectedItem = ko.observable();
+    self.SelectedItems = ko.observableArray();
+
+    //self.SelectedItem = ko.observable();
     self.SelectedCatalog = ko.observable();
     self.SearchForItem = ko.observable(false);
     self.SearchTerm = ko.observable();
@@ -630,14 +632,51 @@ var mainViewModel = function () {
 
     self.SelectItem = function (item) {
 
-        item.Selected = true;
-        self.SelectedItem(item);
+        if (item.Selected()) {
+            self.SelectedItems.remove(item);
+            item.Selected(false);
+        }
+        else {
+            self.SelectedItems.push(item);
+            item.Selected(true);
+        }
     }
 
     self.AddItem = function () {
         self.SearchForItem(true);
         ToggleSearch();
         //self.Search();
+    }
+
+    self.DeleteItems = function () {
+        
+        var array = self.SelectedItems();
+
+        for (i = 0; i < array.length; i++) {
+
+            var item = array[i];
+            var json = JSON.stringify(item);
+
+            $.ajax("/api/Items", {
+                data: json,
+                type: "delete",
+                contentType: "application/json",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("AccessToken", facebookAccessToken);
+                    xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
+                },
+                done: function (result, textStatus, jqXHR) {
+
+                    self.SelectedItems.remove(item);
+                    self.Items.remove(item);
+
+                }, error: function (jqXHR, textStatus, errorThrown) {
+
+
+                }
+            });
+        }
+
     }
 
     self.SaveSelectedItems = function ()
@@ -712,7 +751,9 @@ var mainViewModel = function () {
             console.log(data);
 
             for (i = 0; i < data.length; i++) {
-                self.Items.push(data[i]);
+                var item = data[i];
+                item.Selected = ko.observable(false);
+                self.Items.push(item);
             }
 
         });

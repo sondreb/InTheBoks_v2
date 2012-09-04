@@ -5,10 +5,6 @@
     using InTheBoks.Data.Infrastructure;
     using InTheBoks.Data.Repositories;
     using InTheBoks.Dispatcher;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public class CreateOrUpdateItemHandler : ICommandHandler<CreateOrUpdateItemCommand>
     {

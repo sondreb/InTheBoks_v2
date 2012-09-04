@@ -109,5 +109,26 @@
             var query = _itemRepository.Query().Where(c => c.User_Id == user.Id && c.Catalog_Id == id);
             return query.ToList();
         }
+
+        public void Delete(Item item)
+        {
+            var user = (FacebookIdentity)User.Identity;
+
+            var dbItem = _itemRepository.GetById(item.Id);
+
+            if (dbItem == null)
+            {
+                throw new ItemNotFoundException("Item does not exists.");
+            }
+
+            if (dbItem.User_Id != user.Id)
+            {
+                _log.Warn("Someone is potentially trying to delete another users item. User ID: " + user.Id);
+                throw new ItemNotFoundException("Item does not exists.");
+            }
+
+            // Submit a delete operation to any handlers.
+            _commandBus.Submit(new DeleteItemCommand(dbItem.Id));
+        }
     }
 }

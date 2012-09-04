@@ -98,6 +98,7 @@
     <Compile Include="AppConfig.cs" />
     <Compile Include="Commands\Catalog\CreateOrUpdateCatalogCommand.cs" />
     <Compile Include="Commands\Catalog\DeleteCatalogCommand.cs" />
+    <Compile Include="Commands\Item\DeleteItemCommand.cs" />
     <Compile Include="Commands\Item\ItemsModifiedCommand.cs" />
     <Compile Include="Commands\Item\CreateOrUpdateItemCommand.cs" />
     <Compile Include="Command\CommandHandlerNotFoundException.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Dispatcher\ICommandBus.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Exceptions.cs" />
+    <Compile Include="Handlers\Item\DeleteItemHandler.cs" />
     <Compile Include="Handlers\Item\ItemsModifiedHandler.cs" />
     <Compile Include="Handlers\Item\CreateOrUpdateItemHandler.cs" />
     <Compile Include="JobManager.cs" />
