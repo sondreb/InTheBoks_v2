@@ -22,6 +22,11 @@
     @Styles.Render("~/Content/themes/ui-darkness/css", "~/Content/css")
 
     @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/app")
+
 </head>
 <body>
 
@@ -421,8 +426,16 @@ width: 450px;">
 
     <div class="introduction_container">
 
-    <div id="introduction" class="introduction box">
-        <h1>Introduction</h1>
+    <div id="introduction" class="introduction" style="padding-bottom: 0px; padding-top: 0px;">
+
+        <img src="~/Content/intheboks_banner.png" />
+
+    </div>
+
+        <div class="introduction banner">
+
+                    <img src="/Content/transformers_cover.png" style="float: right; margin-left: 20px;" width="250" />
+        <h1>Organize Your Stuff!</h1>
         <p>Music, Movies, Books, Games, Software and more. 
             </p>
 
@@ -431,12 +444,12 @@ width: 450px;">
             <li>Remember what you borrow or rent</li>
             <li>Share your list items with friends and family</li>
             <li>Keep a wish-list of items</li>
-
         </ul>
 
-Register everything you own of the above items and everything you'd want to own. Boks helps you remember and you can search your catalogs from anywhere, making sure you don't purchace multiple copies. You can register which items you are borrowing or renting from your friends, making it easier to remember to return them. 
+<p>Register everything you own of the above items and everything you'd want to own. Boks helps you remember and you can search your catalogs from anywhere, making sure you don't purchace multiple copies. You can register which items you are borrowing or renting from your friends, making it easier to remember to return them. </p>
 
-    </div>
+
+        </div>
 
         <div class="introduction box">
             <h1>What is it?</h1>
@@ -456,8 +469,28 @@ Boks runs within your browser and stores all the information in the online cloud
 
         </p>
     </div>
+
+
     <div class="introduction box">
-        <h1>Open Source</h1>
+        <h1>It's free of charge!</h1>
+        <p>
+            We will try our best to keep InTheBoks a free service. The service is hosted on servers which cost money for use and traffic; we therefore have the need to display advertisements on the web site to cover some of the charges. If you want to support us, please click on any of our banners or links within the app when you make a purchase on Amazon.com.
+            </p>
+        <p>
+Donations are another way to support us, please click the button below to give a donation through PayPal.com. We appreciate immensely any support we receive.
+
+
+
+        </p>
+        <p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=10337833" target="_blank">
+        <img alt="Donate to InTheBoks!" src="/Content/donate.gif" /></a></p>
+    </div>
+
+
+
+
+    <div class="introduction box">
+        <h1>It's really, really free!</h1>
         <p>
          For your own safety and your enjoyment, the
             source code for this system is available.
@@ -472,6 +505,14 @@ Boks runs within your browser and stores all the information in the online cloud
 
         </p>
     </div>
+
+        <div class="introduction box">
+
+            <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FInTheBoks&amp;width=280&amp;height=480&amp;colorscheme=light&amp;show_faces=true&amp;border_color&amp;stream=false&amp;header=false&amp;appId=122645277750670" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:280px; height:480px;" allowTransparency="true"></iframe>
+
+        </div>
+
+
     <div class="introduction" style="clear: both;">
 
         <a href="/">Home</a> // 
@@ -483,9 +524,7 @@ Boks runs within your browser and stores all the information in the online cloud
     </div>
         </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryui")
-    @Scripts.Render("~/bundles/app")
+
     
     <script>
         $(function () {

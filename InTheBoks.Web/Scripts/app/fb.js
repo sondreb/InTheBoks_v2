@@ -3,8 +3,15 @@ var facebookAccessTokenExpiresIn = null;
 
 window.fbAsyncInit = function () {
 
+    var fbAppId = "407544339296631";
+
+    if (document.URL.indexOf("localhost") > -1)
+    {
+        fbAppId = "122645277750670";
+    }
+
     FB.init({
-        appId: '122645277750670', /* (122645277750670:localhost:7474)  (407544339296631:preview.intheboks.com) */
+        appId: fbAppId, /* (122645277750670:localhost:7474)  (407544339296631:preview.intheboks.com) */
         status: true, // check login status
         cookie: false, // enable cookies to allow the server to access the session
         xfbml: false,  // parse XFBML

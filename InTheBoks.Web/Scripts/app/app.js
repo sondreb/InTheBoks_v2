@@ -4,6 +4,8 @@ var State = { "Initializing": 0, "Authenticated": 1, "Anonymous": 2 };
 // Onload event handler
 $(function () {
 
+    console.log("OnLoad...");
+
     document.getElementById('auth-loginlink').addEventListener('click', function () {
         FB.login(function (response) { console.log(response); }, { scope: 'email,user_about_me,friends_about_me' });
     });
@@ -498,7 +500,7 @@ function DisplayIntroduction() {
     $("#gradient_transparent").show();
 
     //$(body).css("overflow", "scroll");
-    document.getElementById("gradient_transparent").scrollIntoView(true);
+    document.getElementById("introduction").scrollIntoView(true);
 }
 
 function HideIntroduction() {

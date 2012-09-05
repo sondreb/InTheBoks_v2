@@ -155,6 +155,7 @@ header {
     height: 48px;
 }
 
+
 .thumbnails {
 }
 
@@ -472,7 +473,7 @@ a {
 
 
 #gradient_transparent {
-    height: 100px;
+    height: 50px;
 }
 
 .gradient {
@@ -596,6 +597,19 @@ a {
         max-width: 280px;
         min-width: 150px;
     }
+    
+    .banner
+    {
+        background-color: Black; 
+        left: 0px; 
+        right: 0px;
+        height: 280px;
+        background-image: url('/Content/frontpage_background.png');
+        color: White;
+        border-bottom:1px solid black;
+    }
+
+    
 
 
 .welcome-box {
@@ -717,6 +731,18 @@ li {
 ul {
     margin: 0;
     padding: 0;
+}
+
+.introduction li {
+    list-style-type: square;
+    margin: 0;
+    padding: 0;
+}
+
+.introduction ul {
+    margin: 0;
+    padding: 0;
+    padding-left: 20px;
 }
 
 button, input[type='submit'] {
