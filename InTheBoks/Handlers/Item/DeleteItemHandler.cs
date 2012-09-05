@@ -22,10 +22,16 @@
         public ICommandResult Execute(DeleteItemCommand command)
         {
             // When we arrive here, the permission control on the item should already have been performed.
-            
+
             var item = _itemRepository.GetById(command.Id);
+            var catalogId = item.Catalog_Id;
+
             _itemRepository.Delete(item);
             _unitOfWork.Commit();
+
+            // Recalculate the total amount of items in the catalog.
+            ItemsModifiedCommand modifiedcmd = new ItemsModifiedCommand() { CatalogId = catalogId };
+            _commandBus.Submit(modifiedcmd);
 
             return new CommandResult(true);
         }

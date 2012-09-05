@@ -131,6 +131,15 @@
             <param name="errorType">Type of the error.</param>
             <param name="errorCode">Code of the error.</param>
         </member>
+        <member name="M:Facebook.FacebookApiException.#ctor(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Facebook.FacebookApiException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="errorType">Type of the error.</param>
+            <param name="errorCode">Code of the error.</param>
+            <param name="errorSubcode">Subcode of the error.</param>
+        </member>
         <member name="M:Facebook.FacebookApiException.#ctor(System.String,System.Exception)">
             <summary>
             Initializes a new instance of the <see cref="T:Facebook.FacebookApiException"/> class.
@@ -149,6 +158,12 @@
             Gets or sets the code of the error.
             </summary>
             <value>The code of the error.</value>
+        </member>
+        <member name="P:Facebook.FacebookApiException.ErrorSubcode">
+            <summary>
+            Gets or sets the error subcode.
+            </summary>
+            <value>The code of the error subcode.</value>
         </member>
         <member name="T:Facebook.FacebookBatchParameter">
             <summary>
@@ -395,19 +410,7 @@
             <param name="userState">The user state.</param>
             <returns>The json result.</returns>
         </member>
-        <member name="M:Facebook.FacebookClient.ApiTaskAsync(Facebook.HttpMethod,System.String,System.Object,System.Type,System.Object,System.Threading.CancellationToken,System.IProgress{Facebook.FacebookUploadProgressChangedEventArgs})">
-            <returns>The task of json result with headers.</returns>
-        </member>
         <member name="M:Facebook.FacebookClient.ApiTaskAsync(Facebook.HttpMethod,System.String,System.Object,System.Type,System.Object,System.Threading.CancellationToken)">
-            <summary>
-            Makes an asynchronous request to the Facebook server.
-            </summary>
-            <param name="httpMethod">Http method. (GET/POST/DELETE)</param>
-            <param name="path">The resource path or the resource url.</param>
-            <param name="parameters">The parameters</param>
-            <param name="resultType">The type of deserialize object into.</param>
-            <param name="userState">The user state.</param>
-            <param name="cancellationToken">The cancellation token.</param>
             <returns>The task of json result with headers.</returns>
         </member>
         <member name="M:Facebook.FacebookClient.GetTaskAsync(System.String)">
@@ -475,9 +478,6 @@
             <param name="cancellationToken">The cancellation token.</param>
             <returns>The json result task.</returns>
         </member>
-        <member name="M:Facebook.FacebookClient.PostTaskAsync(System.String,System.Object,System.Object,System.Threading.CancellationToken,System.IProgress{Facebook.FacebookUploadProgressChangedEventArgs})">
-            <returns>The json result task.</returns>
-        </member>
         <member name="M:Facebook.FacebookClient.DeleteTaskAsync(System.String)">
             <summary>
             Makes an asynchronous DELETE request to the Facebook server.
@@ -526,7 +526,7 @@
             The json result task.
             </returns>
         </member>
-        <member name="M:Facebook.FacebookClient.BatchTaskAsync(Facebook.FacebookBatchParameter[],System.Object,System.Threading.CancellationToken,System.IProgress{Facebook.FacebookUploadProgressChangedEventArgs})">
+        <member name="M:Facebook.FacebookClient.BatchTaskAsync(Facebook.FacebookBatchParameter[],System.Object,System.Threading.CancellationToken)">
             <summary>
             Makes an asynchronous batch request to the Facebook server.
             </summary>
@@ -543,7 +543,7 @@
             The json result task.
             </returns>
         </member>
-        <member name="M:Facebook.FacebookClient.BatchTaskAsync(Facebook.FacebookBatchParameter[],System.Object,System.Object,System.Threading.CancellationToken,System.IProgress{Facebook.FacebookUploadProgressChangedEventArgs})">
+        <member name="M:Facebook.FacebookClient.BatchTaskAsync(Facebook.FacebookBatchParameter[],System.Object,System.Object,System.Threading.CancellationToken)">
             <summary>
             Makes an asynchronous batch request to the Facebook server.
             </summary>
@@ -561,6 +561,67 @@
             </param>
             <returns>
             The json result task.
+            </returns>
+        </member>
+        <member name="M:Facebook.FacebookClient.TryParseSignedRequest(System.String,System.String,System.Object@)">
+            <summary>
+            Tries parsing the facebook signed_request.
+            </summary>
+            <param name="appSecret">The app secret.</param>
+            <param name="signedRequestValue">The signed_request value.</param>
+            <param name="signedRequest">The parsed signed request.</param>
+            <returns>True if signed request parsed successfully otherwise false.</returns>
+        </member>
+        <member name="M:Facebook.FacebookClient.TryParseSignedRequest(System.String,System.Object@)">
+            <summary>
+            Tries parsing the facebook signed_request.
+            </summary>
+            <param name="signedRequestValue">The signed_request value.</param>
+            <param name="signedRequest">The parsed signed request.</param>
+            <returns>True if signed request parsed successfully otherwise false.</returns>
+        </member>
+        <member name="M:Facebook.FacebookClient.ParseSignedRequest(System.String,System.String)">
+            <summary>
+            Parse the facebook signed_request.
+            </summary>
+            <param name="appSecret">The appsecret.</param>
+            <param name="signedRequestValue">The signed_request value.</param>
+            <returns>The parse signed_request value.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws if appSecret or signedRequestValue is null or empty.</exception>
+            <exception cref="T:System.InvalidOperationException">If the signedRequestValue is an invalid signed_request.</exception>
+        </member>
+        <member name="M:Facebook.FacebookClient.ParseSignedRequest(System.String)">
+            <summary>
+            Parse the facebook signed_request.
+            </summary>
+            <param name="signedRequestValue">The signed_request value.</param>
+            <returns>The parse signed_request value.</returns>
+            <exception cref="T:System.ArgumentNullException">Throws if appSecret or signedRequestValue is null or empty.</exception>
+            <exception cref="T:System.InvalidOperationException">If the signedRequestValue is an invalid signed_request.</exception>
+        </member>
+        <member name="M:Facebook.FacebookClient.Base64UrlDecode(System.String)">
+            <summary>
+            Base64 Url decode.
+            </summary>
+            <param name="base64UrlSafeString">
+            The base 64 url safe string.
+            </param>
+            <returns>
+            The base 64 url decoded string.
+            </returns>c
+        </member>
+        <member name="M:Facebook.FacebookClient.ComputeHmacSha256Hash(System.Byte[],System.Byte[])">
+            <summary>
+            Computes the Hmac Sha 256 Hash.
+            </summary>
+            <param name="data">
+            The data to hash.
+            </param>
+            <param name="key">
+            The hash key.
+            </param>
+            <returns>
+            The Hmac Sha 256 hash.
             </returns>
         </member>
         <member name="M:Facebook.FacebookClient.TryParseOAuthCallbackUrl(System.Uri,Facebook.FacebookOAuthResult@)">
@@ -773,11 +834,20 @@
         </member>
         <member name="M:Facebook.FacebookOAuthException.#ctor(System.String,System.String,System.Int32)">
             <summary>
-            Initializes a new instance of the <see cref="T:Facebook.FacebookApiException"/> class.
+            Initializes a new instance of the <see cref="T:Facebook.FacebookOAuthException"/> class.
             </summary>
             <param name="message">The message.</param>
             <param name="errorType">Type of the error.</param>
             <param name="errorCode">Code of the error.</param>
+        </member>
+        <member name="M:Facebook.FacebookOAuthException.#ctor(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Facebook.FacebookOAuthException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="errorType">Type of the error.</param>
+            <param name="errorCode">Code of the error.</param>
+            <param name="errorSubcode">Subcode of the error.</param>
         </member>
         <member name="M:Facebook.FacebookOAuthException.#ctor(System.String,System.Exception)">
             <summary>
@@ -1084,6 +1154,26 @@
             Gets or sets the http headers.
             </summary>
         </member>
+        <member name="P:Facebook.HttpWebRequestWrapper.AllowAutoRedirect">
+            <summary>
+            Gets or sets a value that indicates whether the request should follow redirection responses.
+            </summary>
+        </member>
+        <member name="P:Facebook.HttpWebRequestWrapper.ContentLength">
+            <summary>
+            Gets or sets the content length.
+            </summary>
+        </member>
+        <member name="P:Facebook.HttpWebRequestWrapper.AllowWriteStreamBuffering">
+            <summary>
+            True to enable buffering of the data sent to the Internet resource; false to disable buffering. The default is true.
+            </summary>
+        </member>
+        <member name="P:Facebook.HttpWebRequestWrapper.UserAgent">
+            <summary>
+            Gets or sets the user agent.
+            </summary>
+        </member>
         <member name="P:Facebook.HttpWebRequestWrapper.CookieContainer">
             <summary>
             Gets or sets the cookie container.
@@ -1102,11 +1192,6 @@
         <member name="P:Facebook.HttpWebRequestWrapper.Accept">
             <summary>
             Gets or sets the accept.
-            </summary>
-        </member>
-        <member name="P:Facebook.HttpWebRequestWrapper.Proxy">
-            <summary>
-            Gets or sets the proxy.
             </summary>
         </member>
         <member name="P:Facebook.HttpWebRequestWrapper.IsCancelled">

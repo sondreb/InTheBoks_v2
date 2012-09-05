@@ -719,10 +719,11 @@ ul {
     padding: 0;
 }
 
-button {
+button, input[type='submit'] {
     font-size: 1.2em;
     padding: 7px 12px 7px 12px;
 }
+
 
 .settings {
     width: 100%;

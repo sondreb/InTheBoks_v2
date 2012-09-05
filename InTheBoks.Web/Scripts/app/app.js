@@ -182,16 +182,19 @@ $(function () {
     });
 
 
-    $("#slider").slider({
-        value: 128,
-        min: 32,
-        max: 256,
-        step: 32,
-        slide: function (event, ui) {
-            thumbnailSize = ui.value;
-            ThumbnailRender();
-        }
-    });
+    if (jQuery.ui) {
+        // UI loaded
+        $("#slider").slider({
+            value: 128,
+            min: 32,
+            max: 256,
+            step: 32,
+            slide: function (event, ui) {
+                thumbnailSize = ui.value;
+                ThumbnailRender();
+            }
+        });
+    }
 
 });
 
@@ -362,6 +365,7 @@ function ToggleSettings() {
 }
 
 function ToggleSearch() {
+
     if ($('#search').is(':visible')) {
 
         $(".search").hide();
@@ -571,6 +575,7 @@ var mainViewModel = function () {
     self.SelectedCatalog = ko.observable();
     self.SearchForItem = ko.observable(false);
     self.SearchTerm = ko.observable();
+    self.SaveStatusText = ko.observable();
 
     self.SelectedObject = ko.observable();
 
@@ -645,7 +650,8 @@ var mainViewModel = function () {
     self.AddItem = function () {
         self.SearchForItem(true);
         ToggleSearch();
-        //self.Search();
+
+        self.SaveStatusText("");
     }
 
     self.DeleteItems = function () {
@@ -655,29 +661,39 @@ var mainViewModel = function () {
         for (i = 0; i < array.length; i++) {
 
             var item = array[i];
-            var json = JSON.stringify(item);
+            //var json = JSON.stringify(item);
 
-            $.ajax("/api/Items", {
-                data: json,
-                type: "delete",
-                contentType: "application/json",
+            $.ajax({
+                url: "/Api/Items/" + item.Id,
+                type: "DELETE",
+                dataType: "json",
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("AccessToken", facebookAccessToken);
                     xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
-                },
-                done: function (result, textStatus, jqXHR) {
-
-                    self.SelectedItems.remove(item);
-                    self.Items.remove(item);
-
-                }, error: function (jqXHR, textStatus, errorThrown) {
-
-
                 }
+            }).done(function () {
+
+                self.SelectedItems.remove(item);
+                self.Items.remove(item);
+
             });
         }
-
     }
+
+    self.onRemove = function (item)
+    {
+        //console.log(item);
+
+        //if ($(item).length > 0)
+        //{
+        //    $(item).fadeOut();
+        //}
+
+        //
+        //console.log(item);
+    }
+
+
 
     self.SaveSelectedItems = function ()
     {
@@ -687,29 +703,65 @@ var mainViewModel = function () {
 
             var item = array[i];
             item.Catalog_Id = self.SelectedCatalog().Id;
-
             var json = JSON.stringify(item);
 
-            //alert(json);
-
-            $.ajax("/api/Items", {
+            $.ajax({
+                url: "/api/Items",
                 data: json,
                 type: "post",
                 contentType: "application/json",
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("AccessToken", facebookAccessToken);
                     xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
-                },
-                done: function (result, textStatus, jqXHR) {
-
-                    alert(jqXHR.statusText);
-
-                }, error: function (jqXHR, textStatus, errorThrown) {
-
-                    alert(jqXHR.statusText);
-
                 }
-            });
+            }
+                ).done(function (data) {
+
+                    self.SaveStatusText("Saved " + i + " of " + array.length);
+
+                });
+                
+            //,
+            //    done: function (result, textStatus, jqXHR) {
+
+
+            //        alert(jqXHR.statusText);
+
+
+            //    }, error: function (jqXHR, textStatus, errorThrown) {
+
+
+            //        alert(jqXHR.statusText);
+
+
+            //    }
+            //});
+
+
+            //$.ajax({
+            //    url: "/Api/Items/",
+            //    data: json,
+            //    type: "POST",
+            //    dataType: "application/json",
+            //    beforeSend: function (xhr) {
+            //        xhr.setRequestHeader("AccessToken", facebookAccessToken);
+            //        xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
+            //    }
+            //}).done(function (data) {
+
+            //    console.log(data);
+            //    alert("SAVED!");
+
+            //    //self.Items.removeAll();
+            //    //console.log(data);
+
+            //    //for (i = 0; i < data.length; i++) {
+            //    //    var item = data[i];
+            //    //    item.Selected = ko.observable(false);
+            //    //    self.Items.push(item);
+            //    //}
+
+            //});
         }
     }
 

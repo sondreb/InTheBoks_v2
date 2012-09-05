@@ -131,6 +131,15 @@
             <param name="errorType">Type of the error.</param>
             <param name="errorCode">Code of the error.</param>
         </member>
+        <member name="M:Facebook.FacebookApiException.#ctor(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Facebook.FacebookApiException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="errorType">Type of the error.</param>
+            <param name="errorCode">Code of the error.</param>
+            <param name="errorSubcode">Subcode of the error.</param>
+        </member>
         <member name="M:Facebook.FacebookApiException.#ctor(System.String,System.Exception)">
             <summary>
             Initializes a new instance of the <see cref="T:Facebook.FacebookApiException"/> class.
@@ -158,6 +167,12 @@
             Gets or sets the code of the error.
             </summary>
             <value>The code of the error.</value>
+        </member>
+        <member name="P:Facebook.FacebookApiException.ErrorSubcode">
+            <summary>
+            Gets or sets the error subcode.
+            </summary>
+            <value>The code of the error subcode.</value>
         </member>
         <member name="T:Facebook.FacebookBatchParameter">
             <summary>
@@ -771,11 +786,20 @@
         </member>
         <member name="M:Facebook.FacebookOAuthException.#ctor(System.String,System.String,System.Int32)">
             <summary>
-            Initializes a new instance of the <see cref="T:Facebook.FacebookApiException"/> class.
+            Initializes a new instance of the <see cref="T:Facebook.FacebookOAuthException"/> class.
             </summary>
             <param name="message">The message.</param>
             <param name="errorType">Type of the error.</param>
             <param name="errorCode">Code of the error.</param>
+        </member>
+        <member name="M:Facebook.FacebookOAuthException.#ctor(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Facebook.FacebookOAuthException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+            <param name="errorType">Type of the error.</param>
+            <param name="errorCode">Code of the error.</param>
+            <param name="errorSubcode">Subcode of the error.</param>
         </member>
         <member name="M:Facebook.FacebookOAuthException.#ctor(System.String,System.Exception)">
             <summary>

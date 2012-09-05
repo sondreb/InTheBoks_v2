@@ -3,13 +3,13 @@
 @{
     ViewBag.Title = "InTheBoks.com - Organize Your Stuff";
 }
-
-<div class="thumbnails" data-bind="foreach: Items">
+<!--<div class="thumbnails" data-bind="foreach: {data: Items, beforeRemove: onRemove}">-->
+<div class="thumbnails" data-bind="foreach: {data: Items}">
 
 
     <div class="thumbnail_container">
         <div class="wrapper" data-bind="click: $parent.SelectItem">   
-            <img data-bind="attr: { src: ImageUrl, title: Title }" src="../../Content/albums/41A-jqYmLiL.jpg" />  
+            <img data-bind="attr: { src: ImageUrl, title: Title }" />  
             <div class="description">  
             <p class="description_content"><strong data-bind="text: Title"></strong></p>  
             </div>  

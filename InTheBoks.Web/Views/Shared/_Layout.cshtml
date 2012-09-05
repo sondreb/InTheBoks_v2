@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1.0" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <link rel="apple-touch-icon" href="~/Content/intheboks_72.png" />
     <link rel="apple-touch-icon" href="~/Content/intheboks_114.png" sizes="114x114"/>
@@ -256,18 +257,19 @@
 
 
             <h1 data-bind="with: SelectedCatalog">Add New Items to "<span data-bind="text: Name"></span>"</h1>
+                <form data-bind="submit: Search">
                 <p><input type="search" data-bind="value: SearchTerm" style="font-size: 1.6em; padding: 6px;" placeholder="Keyword or Barcode" />
-                    <button data-bind="click: Search">Search</button>
+                    <input type="submit" value="Search" />
                     <button>Scan Barcode with webcam</button>
                 </p>
-                
+                </form>
                 <div data-bind="visible: Results().length > 0">
                 Search Results:<br />
                 <div id="searchResults" class="thumbnails" data-bind="foreach: Results">
 
                     <div class="thumbnail_container">
                         <div class="wrapper" data-bind="click: $parent.SelectResult">   
-                            <img data-bind="attr: { src: ImageUrl, title: Title }" src="../../Content/albums/41A-jqYmLiL.jpg" />  
+                            <img data-bind="attr: { src: ImageUrl, title: Title }" />  
                             <div class="description">  
                             <p class="description_content"><strong data-bind="text: Title">The Matrix</strong></p>  
                             </div>  
@@ -290,6 +292,8 @@
                 <img data-bind="click: SaveSelectedItems" title="Save Selected Item(s)" class="action huge" src="../../Content/icons/white/save.png" />
                 <br />Save selected item(s)
                 </div>
+
+                    <div data-bind="text: SaveStatusText"></div>
 
                 <div style="float: left;">
                 <img src="~/Content/icons/white/cancel.png" class="action huge" /><br />

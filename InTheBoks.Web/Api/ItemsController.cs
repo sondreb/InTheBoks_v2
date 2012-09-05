@@ -110,11 +110,11 @@
             return query.ToList();
         }
 
-        public void Delete(Item item)
+        public void Delete(int id)
         {
             var user = (FacebookIdentity)User.Identity;
 
-            var dbItem = _itemRepository.GetById(item.Id);
+            var dbItem = _itemRepository.GetById(id);
 
             if (dbItem == null)
             {
