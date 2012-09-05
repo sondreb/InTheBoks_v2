@@ -270,6 +270,7 @@
     <Content Include="Content\icons\white\settings.png" />
     <Content Include="Content\icons\white\share.png" />
     <Content Include="Content\icons\white\sort.png" />
+    <Content Include="Content\icons\white\sort_options.png" />
     <Content Include="Content\icons\white\upload.png" />
     <Content Include="Content\icons\white\video.png" />
     <Content Include="Content\intheboks_114.png" />
@@ -347,7 +348,9 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\fb.js" />
+    <None Include="Scripts\jquery-1.8.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.1.js" />
+    <Content Include="Scripts\jquery-1.8.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.23.js" />
     <Content Include="Scripts\jquery-ui-1.8.23.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
