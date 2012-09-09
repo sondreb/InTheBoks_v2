@@ -67,9 +67,72 @@
             }
 
             CreateOrUpdateCatalogCommand cmd = new CreateOrUpdateCatalogCommand(catalog.Id, catalog.Name, user.Id);
-            _commandBus.Submit(cmd);
+            var result = _commandBus.Submit(cmd);
 
-            return catalog;
+            if (result.Success)
+            {
+                catalog.Id = result.Id;
+                return catalog;
+            }
+            else
+            {
+                throw new ApplicationException("Unable to save catalog");
+            }
+        }
+
+        // UPDATE
+        public Item Put(int id, [FromBody]Item item)
+        {
+            var user = (FacebookIdentity)User.Identity;
+
+            if (item.Id == 0)
+            {
+                throw new InvalidOperationException("Put should be used for updating items. Use the Post method for creations.");
+            }
+
+            var dbItem = _catalogRepository.Query().Where(i => i.Id == item.Id && i.User_Id == user.Id);
+
+            if (dbItem == null)
+            {
+                // This probably means someone is trying to update someone elses item. Let's verify so we can log
+                // all attempts to gain illicit access.
+
+                var existsOnAnotherUser = _catalogRepository.Query().Where(i => i.Id == item.Id).Any();
+
+                if (existsOnAnotherUser)
+                {
+                    _log.Fatal("Someone is trying to update another user's catalog. User ID: " + user.Id + " Catalog ID: " + item.Id);
+                }
+                else
+                {
+                    _log.Error("User is trying to access item that does not exists. User ID: " + user.Id + " Catalog ID: " + item.Id);
+                }
+
+                throw new ItemNotFoundException("Catalog does not exists.");
+            }
+
+            return item;
+        }
+
+        public void Delete(long id)
+        {
+            var user = (FacebookIdentity)User.Identity;
+
+            var dbItem = _catalogRepository.GetById(id);
+
+            if (dbItem == null)
+            {
+                throw new ItemNotFoundException("Catalog does not exists.");
+            }
+
+            if (dbItem.User_Id != user.Id)
+            {
+                _log.Warn("Someone is potentially trying to delete another users catalog. User ID: " + user.Id);
+                throw new ItemNotFoundException("Catalog does not exists.");
+            }
+
+            // Submit a delete operation to any handlers.
+            _commandBus.Submit(new DeleteCatalogCommand(dbItem.Id));
         }
     }
 }

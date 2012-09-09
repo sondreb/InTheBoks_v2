@@ -136,6 +136,7 @@
     <Compile Include="Exceptions.cs" />
     <Compile Include="Handlers\Activity\ActivityHandler.cs" />
     <Compile Include="Handlers\Catalog\CreateOrUpdateCatalogHandler.cs" />
+    <Compile Include="Handlers\Catalog\DeleteCatalogHandler.cs" />
     <Compile Include="Handlers\Item\DeleteItemHandler.cs" />
     <Compile Include="Handlers\Item\ItemsModifiedHandler.cs" />
     <Compile Include="Handlers\Item\CreateOrUpdateItemHandler.cs" />

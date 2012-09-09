@@ -27,7 +27,7 @@
         }
 
         // UPDATE
-        public Item Put(int id, [FromBody]Item item)
+        public Item Put(long id, [FromBody]Item item)
         {
             var user = (FacebookIdentity)User.Identity;
 
@@ -87,6 +87,7 @@
 
             if (result.Success)
             {
+                item.Id = result.Id;
                 return item;
             }
             else

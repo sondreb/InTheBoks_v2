@@ -212,7 +212,8 @@ function HideInformationDialog() {
     });
 }
 
-function ShowInformationDialog(title, body, button1, button2) {
+function ShowInformationDialog(title, body, button1, button2, confirm) {
+
     $("#infoDialogTitle").html(title);
     $("#infoDialogBody").html(body);
 
@@ -222,6 +223,8 @@ function ShowInformationDialog(title, body, button1, button2) {
     else {
         $("#infoDialogButton1").show();
         $("#infoDialogButton1").text(button1);
+
+        $("#infoDialogButton1").click(confirm);
     }
 
     if (button2 == null || button2 == "") {
@@ -245,6 +248,9 @@ function ShowInformationDialog(title, body, button1, button2) {
     // Add the mask to body
     $('body').append('<div id="mask"></div>');
     $('#mask').fadeIn(300);
+
+
+
 }
 
 
@@ -612,18 +618,46 @@ var mainViewModel = function () {
         ).done(function (data) {
 
             $("#notificationDialog").fadeIn().delay(2000).fadeOut();
+            self.Catalogs.push(data);
 
         });
     }
 
     self.DeleteCatalog = function () {
-        var documentWidth = $(document).width();
-        var confirmationWidth = $("#confirmationDialog").width();
-        var leftPosition = (documentWidth / 2) - (confirmationWidth / 2);
 
-        $("#confirmationDialog").show();
-        $("#confirmationDialog").css("right", (leftPosition - 50) + "px");
-        $("#confirmationDialog").animate({ opacity: 1, right: leftPosition }, 500);
+        var catalog = self.SelectedCatalog();
+
+        ShowInformationDialog("Confirm Catalog Delete",
+            "Are you sure you want to delete the collection " + catalog.Name + " and all it's items?",
+            "Delete",
+            "Cancel",
+            function () {
+
+                $.ajax({
+                    url: "/Api/Catalogs/" + catalog.Id,
+                    type: "DELETE",
+                    dataType: "json",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("AccessToken", facebookAccessToken);
+                        xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
+                    }
+                }).done(function () {
+
+                    self.Catalogs.remove(catalog);
+                    self.Items.removeAll();
+
+                });
+
+
+            })
+
+        //var documentWidth = $(document).width();
+        //var confirmationWidth = $("#confirmationDialog").width();
+        //var leftPosition = (documentWidth / 2) - (confirmationWidth / 2);
+
+        //$("#confirmationDialog").show();
+        //$("#confirmationDialog").css("right", (leftPosition - 50) + "px");
+        //$("#confirmationDialog").animate({ opacity: 1, right: leftPosition }, 500);
     }
 
     self.CreateCatalog = function () {

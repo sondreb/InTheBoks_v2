@@ -33,22 +33,22 @@
             }
             else
             {
-                var dbItem = _catalogRepository.GetById(command.CatalogId);
+                catalog = _catalogRepository.GetById(command.CatalogId);
 
-                if (dbItem == null)
+                if (catalog == null)
                 {
                     return new CommandResult(false);
                 }
 
                 // TODO: This should be auto-mapped.
-                dbItem.Name = command.Name;
+                catalog.Name = command.Name;
 
-                _catalogRepository.Update(dbItem);
+                _catalogRepository.Update(catalog);
             }
 
             _unitOfWork.Commit();
 
-            return new CommandResult(true);
+            return new CommandResult(true, catalog.Id);
         }
     }
 }
