@@ -1,20 +1,15 @@
 ﻿namespace InTheBoks.Web.Api
 {
-    using InTheBoks.Data.Infrastructure;
+    using InTheBoks.Commands;
     using InTheBoks.Data.Repositories;
+    using InTheBoks.Dispatcher;
     using InTheBoks.Models;
     using InTheBoks.Security;
     using NLog;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Web.Http;
-    using System.Net;
-    using System.Net.Http;
-    using System.Web.Http;
-    using InTheBoks.Commands;
-    using InTheBoks.Dispatcher;
 
     public class ItemsController : ApiController
     {
@@ -30,8 +25,6 @@
             _catalogRepository = catalogRepository;
             _commandBus = commandBus;
         }
-
-
 
         // UPDATE
         public Item Put(int id, [FromBody]Item item)

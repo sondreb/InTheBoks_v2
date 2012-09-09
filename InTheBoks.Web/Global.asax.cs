@@ -1,21 +1,16 @@
-﻿using Facebook;
-using InTheBoks.Data;
-using InTheBoks.Security;
-using NLog;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
-
-namespace InTheBoks.Web
+﻿namespace InTheBoks.Web
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
+    using Facebook;
+    using InTheBoks.Data;
+    using InTheBoks.Security;
+    using NLog;
+    using System;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web.Http;
+    using System.Web.Mvc;
+    using System.Web.Optimization;
+    using System.Web.Routing;
 
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -23,12 +18,12 @@ namespace InTheBoks.Web
 
         protected void Application_Start()
         {
-            GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
+            MvcHandler.DisableMvcResponseHeader = true;
+            GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Never;
 
             Database.SetInitializer<DataContext>(new Initializer());
-
+            
             AreaRegistration.RegisterAllAreas();
-
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             FilterConfig.RegisterHttpFilters(GlobalConfiguration.Configuration.Filters);
@@ -44,8 +39,6 @@ namespace InTheBoks.Web
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
-            //_log.Debug("Application_AuthenticateRequest");
-
             var accessToken = Request.Headers["AccessToken"];
 
             if (string.IsNullOrWhiteSpace(accessToken))

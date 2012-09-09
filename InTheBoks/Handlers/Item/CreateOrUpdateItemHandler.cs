@@ -46,6 +46,9 @@
             ItemsModifiedCommand modifiedcmd = new ItemsModifiedCommand() { CatalogId = item.Catalog_Id };
             _commandBus.Submit(modifiedcmd);
 
+            ActivityCommand activityCmd = new ActivityCommand(item.User_Id, item.Id, "added the movie");
+            _commandBus.Submit(activityCmd);
+
             return new CommandResult(true);
         }
     }

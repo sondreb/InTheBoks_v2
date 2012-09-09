@@ -97,6 +97,7 @@
       <Link>SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="AppConfig.cs" />
+    <Compile Include="Commands\Activity\ActivityCommand.cs" />
     <Compile Include="Commands\Catalog\CreateOrUpdateCatalogCommand.cs" />
     <Compile Include="Commands\Catalog\DeleteCatalogCommand.cs" />
     <Compile Include="Commands\Item\DeleteItemCommand.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Data\Infrastructure\UniqueAttribute.cs" />
     <Compile Include="Data\Infrastructure\UnitOfWork.cs" />
     <Compile Include="Data\Initializer.cs" />
+    <Compile Include="Data\Repositories\ActivityRepository.cs" />
     <Compile Include="Data\Repositories\CatalogRepository.cs" />
     <Compile Include="Data\Repositories\FriendRepository.cs" />
     <Compile Include="Data\Repositories\ItemRepository.cs" />
@@ -132,11 +134,14 @@
     <Compile Include="Dispatcher\ICommandBus.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Exceptions.cs" />
+    <Compile Include="Handlers\Activity\ActivityHandler.cs" />
+    <Compile Include="Handlers\Catalog\CreateOrUpdateCatalogHandler.cs" />
     <Compile Include="Handlers\Item\DeleteItemHandler.cs" />
     <Compile Include="Handlers\Item\ItemsModifiedHandler.cs" />
     <Compile Include="Handlers\Item\CreateOrUpdateItemHandler.cs" />
     <Compile Include="JobManager.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Catalog.cs" />
     <Compile Include="Models\Friend.cs" />
     <Compile Include="Models\Item.cs" />
@@ -153,7 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Commands\User\" />
-    <Folder Include="Handlers\Catalog\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

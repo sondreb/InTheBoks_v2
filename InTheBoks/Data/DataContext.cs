@@ -23,6 +23,8 @@
 
         public DbSet<Friend> Friends { get; set; }
 
+        public DbSet<Activity> Activities { get; set; }
+
         public virtual void Commit()
         {
             base.SaveChanges();
@@ -43,6 +45,10 @@
             .WithMany()
             .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Activity>()
+            .HasRequired(i => i.User)
+            .WithMany()
+            .WillCascadeOnDelete(false);
 
             //modelBuilder.Entity<User>().Property(p => p.FacebookId).IsRequired();
         }
@@ -51,7 +57,7 @@
         {
             protected override void Seed(DataContext context)
             {
-                context.Database.ExecuteSqlCommand("CREATE INDEX IX_User_FacebookId ON User (FacebookId)");
+                //context.Database.ExecuteSqlCommand("CREATE INDEX IX_User_FacebookId ON User (FacebookId)");
 
                 base.Seed(context);
             }

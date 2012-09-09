@@ -593,9 +593,27 @@ var mainViewModel = function () {
     }
 
     self.SaveCatalog = function () {
+
         HideProperties();
 
-        $("#notificationDialog").fadeIn().delay(2000).fadeOut();
+        var catalog = self.SelectedObject();
+        var json = JSON.stringify(catalog);
+
+        $.ajax({
+            url: "/api/Catalogs",
+            data: json,
+            type: "post",
+            contentType: "application/json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("AccessToken", facebookAccessToken);
+                xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
+            }
+        }
+        ).done(function (data) {
+
+            $("#notificationDialog").fadeIn().delay(2000).fadeOut();
+
+        });
     }
 
     self.DeleteCatalog = function () {
@@ -721,49 +739,8 @@ var mainViewModel = function () {
 
                     self.SaveStatusText("Saved " + i + " of " + array.length);
 
-                });
+            });
                 
-            //,
-            //    done: function (result, textStatus, jqXHR) {
-
-
-            //        alert(jqXHR.statusText);
-
-
-            //    }, error: function (jqXHR, textStatus, errorThrown) {
-
-
-            //        alert(jqXHR.statusText);
-
-
-            //    }
-            //});
-
-
-            //$.ajax({
-            //    url: "/Api/Items/",
-            //    data: json,
-            //    type: "POST",
-            //    dataType: "application/json",
-            //    beforeSend: function (xhr) {
-            //        xhr.setRequestHeader("AccessToken", facebookAccessToken);
-            //        xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
-            //    }
-            //}).done(function (data) {
-
-            //    console.log(data);
-            //    alert("SAVED!");
-
-            //    //self.Items.removeAll();
-            //    //console.log(data);
-
-            //    //for (i = 0; i < data.length; i++) {
-            //    //    var item = data[i];
-            //    //    item.Selected = ko.observable(false);
-            //    //    self.Items.push(item);
-            //    //}
-
-            //});
         }
     }
 
