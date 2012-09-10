@@ -73,3 +73,8 @@ License:
 All source, except specified otherwise, are licensed under the MIT license. See License.txt
 All libraries, are licensed as their respective licenses.
 
+
+User Feedback and Support:
+
+Email: tickets@intheboks.uservoice.com
+Web: http://intheboks.uservoice.com/
