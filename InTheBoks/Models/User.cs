@@ -1,6 +1,7 @@
 ﻿using InTheBoks.Data.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
@@ -34,5 +35,17 @@ namespace InTheBoks.Models
         public DateTime? FriendsLastChecked { get; set; }
 
         public DateTime? TokenExpire { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public DateTime Modified { get; set; }
+
+        public bool ShareActivity { get; set; }
+
+        public bool ShareFacebook { get; set; }
+
+        [MaxLength(100)]
+        [DefaultValue("CET")]
+        public string TimeZone { get; set; }
     }
 }

@@ -39,9 +39,9 @@
                 {
                     _log.Debug("Creating Sample Catalogs for User ID: " + user.Id);
 
-                    _catalogRepository.Add(new Catalog() { Name = Text.Movies, User_Id = user.Id });
-                    _catalogRepository.Add(new Catalog() { Name = Text.Albums, User_Id = user.Id });
-                    _catalogRepository.Add(new Catalog() { Name = Text.Books, User_Id = user.Id });
+                    _catalogRepository.Add(new Catalog() { Name = Text.Movies, User_Id = user.Id, Created = DateTime.UtcNow, Modified = DateTime.UtcNow });
+                    _catalogRepository.Add(new Catalog() { Name = Text.Albums, User_Id = user.Id, Created = DateTime.UtcNow, Modified = DateTime.UtcNow });
+                    _catalogRepository.Add(new Catalog() { Name = Text.Books, User_Id = user.Id, Created = DateTime.UtcNow, Modified = DateTime.UtcNow });
 
                     _unitOfWork.Commit();
                 }
@@ -66,7 +66,7 @@
                 throw new InvalidOperationException("Post should be used for new catalogs. Use the Put method for updates.");
             }
 
-            CreateOrUpdateCatalogCommand cmd = new CreateOrUpdateCatalogCommand(catalog.Id, catalog.Name, user.Id);
+            CreateOrUpdateCatalogCommand cmd = new CreateOrUpdateCatalogCommand(catalog.Id, catalog.Name, user.Id, catalog.Visibility);
             var result = _commandBus.Submit(cmd);
 
             if (result.Success)

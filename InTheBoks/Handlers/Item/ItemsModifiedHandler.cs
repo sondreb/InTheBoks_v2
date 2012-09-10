@@ -4,6 +4,7 @@
     using InTheBoks.Commands;
     using InTheBoks.Data.Infrastructure;
     using InTheBoks.Data.Repositories;
+    using System;
     using System.Linq;
 
     public class ItemsModifiedHandler : ICommandHandler<ItemsModifiedCommand>
@@ -29,6 +30,8 @@
             }
 
             catalog.Count = _itemRepository.Query().Where(i => i.Catalog_Id == catalog.Id).Count();
+            catalog.Modified = DateTime.UtcNow;
+
             _catalogRepository.Update(catalog);
             _unitOfWork.Commit();
 

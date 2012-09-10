@@ -9,7 +9,7 @@ namespace InTheBoks.Security
 {
     public class FacebookIdentity : IIdentity
     {
-        public FacebookIdentity(long id, long facebookId, string name, string email, string link, string token)
+        public FacebookIdentity(long id, long facebookId, string name, string email, string link, string token, string language, string timeZone)
         {
             Id = id;
             FacebookId = facebookId;
@@ -17,6 +17,7 @@ namespace InTheBoks.Security
             Email = email;
             Link = link;
             Token = token;
+            Language = language;
         }
 
         public long Id { get; private set; }
@@ -46,5 +47,24 @@ namespace InTheBoks.Security
         }
 
         public string Name { get; private set; }
+
+        public string TimeZone { get; private set; }
+
+        public TimeZoneInfo TimeZoneInfo
+        {
+            get
+            {
+                try
+                {
+                    return TimeZoneInfo.FindSystemTimeZoneById(TimeZone);
+                }
+                catch
+                {
+                    return TimeZoneInfo.FindSystemTimeZoneById("UTC");
+                }
+            }
+        }
+
+        public string Language { get; private set; }
     }
 }

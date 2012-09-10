@@ -25,5 +25,7 @@
 
         [ForeignKey("User")]
         public long User_Id { get; set; }
+
+        public DateTime Created { get; set; }
     }
 }

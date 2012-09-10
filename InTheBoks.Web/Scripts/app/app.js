@@ -460,8 +460,8 @@ function ToggleFriends() {
         // Before we can resize the friends list, we must shrink it so
         // it won't "jump" down below on the page.
         var sidebarwidth = $("#left-sidebar").width();
-        $("#main-content").width($(window).width() - (sidebarwidth + 150));
-        $("#friends").animate({ width: 150 }, 300, function () { ResizeContent(); });
+        $("#main-content").width($(window).width() - (sidebarwidth + 190));
+        $("#friends").animate({ width: 190 }, 300, function () { ResizeContent(); });
 
     } else {
 
@@ -505,8 +505,8 @@ function DisplayIntroduction() {
     $(".introduction_container").show();
     $("#gradient_transparent").show();
 
-    //$(body).css("overflow", "scroll");
-    document.getElementById("introduction").scrollIntoView(true);
+    // Do a smooth animated scroll to the introduction texts. This worked best when performed within a timer.
+    setTimeout(function () { $("html").animate({ scrollTop: $("#introduction").offset().top }, 2000); }, 100);
 }
 
 function HideIntroduction() {
@@ -578,6 +578,27 @@ var mainViewModel = function () {
     self.Results = ko.observableArray();
     self.SelectedResults = ko.observableArray();
     self.SelectedItems = ko.observableArray();
+    self.Activities = ko.observableArray();
+
+    self.User = ko.observable();
+
+    self.LoadUser = function ()
+    {
+        $.ajax({
+            url: "/Api/User",
+            type: "GET",
+            dataType: "json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("AccessToken", facebookAccessToken);
+                xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
+            }
+        }).done(function (data) {
+
+            console.log(data);
+            var item = ko.mapping.fromJS(data);
+            self.User(item);
+        });
+    }
 
     //self.SelectedItem = ko.observable();
     self.SelectedCatalog = ko.observable();
@@ -588,6 +609,60 @@ var mainViewModel = function () {
     self.SelectedObject = ko.observable();
 
     self.SelectedAction = ko.observable("Edit Catalog");
+
+    self.LoadActivities = function ()
+    {
+        //var now = new Date();
+        //var utc = new Date(Date.UTC(
+        //    now.getFullYear(),
+        //    now.getMonth(),
+        //    now.getDate(),
+        //    now.getHours(),
+        //    now.getMinutes()
+        //));
+
+        var now = new Date();
+        //var utc = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+
+        self.LoadActivitiesByTime(now);
+    }
+
+    self.LoadActivitiesByTime = function (date)
+    {
+        var url = "/Api/Activities";
+
+        if (date != null)
+        {
+            var queryDate = date.toISOString();
+            var queryDateEncoded = encodeURIComponent(queryDate);
+            url = url + "/?date=" + queryDateEncoded;
+        }
+
+        $.ajax({
+            url: url,
+            type: "GET",
+            dataType: "json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("AccessToken", facebookAccessToken);
+                xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
+            }
+        }).done(function (data) {
+
+            //self.Activities.removeAll();
+            console.log(data);
+
+            for (i = 0; i < data.length; i++) {
+                var item = data[i];
+
+                item.User.ProfileImageUrl = "https://graph.facebook.com/" + item.User.FacebookId + "/picture";
+
+                self.Activities.push(item);
+            }
+        });
+    }
+
+    // Refresh the activities every minute.
+    setInterval(self.LoadActivities, 60000);
 
     self.SelectCatalog = function (catalog) {
 
@@ -660,10 +735,12 @@ var mainViewModel = function () {
         //$("#confirmationDialog").animate({ opacity: 1, right: leftPosition }, 500);
     }
 
+    
+
     self.CreateCatalog = function () {
         self.SelectedAction("Add Collection");
 
-        var newCatalog = { "Id": -1, "Name": "", "Count": 0 };
+        var newCatalog = { "Id": -1, "Name": "", "Count": 0, "Visibility": "Private" };
         self.SelectedObject(newCatalog);
 
         ToggleProperties("Add Collection", "Add");
@@ -747,8 +824,6 @@ var mainViewModel = function () {
         //console.log(item);
     }
 
-
-
     self.SaveSelectedItems = function ()
     {
         var array = self.SelectedResults();
@@ -797,7 +872,6 @@ var mainViewModel = function () {
                 item.Selected = ko.observable(false);
                 self.Results.push(item);
             }
-
         });
     }
 
@@ -856,7 +930,24 @@ var mainViewModel = function () {
     self.LoadData = function () {
         self.LoadCatalogs();
         self.LoadFriends();
+
+        // Load the current user, these values are used on the settings dialog.
+        self.LoadUser();
+
+        // Do the initial activity loading which will return the top 30 activities.
+        self.LoadActivitiesByTime(null);
+
+        var timeZonesJson = $.parseJSON($("#timezones").html());
+
+        foreach(timezone in timeZonesJson)
+        {
+            self.TIme.push(timezone);
+        }
+
+        //self.TimeZones(timeZonesJson);
     }
+
+    self.TimeZones = ko.observableArray();
 
     self.LoadCatalogs = function () {
         $.ajax({

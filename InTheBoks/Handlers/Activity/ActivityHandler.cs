@@ -24,6 +24,7 @@ using System.Text;
         {
             var activity = new Models.Activity();
 
+            activity.Created = DateTime.UtcNow;
             activity.Item_Id = command.ItemId;
             activity.User_Id = command.UserId;
             activity.StatusText = command.StatusText;

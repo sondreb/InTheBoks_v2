@@ -132,6 +132,7 @@
     <Compile Include="Data\Repositories\UserRepository.cs" />
     <Compile Include="Dispatcher\DefaultCommandBus.cs" />
     <Compile Include="Dispatcher\ICommandBus.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Handlers\Activity\ActivityHandler.cs" />
@@ -155,6 +156,7 @@
     <Compile Include="Security\FacebookPrincipal.cs" />
     <Compile Include="ValidationResult.cs" />
     <Compile Include="Web\ApiMessageError.cs" />
+    <Compile Include="Web\HtmlHelperExtensions.cs" />
     <Compile Include="Web\UnhandledExceptionFilter.cs" />
   </ItemGroup>
   <ItemGroup>

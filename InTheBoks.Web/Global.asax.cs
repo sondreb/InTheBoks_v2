@@ -2,6 +2,7 @@
 {
     using Facebook;
     using InTheBoks.Data;
+    using InTheBoks.Models;
     using InTheBoks.Security;
     using NLog;
     using System;
@@ -54,15 +55,15 @@
             dynamic me = fb.Get("me"); // TODO: Add exception handling for renewing old tokens.
             long facebookUserId = long.Parse(me.id);
 
-            var userId = CreateUserIfNotExists(facebookUserId, me, accessToken, tokenExpireDate);
-            var principal = new FacebookPrincipal(userId, facebookUserId, me.name, me.email, me.link, accessToken);
+            var user = CreateUserIfNotExists(facebookUserId, me, accessToken, tokenExpireDate);
+            var principal = new FacebookPrincipal(user.Id, facebookUserId, me.name, me.email, me.link, accessToken, user.Language, user.TimeZone);
 
             Context.User = principal;
 
             _log.Info("User Logged On: " + facebookUserId);
         }
 
-        private long CreateUserIfNotExists(long id, dynamic me, string token, DateTime expireDate)
+        private User CreateUserIfNotExists(long id, dynamic me, string token, DateTime expireDate)
         {
             using (DataContext db = new DataContext())
             {
@@ -79,6 +80,8 @@
                     dbUser.Link = me.link;
                     dbUser.Token = token;
                     dbUser.TokenExpire = expireDate;
+                    dbUser.ShareActivity = true; // We share activity inside InTheBoks by default.
+                    dbUser.ShareFacebook = false; // We don't share to Facebook by default.
 
                     db.Users.Add(dbUser);
                     db.SaveChanges();
@@ -96,7 +99,7 @@
                     db.SaveChanges();
                 }
 
-                return dbUser.Id;
+                return dbUser;
             }
         }
 

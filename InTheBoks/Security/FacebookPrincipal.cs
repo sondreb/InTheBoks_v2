@@ -8,9 +8,9 @@ namespace InTheBoks.Security
 {
     public class FacebookPrincipal : IPrincipal
     {
-        public FacebookPrincipal(long id, long facebookId, string name, string email, string link, string token)
+        public FacebookPrincipal(long id, long facebookId, string name, string email, string link, string token, string language, string timeZone)
         {
-            Identity = new FacebookIdentity(id, facebookId, name, email, link, token);
+            Identity = new FacebookIdentity(id, facebookId, name, email, link, token, language, timeZone);
         }
 
         public IIdentity Identity { get; private set; }

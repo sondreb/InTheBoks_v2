@@ -304,6 +304,9 @@ p.description_content {
 .stretchFull {
 }
 
+.activity {
+    border-top: 1px solid rgba(68, 68, 68, 0.50);
+}
 
 #content #left-sidebar {
     width: 150px;
@@ -312,15 +315,19 @@ p.description_content {
 }
 
 #content #friends {
-    width: 150px;
+    width: 190px;
     overflow: hidden;
     float: right;
 }
 
 #friendlist, #friendfeed {
-    width: 150px;
+    width: 190px;
     font-size: 0.8em;
     overflow: auto;
+}
+
+#friendfeed {
+    font-size: 0.7em;
 }
 
 .friendFace {
@@ -335,7 +342,7 @@ p.description_content {
 }
 
 #friendlist {
-    border-bottom: 2px solid silver;
+    border-bottom: 1px solid rgba(68, 68, 68, 0.50);;
     height: 100px;
 }
 
@@ -346,6 +353,14 @@ p.description_content {
         white-space: nowrap;
         width: 100%;
     }
+
+        #friendlist div.empty_friend_list {
+        margin-bottom: 10px;
+        overflow: auto;
+        text-overflow: inherit;
+        -o-text-overflow: inherit;
+        white-space: normal;
+}
 
 /*
 #content #right-sidebar {

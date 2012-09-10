@@ -177,18 +177,21 @@
                         </a>
                         </div>
                     </div>
-                    <div data-bind="visible: Friends().length == 0" style="overflow: auto; margin-bottom: 10px;">
+                    <div data-bind="visible: Friends().length == 0" class="empty_friend_list">
                      None of your Facebook friends use InTheBoks. <a href="#">Invite them</a> to tip your friends about our great app!
-                 </div>
+                    </div>
                 </div>
 
                 <div id="friendfeed">
-                    <div><img class="friendFace" src="../../Content/friend.jpg" /> John Doe added "The Matrix"</div>
-                    <div><img class="friendFace" src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
-                    <div><img class="friendFace" src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
-                    <div><img class="friendFace" src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
-                    <div><img class="friendFace" src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
-                    <div><img class="friendFace" src="../../Content/friend.jpg" /> John Doe added "New Years Eve"</div>
+
+                    <div data-bind="foreach: Activities">
+                        <table class="activity">
+                            <tr>
+                                <td><a data-bind="attr: { href: User.Link }" target="_blank"><img class="friendFace" data-bind="attr: { src: User.ProfileImageUrl, title: User.Name }" /></a></td>
+                                <td><a data-bind="attr: { href: User.Link }" target="_blank"><span data-bind="text: User.Name"></span></a> <span data-bind="text: StatusText"></span> <span data-bind="text: Item.Title"></span></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -230,14 +233,17 @@
         @Text.Initializing...
     </div>
     
-        <div id="settings" class="stretchFull settings">
+        <div id="settings" class="stretchFull settings" data-bind="with: User">
             <div>
             <h1>Settings</h1>
 
                 <p>
                     Privacy:<br />
-                   <input type="checkbox" checked id="shareActivity" />
-                    <label for="shareActivity">Share my activity on InTheBoks Social</label>
+                    <input type="checkbox" data-bind="checked: ShareActivity" id="shareActivity" />
+                    <label for="shareActivity">Share my activity on InTheBoks with my friends</label>
+                    <br />
+                    <input type="checkbox" data-bind="checked: ShareFacebook" id="shareFacebookActivity" />
+                    <label for="shareFacebookActivity">Share my activity on Facebook</label>
                 </p>
                 <p>
                     Language:<br />
@@ -245,6 +251,11 @@
                         <option>Auto-detect</option>
                         <option>English</option>
                         <option>Norwegian</option>
+                    </select>
+                </p>
+                <p>
+                    TimeZone:<br />
+                    <select data-bind="options: $parent.TimeZones">
                     </select>
                 </p>
                 <p>
@@ -509,11 +520,14 @@ Donations are another way to support us, please click the button below to give a
     </div>
 
         <div class="introduction box">
-
             <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FInTheBoks&amp;width=280&amp;height=480&amp;colorscheme=light&amp;show_faces=true&amp;border_color&amp;stream=false&amp;header=false&amp;appId=122645277750670" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:280px; height:480px;" allowTransparency="true"></iframe>
-
         </div>
 
+        <div class="introduction box">
+            <h1>
+            Are you ready to get started? <a href="#">Go back up again</a> and connect using Facebook!
+                </h1>
+        </div>
 
     <div class="introduction" style="clear: both;">
 
@@ -526,8 +540,6 @@ Donations are another way to support us, please click the button below to give a
     </div>
         </div>
 
-
-    
     <script>
         $(function () {
             // Define the resources on a global level. We should do this before
@@ -551,7 +563,44 @@ Donations are another way to support us, please click the button below to give a
         @Html.Raw(Resource.RenderJson())
     </script>
 
+    <script id="timezones" type="application/json">
+        {
+            @{
+                var timeZones = TimeZoneInfo.GetSystemTimeZones();
+
+                for(int i = 0; i < timeZones.Count; i++)
+                {
+                    var timeZoneInfo = timeZones[i];
+                    var formattedZone = string.Format("\"{0}\":\"{1}\"", timeZoneInfo.Id, timeZoneInfo.DisplayName);
+                    @Html.Raw(formattedZone)
+                    
+                    if (i < timeZones.Count - 1)
+                    {
+                        @Html.Raw(",\r\n");
+                    }
+                }
+                
+                //foreach (TimeZoneInfo timeZoneInfo in timeZones)
+                //{
+                    
+                    
+                //}
+            }
+        }
+    </script>
+
     @RenderSection("scripts", required: false)
+
+
+    <script type="text/javascript">
+        var uvOptions = {};
+        (function () {
+            var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+            uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/MKisethw9DPdryCjBZGwxA.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+        })();
+    </script>
+
 
 </body>
 </html>

@@ -6,6 +6,7 @@
     using InTheBoks.Data.Repositories;
     using InTheBoks.Dispatcher;
     using InTheBoks.Models;
+    using System;
 
     public class CreateOrUpdateCatalogHandler : ICommandHandler<CreateOrUpdateCatalogCommand>
     {
@@ -27,8 +28,11 @@
             if (command.CatalogId == -1) // TODO: Figure out why -1?!
             {
                 catalog = new Catalog();
+                catalog.Created = DateTime.UtcNow;
+                catalog.Modified = DateTime.UtcNow;
                 catalog.Name = command.Name;
                 catalog.User_Id = command.UserId;
+                catalog.Visibility = command.Visibility;
                 _catalogRepository.Add(catalog);
             }
             else
@@ -42,6 +46,7 @@
 
                 // TODO: This should be auto-mapped.
                 catalog.Name = command.Name;
+                catalog.Modified = DateTime.UtcNow;
 
                 _catalogRepository.Update(catalog);
             }

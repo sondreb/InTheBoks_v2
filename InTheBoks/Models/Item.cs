@@ -32,5 +32,9 @@ namespace InTheBoks.Models
 
         [ForeignKey("Catalog")]
         public long Catalog_Id { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public DateTime Modified { get; set; }
     }
 }

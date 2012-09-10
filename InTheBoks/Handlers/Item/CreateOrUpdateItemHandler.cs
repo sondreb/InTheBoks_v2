@@ -5,6 +5,7 @@
     using InTheBoks.Data.Infrastructure;
     using InTheBoks.Data.Repositories;
     using InTheBoks.Dispatcher;
+    using System;
 
     public class CreateOrUpdateItemHandler : ICommandHandler<CreateOrUpdateItemCommand>
     {
@@ -25,6 +26,9 @@
 
             if (item.Id == 0)
             {
+                item.Created = DateTime.Now;
+                item.Modified = DateTime.Now;
+
                 _itemRepository.Add(item);
             }
             else
