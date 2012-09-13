@@ -59,6 +59,21 @@
             {
                 //context.Database.ExecuteSqlCommand("CREATE INDEX IX_User_FacebookId ON User (FacebookId)");
 
+                var friend1 = new User();
+                var friend2 = new User();
+                var friend3 = new User();
+
+                friend1.FacebookId = 6212354;
+                friend1.Name = "Joel";
+
+                friend2.FacebookId = 57904077;
+                friend2.Name = "Ed";
+
+                context.Users.Add(friend1);
+                context.Users.Add(friend2);
+
+                context.SaveChanges();
+
                 base.Seed(context);
             }
 
