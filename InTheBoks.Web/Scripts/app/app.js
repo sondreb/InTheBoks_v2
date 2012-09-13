@@ -4,9 +4,6 @@ var State = { "Initializing": 0, "Authenticated": 1, "Anonymous": 2 };
 // Onload event handler
 $(function () {
 
-
-    
-
     console.log("OnLoad...");
 
     document.getElementById('auth-loginlink').addEventListener('click', function () {
@@ -214,10 +211,14 @@ $(function () {
 
 function VerifyFacebookAccess()
 {
-    if (FB.getLoginStatus() == null) {
-        alert("It appears your network is blocking Facebook. To use InTheBoks, you need access to Facebook. Please contact your administrator.");
-        ChangeState(State.Anonymous);
-    }
+    // TODO: Find the proper implementation to verify if Facebook has loaded or not.
+    // The verification should handle two scenarios: www.facebook.com blocked and not connect.facebook.com,
+    // and the scenario of both URLs unavailable.
+
+    //if (FB.getLoginStatus() == null) {
+    //    alert("It appears your network is blocking Facebook. To use InTheBoks, you need access to Facebook. Please contact your administrator.");
+    //    ChangeState(State.Anonymous);
+    //}
 }
 
 function HideConfirmationDialog() {
