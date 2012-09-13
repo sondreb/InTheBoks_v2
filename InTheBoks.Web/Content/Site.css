@@ -100,6 +100,11 @@ header {
     clear: both;
 }
 
+.backToTop {
+    font-size: 1.2em;
+    padding-left: 50px;
+}
+
 #listOptions {
     position: absolute;
     color: black;

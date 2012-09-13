@@ -4,6 +4,9 @@ var State = { "Initializing": 0, "Authenticated": 1, "Anonymous": 2 };
 // Onload event handler
 $(function () {
 
+
+    
+
     console.log("OnLoad...");
 
     document.getElementById('auth-loginlink').addEventListener('click', function () {
@@ -198,7 +201,24 @@ $(function () {
         });
     }
 
+    setTimeout(function () {
+
+        // Some corporations block Facebook URLs, 
+        // try to inform the user about potential issues if not authenticated within a certain time.
+
+        VerifyFacebookAccess();
+
+    }, 5000);
+
 });
+
+function VerifyFacebookAccess()
+{
+    if (FB.getLoginStatus() == null) {
+        alert("It appears your network is blocking Facebook. To use InTheBoks, you need access to Facebook. Please contact your administrator.");
+        ChangeState(State.Anonymous);
+    }
+}
 
 function HideConfirmationDialog() {
     $("#confirmationDialog").animate({ opacity: 0 }, 500, function () {
