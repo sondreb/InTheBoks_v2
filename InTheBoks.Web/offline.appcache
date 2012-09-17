@@ -1,0 +1,18 @@
+CACHE MANIFEST
+# 2012-09-18 V1.0
+
+CACHE:
+Content/themes/ui-darkness/jquery-ui.css
+Content/site.css
+Content/bg.png
+Content/intheboks_banner.png
+Content/frontpage_background.png
+Content/intheboks_logo_light.png
+Content/splash_1080.jpg
+
+Scripts/modernizr-2.6.2.js
+
+NETWORK:
+*
+
+FALLBACK:

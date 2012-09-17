@@ -1,7 +1,7 @@
 ﻿@using InTheBoks.Resources
 
 <!DOCTYPE html>
-<html>
+<html manifest="offline.appcache">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -139,12 +139,12 @@
                     </div>
             </div>
 
-            <img src="~/Content/icons/white/sort.png" onclick="ChangeListType(2);" title="List View" class="action" style="float: right; margin-right: 8px;" />
-            <img src="~/Content/icons/white/listview1.png" onclick="ChangeListType(1);" class="action" style="float: right; margin-right: 8px;" title="Thumbnails" />
+            <img src="~/Content/icons/white/sort.png" onclick="ChangeListType(2);" title="List View" class="action wide" style="float: right; margin-right: 8px;" />
+            <img src="~/Content/icons/white/listview1.png" onclick="ChangeListType(1);" class="action wide" style="float: right; margin-right: 8px;" title="Thumbnails" />
             
             @*<input type="range" id="thumbnailSize" onchange="ThumbnailRender();" min="32" max="256" value="128" step="8" style="float: right; margin-right: 8px;" />*@
 
-            <div id="slider" class="wide" style="width: 200px; margin-top: 10px; margin-right: 20px;" title="Thumbnail Size"></div>
+            <div id="slider" class="wide" title="Thumbnail Size"></div>
             
 
         </div>
@@ -247,19 +247,16 @@
                 </p>
                 <p>
                     Language:<br />
-                    <select>
-                        <option>Auto-detect</option>
-                        <option>English</option>
-                        <option>Norwegian</option>
+                    <select data-bind="options: $parent.Languages, optionsValue: 'key', optionsText: 'value', value: Language">
                     </select>
                 </p>
                 <p>
                     TimeZone:<br />
-                    <select data-bind="options: $parent.TimeZones">
+                    <select data-bind="options: $parent.TimeZones, optionsValue: 'key', optionsText: 'value', value: TimeZone">
                     </select>
                 </p>
                 <p>
-                    <img onclick="ToggleSettings();" class="action big" title="Save" src="../../Content/icons/white/save.png" />
+                    <img data-bind="click: $parent.SaveSettings" class="action big" title="Save" src="../../Content/icons/white/save.png" />
                     &nbsp;<img onclick="ToggleSettings();" class="action big" title="Cancel" src="../../Content/icons/white/cancel.png" />
                 </p>
             </div>
@@ -568,29 +565,23 @@ Donations are another way to support us, please click the button below to give a
     </script>
 
     <script id="timezones" type="application/json">
-        {
+        { "options":[
             @{
                 var timeZones = TimeZoneInfo.GetSystemTimeZones();
 
                 for(int i = 0; i < timeZones.Count; i++)
                 {
                     var timeZoneInfo = timeZones[i];
-                    var formattedZone = string.Format("\"{0}\":\"{1}\"", timeZoneInfo.Id, timeZoneInfo.DisplayName);
-                    @Html.Raw(formattedZone)
+                    var formattedZone = string.Format("\"key\":\"{0}\", \"value\":\"{1}\"", timeZoneInfo.Id, timeZoneInfo.DisplayName);
+                    @Html.Raw("{" + formattedZone + "}")
                     
                     if (i < timeZones.Count - 1)
                     {
                         @Html.Raw(",\r\n");
                     }
                 }
-                
-                //foreach (TimeZoneInfo timeZoneInfo in timeZones)
-                //{
-                    
-                    
-                //}
             }
-        }
+        ]}
     </script>
 
     @RenderSection("scripts", required: false)

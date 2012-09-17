@@ -732,6 +732,12 @@ a {
     background-color: #4e7b9e;
 }*/
 
+#slider {
+    width: 200px;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
 .selected {
     background-color: rgba(220, 220, 220, 0);
     color: #CC8B3F;

@@ -30,7 +30,8 @@ $(function () {
         var errorMessage = "Error";
 
         if (request.responseText && request.responseText[0] == "{") {
-            errorMessage = JSON.parse(request.responseText).message;
+            // TODO: Figure out why the property is capitalized (Message), when it's not like this in the domain model.
+            errorMessage = $.parseJSON(request.responseText).Message;
         }
 
         //ShowInformationDialog("There was a problem", request.statusText + " (" + request.status + "): " + errorMessage, "Close", "");
@@ -206,6 +207,71 @@ $(function () {
         VerifyFacebookAccess();
 
     }, 5000);
+
+
+    if (window.applicationCache) {
+
+        //applicationCache.addEventListener('updateready', function () {
+        //    if (confirm('An update is available. Reload now?')) {
+        //        window.location.reload();
+        //    }
+        //});
+
+        window.applicationCache.addEventListener('updateready', function (e) {
+            if (window.applicationCache.status == window.applicationCache.UPDATEREADY) {
+                // Browser downloaded a new app cache.
+                // Swap it in and reload the page to get the new hotness.
+                window.applicationCache.swapCache();
+                if (confirm('A new version of this site is available. Load it?')) {
+                    window.location.reload();
+                }
+            } else {
+                // Manifest didn't changed. Nothing new to server.
+            }
+        }, false);
+
+
+
+        function handleCacheEvent(e) {
+            
+            console.log(e);
+
+        }
+
+        function handleCacheError(e) {
+            console.log(e);
+            alert('Error: Cache failed to update!' + e);
+        };
+
+        var appCache = window.applicationCache;
+
+        // Fired after the first cache of the manifest.
+        appCache.addEventListener('cached', handleCacheEvent, false);
+
+        // Checking for an update. Always the first event fired in the sequence.
+        appCache.addEventListener('checking', handleCacheEvent, false);
+
+        // An update was found. The browser is fetching resources.
+        appCache.addEventListener('downloading', handleCacheEvent, false);
+
+        // The manifest returns 404 or 410, the download failed,
+        // or the manifest changed while the download was in progress.
+        appCache.addEventListener('error', handleCacheError, false);
+
+        // Fired after the first download of the manifest.
+        appCache.addEventListener('noupdate', handleCacheEvent, false);
+
+        // Fired if the manifest file returns a 404 or 410.
+        // This results in the application cache being deleted.
+        appCache.addEventListener('obsolete', handleCacheEvent, false);
+
+        // Fired for each resource listed in the manifest as it is being fetched.
+        appCache.addEventListener('progress', handleCacheEvent, false);
+
+        // Fired when the manifest resources have been newly redownloaded.
+        appCache.addEventListener('updateready', handleCacheEvent, false);
+
+    }
 
 });
 
@@ -621,6 +687,12 @@ var mainViewModel = function () {
         });
     }
 
+    self.Languages = ko.observableArray([
+    { key: "auto", value: "Auto-detect" },
+    { key: "en-US", value: "English" },
+    { key: "nb-NO", value: "Norwegian" }
+    ]);
+
     //self.SelectedItem = ko.observable();
     self.SelectedCatalog = ko.observable();
     self.SearchForItem = ko.observable(false);
@@ -650,6 +722,8 @@ var mainViewModel = function () {
 
     self.LoadActivitiesByTime = function (date)
     {
+        // TODO: Change this to use WebSockets: http://msdn.microsoft.com/en-us/library/ie/hh673567(v=vs.85).aspx
+
         var url = "/Api/Activities";
 
         if (date != null)
@@ -692,6 +766,31 @@ var mainViewModel = function () {
 
         self.LoadItems(catalog.Id);
 
+    }
+
+    self.SaveSettings = function () {
+
+        //var catalog = self.SelectedObject();
+        var user = ko.toJSON(self.User());
+        //var json = JSON.stringify(user);
+
+        $.ajax({
+            url: "/api/User",
+            data: user,
+            type: "put",
+            contentType: "application/json",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("AccessToken", facebookAccessToken);
+                xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
+            }
+        }
+        ).done(function (data) {
+
+            ToggleSettings();
+            //$("#notificationDialog").fadeIn().delay(2000).fadeOut();
+            //self.Catalogs.push(data);
+
+        });
     }
 
     self.SaveCatalog = function () {
@@ -949,6 +1048,7 @@ var mainViewModel = function () {
     }
 
     self.LoadData = function () {
+
         self.LoadCatalogs();
         self.LoadFriends();
 
@@ -959,11 +1059,12 @@ var mainViewModel = function () {
         self.LoadActivitiesByTime(null);
 
         var timeZonesJson = $.parseJSON($("#timezones").html());
+        self.TimeZones(timeZonesJson.options);
 
-        foreach(timezone in timeZonesJson)
-        {
-            self.TIme.push(timezone);
-        }
+        //for(timezone in timeZonesJson.options)
+        //{
+        //    self.TimeZones.push(timezone);
+        //}
 
         //self.TimeZones(timeZonesJson);
     }

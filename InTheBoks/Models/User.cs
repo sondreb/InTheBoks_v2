@@ -14,7 +14,6 @@ namespace InTheBoks.Models
         public long Id { get; set; }
 
         [Unique]
-        [Required]
         public long FacebookId { get; set; }
 
         [MaxLength(250)]

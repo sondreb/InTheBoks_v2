@@ -103,6 +103,7 @@
     <Compile Include="Commands\Item\DeleteItemCommand.cs" />
     <Compile Include="Commands\Item\ItemsModifiedCommand.cs" />
     <Compile Include="Commands\Item\CreateOrUpdateItemCommand.cs" />
+    <Compile Include="Commands\User\CreateOrUpdateUserCommand.cs" />
     <Compile Include="Command\CommandHandlerNotFoundException.cs" />
     <Compile Include="Command\CommandResult.cs" />
     <Compile Include="Command\CommandResults.cs" />
@@ -138,6 +139,8 @@
     <Compile Include="Handlers\Activity\ActivityHandler.cs" />
     <Compile Include="Handlers\Catalog\CreateOrUpdateCatalogHandler.cs" />
     <Compile Include="Handlers\Catalog\DeleteCatalogHandler.cs" />
+    <Compile Include="Handlers\User\CreateOrUpdateUserHandler.cs" />
+    <Compile Include="Web\AppCacheHandler.cs" />
     <Compile Include="Handlers\Item\DeleteItemHandler.cs" />
     <Compile Include="Handlers\Item\ItemsModifiedHandler.cs" />
     <Compile Include="Handlers\Item\CreateOrUpdateItemHandler.cs" />
@@ -160,7 +163,7 @@
     <Compile Include="Web\UnhandledExceptionFilter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\User\" />
+    <Folder Include="Handlers\Http\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
