@@ -227,9 +227,19 @@
         @*@Html.Raw(Text.AnonymousWelcomeText)*@
     </div>
 
+<div id="updateNotification">
+    <h1>Update Available</h1>
+    <p>
+    A new version of InTheBoks is available. InTheBoks relies on offline caching mechanism, making the
+    web app available even if you are not connected to the network. 
+        </p>
+    <p>Do you want to load new version now?</p>
+    <button onclick="AcceptUpdateNotification();">Update Now</button>
+    <button onclick="CancelUpdateNotification();">Cancel</button>
+</div>
 
-    <div class="initializing welcome-box">
-        <p>&nbsp;</p>
+
+    <div class="initializing welcome-box" id="initializingBox">
         @Text.Initializing...
     </div>
     

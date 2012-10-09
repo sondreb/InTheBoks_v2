@@ -222,9 +222,14 @@ $(function () {
                 // Browser downloaded a new app cache.
                 // Swap it in and reload the page to get the new hotness.
                 window.applicationCache.swapCache();
-                if (confirm('A new version of this site is available. Load it?')) {
-                    window.location.reload();
-                }
+
+                ShowUpdateNotification();
+                
+               // if (confirm('A new version of this site is available. Load it?')) {
+               //     window.location.reload();
+               // }
+
+
             } else {
                 // Manifest didn't changed. Nothing new to server.
             }
@@ -275,6 +280,21 @@ $(function () {
 
 });
 
+function ShowUpdateNotification()
+{
+    $("#updateNotification").show();
+}
+
+function CancelUpdateNotification()
+{
+    $("#updateNotification").hide();
+}
+
+function AcceptUpdateNotification()
+{
+    window.location.reload();
+}
+
 function VerifyFacebookAccess()
 {
     // TODO: Find the proper implementation to verify if Facebook has loaded or not.
@@ -285,6 +305,10 @@ function VerifyFacebookAccess()
     //    alert("It appears your network is blocking Facebook. To use InTheBoks, you need access to Facebook. Please contact your administrator.");
     //    ChangeState(State.Anonymous);
     //}
+
+    if ($("#initializingBox").is(':visible')) {
+        $("#initializingBox").html("... it appears things are not working properly. Please try to <a href='/'>reload</a> the page...");
+    }
 }
 
 function HideConfirmationDialog() {

@@ -1,9 +1,9 @@
 CACHE MANIFEST
-# 2012-09-18 V1.0
+# 2012-10-09 V1.0.4
 
 CACHE:
 Content/themes/ui-darkness/jquery-ui.css
-Content/site.css
+# Content/site.css
 Content/bg.png
 Content/intheboks_banner.png
 Content/frontpage_background.png
