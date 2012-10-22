@@ -10,9 +10,29 @@ namespace InTheBoks.Data
     {
         public void InitializeDatabase(DataContext context)
         {
-            if (System.Diagnostics.Debugger.IsAttached && context.Database.Exists() && !context.Database.CompatibleWithModel(false))
+            if (System.Diagnostics.Debugger.IsAttached && context.Database.Exists())
             {
-                context.Database.Delete();
+
+                try
+                {
+                    // This require to open connection and can potentially fail whenever there is an issue.
+                    var isCompatible = context.Database.CompatibleWithModel(false);
+
+                    if (!isCompatible)
+                    {
+                        context.Database.Delete();
+                    }
+                }
+                catch (System.Data.EntityException ex)
+                {
+                    // Verify if the connection open failed and delete anyway.
+                    // This will obviously fail if the culture is not english on the host machine.
+                    // TODO: Figure out a way to get some kind of error ID from this exception.
+                    if (ex.Message == "The underlying provider failed on Open.")
+                    {
+                        //context.Database.Delete();
+                    }
+                }
             }
 
             if (!context.Database.Exists())
