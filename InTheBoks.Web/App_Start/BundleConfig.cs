@@ -30,7 +30,7 @@
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/app.css"));
 
             bundles.Add(new StyleBundle("~/Content/themes/ui-darkness/css").Include(
             "~/Content/themes/ui-darkness/jquery-ui.css"));

@@ -6,7 +6,6 @@ Development Tools:
 - Resources: http://www.zeta-resource-editor.com/
 - Code Maid: http://www.codemaid.net/
 
-
 InTheBoks\Commands\
 - Within here all the commands are added. They are all in the same namespace. Organize all commands in folders.
 
