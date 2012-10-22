@@ -17,27 +17,6 @@
     {
         private static Logger _log = LogManager.GetCurrentClassLogger();
 
-        protected void Application_Start()
-        {
-            MvcHandler.DisableMvcResponseHeader = true;
-            GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Never;
-
-            Database.SetInitializer<DataContext>(new Initializer());
-            
-            AreaRegistration.RegisterAllAreas();
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            FilterConfig.RegisterHttpFilters(GlobalConfiguration.Configuration.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
-            ContainerConfig.RegisterContainer(GlobalConfiguration.Configuration);
-        }
-
-        protected void Application_BeginRequest(object sender, EventArgs e)
-        {
-            //_log.Debug("BeginRequest: " + Request.Url.ToString());
-        }
-
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
             var accessToken = Request.Headers["AccessToken"];
@@ -63,6 +42,30 @@
             _log.Info("User Logged On: " + facebookUserId);
         }
 
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            //_log.Debug("BeginRequest: " + Request.Url.ToString());
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            Exception ex = Server.GetLastError();
+            _log.ErrorException("Global Application Error", ex);
+        }
+
+        protected void Application_Start()
+        {
+            MvcHandler.DisableMvcResponseHeader = true;
+            GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Never;
+            AreaRegistration.RegisterAllAreas();
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            FilterConfig.RegisterHttpFilters(GlobalConfiguration.Configuration.Filters);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            ContainerConfig.RegisterContainer(GlobalConfiguration.Configuration);
+        }
+
         private User CreateUserIfNotExists(long id, dynamic me, string token, DateTime expireDate)
         {
             using (DataContext db = new DataContext())
@@ -74,6 +77,7 @@
                     _log.Info("Creating User: " + id + " - " + me.name);
 
                     dbUser = new Models.User();
+                    dbUser.Created = DateTime.UtcNow;
                     dbUser.FacebookId = id;
                     dbUser.Name = me.name;
                     dbUser.Email = me.email;
@@ -101,12 +105,6 @@
 
                 return dbUser;
             }
-        }
-
-        protected void Application_Error(object sender, EventArgs e)
-        {
-            Exception ex = Server.GetLastError();
-            _log.ErrorException("Global Application Error", ex);
         }
     }
 }

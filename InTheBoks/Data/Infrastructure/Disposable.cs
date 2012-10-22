@@ -1,9 +1,6 @@
 ﻿namespace InTheBoks.Data.Infrastructure
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public class Disposable : IDisposable
     {
@@ -19,6 +16,11 @@
             Dispose(true);
             GC.SuppressFinalize(this);
         }
+
+        protected virtual void DisposeCore()
+        {
+        }
+
         private void Dispose(bool disposing)
         {
             if (!isDisposed && disposing)
@@ -27,10 +29,6 @@
             }
 
             isDisposed = true;
-        }
-
-        protected virtual void DisposeCore()
-        {
         }
     }
 }

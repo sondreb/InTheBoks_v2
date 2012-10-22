@@ -6,18 +6,13 @@
     using InTheBoks.Models;
     using InTheBoks.Security;
     using NLog;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Http;
     using System.Web.Http;
 
     public class UserController : ApiController
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
-        private readonly IUserRepository _userRepository;
         private readonly ICommandBus _commandBus;
+        private readonly IUserRepository _userRepository;
 
         public UserController(IUserRepository userRepository, ICommandBus commandBus)
         {

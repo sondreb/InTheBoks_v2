@@ -1,14 +1,14 @@
 ﻿/**********************************************************************************************
  * Copyright 2009 Amazon.com, Inc. or its affiliates. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file 
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file
  * except in compliance with the License. A copy of the License is located at
  *
  *       http://aws.amazon.com/apache2.0/
  *
  * or in the "LICENSE.txt" file accompanying this file. This file is distributed on an "AS IS"
  * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under the License. 
+ * License for the specific language governing permissions and limitations under the License.
  *
  * ********************************************************************************************
  *
@@ -21,26 +21,24 @@
 
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using System.Web;
-using System.Security.Cryptography;
 
 namespace InTheBoks.Services
 {
     public class SignedRequestHelper
     {
-        private string endPoint;
+        private const string REQUEST_METHOD = "GET";
+        private const string REQUEST_URI = "/onca/xml";
         private string akid;
+        private string endPoint;
         private byte[] secret;
         private HMAC signer;
-
-        private const string REQUEST_URI = "/onca/xml";
-        private const string REQUEST_METHOD = "GET";
-
         /*
          * Use this constructor to create the object. The AWS credentials are available on
          * http://aws.amazon.com
-         * 
+         *
          * The destination is the service end-point for your application:
          *  US: ecs.amazonaws.com
          *  JP: ecs.amazonaws.jp
@@ -49,6 +47,7 @@ namespace InTheBoks.Services
          *  FR: ecs.amazonaws.fr
          *  CA: ecs.amazonaws.ca
          */
+
         public SignedRequestHelper(string awsAccessKeyId, string awsSecretKey, string destination)
         {
             this.endPoint = destination.ToLower();
@@ -59,10 +58,11 @@ namespace InTheBoks.Services
 
         /*
          * Sign a request in the form of a Dictionary of name-value pairs.
-         * 
+         *
          * This method returns a complete URL to use. Modifying the returned URL
          * in any way invalidates the signature and Amazon will reject the requests.
          */
+
         public string Sign(IDictionary<string, string> request)
         {
             // Use a SortedDictionary to get the parameters in naturual byte order, as
@@ -93,7 +93,7 @@ namespace InTheBoks.Services
             // Compute the signature and convert to Base64.
             byte[] sigBytes = signer.ComputeHash(toSign);
             string signature = Convert.ToBase64String(sigBytes);
-            
+
             // now construct the complete URL and return to caller.
             StringBuilder qsBuilder = new StringBuilder();
             qsBuilder.Append("http://")
@@ -109,10 +109,11 @@ namespace InTheBoks.Services
 
         /*
          * Sign a request in the form of a query string.
-         * 
+         *
          * This method returns a complete URL to use. Modifying the returned URL
          * in any way invalidates the signature and Amazon will reject the requests.
          */
+
         public string Sign(string queryString)
         {
             IDictionary<string, string> request = this.CreateDictionary(queryString);
@@ -122,43 +123,29 @@ namespace InTheBoks.Services
         /*
          * Current time in IS0 8601 format as required by Amazon
          */
-        private string GetTimestamp()
-        {
-            DateTime currentTime = DateTime.UtcNow;
-            string timestamp = currentTime.ToString("yyyy-MM-ddTHH:mm:ssZ");
-            return timestamp;
-        }
 
-        /*
-         * Percent-encode (URL Encode) according to RFC 3986 as required by Amazon.
-         * 
-         * This is necessary because .NET's HttpUtility.UrlEncode does not encode
-         * according to the above standard. Also, .NET returns lower-case encoding
-         * by default and Amazon requires upper-case encoding.
-         */
-        private string PercentEncodeRfc3986(string str)
+        private string ConstructCanonicalQueryString(SortedDictionary<string, string> sortedParamMap)
         {
-            str = HttpUtility.UrlEncode(str, System.Text.Encoding.UTF8);
-            str = str.Replace("'", "%27").Replace("(", "%28").Replace(")", "%29").Replace("*", "%2A").Replace("!", "%21").Replace("%7e", "~").Replace("+", "%20");
+            StringBuilder builder = new StringBuilder();
 
-            StringBuilder sbuilder = new StringBuilder(str);
-            for (int i = 0; i < sbuilder.Length; i++)
+            if (sortedParamMap.Count == 0)
             {
-                if (sbuilder[i] == '%')
-                {
-                    if (Char.IsLetter(sbuilder[i + 1]) || Char.IsLetter(sbuilder[i + 2]))
-                    {
-                        sbuilder[i + 1] = Char.ToUpper(sbuilder[i + 1]);
-                        sbuilder[i + 2] = Char.ToUpper(sbuilder[i + 2]);
-                    }
-                }
+                builder.Append("");
+                return builder.ToString();
             }
-            return sbuilder.ToString();
+
+            foreach (KeyValuePair<string, string> kvp in sortedParamMap)
+            {
+                builder.Append(this.PercentEncodeRfc3986(kvp.Key));
+                builder.Append("=");
+                builder.Append(this.PercentEncodeRfc3986(kvp.Value));
+                builder.Append("&");
+            }
+            string canonicalString = builder.ToString();
+            canonicalString = canonicalString.Substring(0, canonicalString.Length - 1);
+            return canonicalString;
         }
 
-        /*
-         * Convert a query string to corresponding dictionary of name-value pairs.
-         */
         private IDictionary<string, string> CreateDictionary(string queryString)
         {
             Dictionary<string, string> map = new Dictionary<string, string>();
@@ -209,36 +196,54 @@ namespace InTheBoks.Services
             return map;
         }
 
+        private string GetTimestamp()
+        {
+            DateTime currentTime = DateTime.UtcNow;
+            string timestamp = currentTime.ToString("yyyy-MM-ddTHH:mm:ssZ");
+            return timestamp;
+        }
+
+        /*
+         * Percent-encode (URL Encode) according to RFC 3986 as required by Amazon.
+         *
+         * This is necessary because .NET's HttpUtility.UrlEncode does not encode
+         * according to the above standard. Also, .NET returns lower-case encoding
+         * by default and Amazon requires upper-case encoding.
+         */
+
+        private string PercentEncodeRfc3986(string str)
+        {
+            str = HttpUtility.UrlEncode(str, System.Text.Encoding.UTF8);
+            str = str.Replace("'", "%27").Replace("(", "%28").Replace(")", "%29").Replace("*", "%2A").Replace("!", "%21").Replace("%7e", "~").Replace("+", "%20");
+
+            StringBuilder sbuilder = new StringBuilder(str);
+            for (int i = 0; i < sbuilder.Length; i++)
+            {
+                if (sbuilder[i] == '%')
+                {
+                    if (Char.IsLetter(sbuilder[i + 1]) || Char.IsLetter(sbuilder[i + 2]))
+                    {
+                        sbuilder[i + 1] = Char.ToUpper(sbuilder[i + 1]);
+                        sbuilder[i + 2] = Char.ToUpper(sbuilder[i + 2]);
+                    }
+                }
+            }
+            return sbuilder.ToString();
+        }
+
+        /*
+         * Convert a query string to corresponding dictionary of name-value pairs.
+         */
         /*
          * Consttuct the canonical query string from the sorted parameter map.
          */
-        private string ConstructCanonicalQueryString(SortedDictionary<string, string> sortedParamMap)
-        {
-            StringBuilder builder = new StringBuilder();
-
-            if (sortedParamMap.Count == 0)
-            {
-                builder.Append("");
-                return builder.ToString();
-            }
-
-            foreach (KeyValuePair<string, string> kvp in sortedParamMap)
-            {
-                builder.Append(this.PercentEncodeRfc3986(kvp.Key));
-                builder.Append("=");
-                builder.Append(this.PercentEncodeRfc3986(kvp.Value));
-                builder.Append("&");
-            }
-            string canonicalString = builder.ToString();
-            canonicalString = canonicalString.Substring(0, canonicalString.Length - 1);
-            return canonicalString;
-        }
     }
 
     /*
      * To help the SortedDictionary order the name-value pairs in the correct way.
-     */     
-    class ParamComparer : IComparer<string>
+     */
+
+    internal class ParamComparer : IComparer<string>
     {
         public int Compare(string p1, string p2)
         {

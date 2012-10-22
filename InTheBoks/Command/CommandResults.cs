@@ -7,11 +7,6 @@
     {
         private readonly List<ICommandResult> results = new List<ICommandResult>();
 
-        public void AddResult(ICommandResult result)
-        {
-            this.results.Add(result);
-        }
-
         public ICommandResult[] Results
         {
             get
@@ -27,6 +22,10 @@
                 return this.results.All<ICommandResult>(result => result.Success);
             }
         }
+
+        public void AddResult(ICommandResult result)
+        {
+            this.results.Add(result);
+        }
     }
 }
-

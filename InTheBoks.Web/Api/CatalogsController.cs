@@ -17,14 +17,35 @@
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private readonly ICatalogRepository _catalogRepository;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly ICommandBus _commandBus;
+        private readonly IUnitOfWork _unitOfWork;
 
         public CatalogsController(ICatalogRepository catalogRepository, IUnitOfWork unitOfWork, ICommandBus commandBus)
         {
             _catalogRepository = catalogRepository;
             _unitOfWork = unitOfWork;
             _commandBus = commandBus;
+        }
+
+        public void Delete(long id)
+        {
+            var user = (FacebookIdentity)User.Identity;
+
+            var dbItem = _catalogRepository.GetById(id);
+
+            if (dbItem == null)
+            {
+                throw new ItemNotFoundException("Catalog does not exists.");
+            }
+
+            if (dbItem.User_Id != user.Id)
+            {
+                _log.Warn("Someone is potentially trying to delete another users catalog. User ID: " + user.Id);
+                throw new ItemNotFoundException("Catalog does not exists.");
+            }
+
+            // Submit a delete operation to any handlers.
+            _commandBus.Submit(new DeleteCatalogCommand(dbItem.Id));
         }
 
         public IEnumerable<Catalog> Get()
@@ -112,27 +133,6 @@
             }
 
             return item;
-        }
-
-        public void Delete(long id)
-        {
-            var user = (FacebookIdentity)User.Identity;
-
-            var dbItem = _catalogRepository.GetById(id);
-
-            if (dbItem == null)
-            {
-                throw new ItemNotFoundException("Catalog does not exists.");
-            }
-
-            if (dbItem.User_Id != user.Id)
-            {
-                _log.Warn("Someone is potentially trying to delete another users catalog. User ID: " + user.Id);
-                throw new ItemNotFoundException("Catalog does not exists.");
-            }
-
-            // Submit a delete operation to any handlers.
-            _commandBus.Submit(new DeleteCatalogCommand(dbItem.Id));
         }
     }
 }

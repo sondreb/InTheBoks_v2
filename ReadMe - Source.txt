@@ -4,7 +4,7 @@ Contains helpful details on the implementation.
 
 Development Tools:
 - Resources: http://www.zeta-resource-editor.com/
-
+- Code Maid: http://www.codemaid.net/
 
 
 InTheBoks\Commands\

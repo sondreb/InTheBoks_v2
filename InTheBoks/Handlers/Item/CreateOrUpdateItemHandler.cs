@@ -1,4 +1,4 @@
-﻿namespace InTheBoks.Handlers.Item
+﻿namespace InTheBoks.Handlers
 {
     using InTheBoks.Command;
     using InTheBoks.Commands;
@@ -9,9 +9,9 @@
 
     public class CreateOrUpdateItemHandler : ICommandHandler<CreateOrUpdateItemCommand>
     {
+        private readonly ICommandBus _commandBus;
         private readonly IItemRepository _itemRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ICommandBus _commandBus;
 
         public CreateOrUpdateItemHandler(IItemRepository itemRepository, IUnitOfWork unitOfWork, ICommandBus commandBus)
         {
@@ -27,7 +27,8 @@
             if (item.Id == 0)
             {
                 item.Created = DateTime.Now;
-                item.Modified = DateTime.Now;
+
+                //item.Modified = DateTime.Now;
 
                 _itemRepository.Add(item);
             }

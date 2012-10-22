@@ -9,8 +9,8 @@
 
     public abstract class RepositoryBase<T> where T : class
     {
-        private DataContext dataContext;
         private readonly IDbSet<T> dbset;
+        private DataContext dataContext;
 
         protected RepositoryBase(IDatabaseFactory databaseFactory)
         {
@@ -34,12 +34,6 @@
             dbset.Add(entity);
         }
 
-        public virtual void Update(T entity)
-        {
-            dbset.Attach(entity);
-            dataContext.Entry(entity).State = EntityState.Modified;
-        }
-
         public virtual void Delete(T entity)
         {
             dbset.Remove(entity);
@@ -52,6 +46,16 @@
                 dbset.Remove(obj);
         }
 
+        public T Get(Expression<Func<T, bool>> where)
+        {
+            return dbset.Where(where).FirstOrDefault<T>();
+        }
+
+        public virtual IEnumerable<T> GetAll()
+        {
+            return dbset.ToList();
+        }
+
         public virtual T GetById(long id)
         {
             return dbset.Find(id);
@@ -62,24 +66,20 @@
             return dbset.Find(id);
         }
 
-        public virtual IEnumerable<T> GetAll()
-        {
-            return dbset.ToList();
-        }
-
         public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where)
         {
             return dbset.Where(where).ToList();
         }
 
-        public T Get(Expression<Func<T, bool>> where)
-        {
-            return dbset.Where(where).FirstOrDefault<T>();
-        }
-
         public virtual IQueryable<T> Query()
         {
             return dbset.AsQueryable();
+        }
+
+        public virtual void Update(T entity)
+        {
+            dbset.Attach(entity);
+            dataContext.Entry(entity).State = EntityState.Modified;
         }
     }
 }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Globalization;
-using System.Linq;
 using System.Text;
-using System.Threading;
 
 namespace InTheBoks.Resources
 {
@@ -12,26 +8,14 @@ namespace InTheBoks.Resources
     {
         public static string FacebookCulture()
         {
-            
-
             if (CultureInfo.CurrentUICulture.ThreeLetterWindowsLanguageName == "NOR")
             {
-                return "nb_NO";   
+                return "nb_NO";
             }
             else
             {
                 return "en_US";
             }
-        }
-
-        public static string UserCulture()
-        {
-            return CultureInfo.CurrentUICulture.TextInfo.CultureName; // (eg: "nb-NO")
-        }
-
-        public static string UserDatePattern()
-        {
-            return CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern;
         }
 
         public static dynamic RenderJson()
@@ -56,6 +40,16 @@ namespace InTheBoks.Resources
             str.AppendLine("}");
 
             return str.ToString();
+        }
+
+        public static string UserCulture()
+        {
+            return CultureInfo.CurrentUICulture.TextInfo.CultureName; // (eg: "nb-NO")
+        }
+
+        public static string UserDatePattern()
+        {
+            return CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern;
         }
     }
 }

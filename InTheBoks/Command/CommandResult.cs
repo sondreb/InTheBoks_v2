@@ -13,9 +13,8 @@
             Id = id;
         }
 
-        public bool Success { get; protected set; }
-
         public long Id { get; protected set; }
+
+        public bool Success { get; protected set; }
     }
 }
-

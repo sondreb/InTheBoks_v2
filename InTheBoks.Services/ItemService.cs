@@ -1,11 +1,7 @@
 ﻿namespace InTheBoks.Services
 {
     using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
     using System.Net;
-    using System.Text;
     using System.Xml.Linq;
 
     public class ItemService : IItemService
@@ -16,7 +12,23 @@
             SearchType = Services.SearchType.Keywords;
         }
 
+        public ItemType ItemType { get; set; }
+
         public string Keywords { get; set; }
+
+        public SearchType SearchType { get; set; }
+
+        public string ReturnAsString()
+        {
+            WebClient http = new WebClient();
+            var xml = http.DownloadString(CreateSignedUrl());
+            return xml;
+        }
+
+        public XDocument ReturnAsXml()
+        {
+            return XDocument.Parse(ReturnAsString());
+        }
 
         private string CreateSignedUrl()
         {
@@ -35,25 +47,9 @@
             return signedUrl;
         }
 
-        public XDocument ReturnAsXml()
-        {
-            return XDocument.Parse(ReturnAsString());
-        }
-
         //public int QueryTotalPages { get; set; }
         //public int TotalPages { get; set; }
         //public int CurrentPage { get; set; }
         //public int MaxTotalPages { get; set; }
-
-        public string ReturnAsString()
-        {
-            WebClient http = new WebClient();
-            var xml = http.DownloadString(CreateSignedUrl());
-            return xml;
-        }
-
-        public ItemType ItemType { get; set; }
-
-        public SearchType SearchType { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 ﻿@using InTheBoks.Resources
 
 <!DOCTYPE html>
-<html manifest="offline.appcache">
+<html manifest="offline2.appcache">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -14,7 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <link rel="apple-touch-icon" href="~/Content/intheboks_72.png" />
-    <link rel="apple-touch-icon" href="~/Content/intheboks_114.png" sizes="114x114"/>
+    <link rel="apple-touch-icon" href="~/Content/intheboks_114.png" sizes="114x114" />
 
     <link rel="shortcut icon" href="/favicon.ico" />
 
@@ -26,51 +26,50 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/app")
-
 </head>
 <body>
 
     <div id="AppContainer">
 
-    <div id="fb-root"></div>
-    <script src="//connect.facebook.net/@Resource.FacebookCulture()/all.js"></script>
-    @Scripts.Render("~/bundles/fb")
+        <div id="fb-root"></div>
+        <script src="//connect.facebook.net/@Resource.FacebookCulture()/all.js"></script>
+        @Scripts.Render("~/bundles/fb")
 
-    <header id="header">
+        <header id="header">
 
-        <a href="/" id="logo"><img title="InTheBoks.com - Organize Your Stuff" src="~/Content/intheboks_logo_light.png" /></a>
-        <div class="loading"><img src="../../Content/ajax-loader.gif" /></div>
+            <a href="/" id="logo">
+                <img title="InTheBoks.com - Organize Your Stuff" src="~/Content/intheboks_logo_light.png" /></a>
+            <div class="loading">
+                <img src="../../Content/ajax-loader.gif" />
+            </div>
 
-      <div id="auth-status">
+            <div id="auth-status">
 
-          <span class="authenticated">
-              <input type="search" id="filterSearch" style="display: none; width: 0px; float: left; height: 32px; margin-right: 10px; margin-top: 5px; font-size: 1.2em; padding-left: 5px;" placeholder="Filter Your Items" />
-        <img src="../../Content/icons/white/search.png" onclick="ToggleFilter();" title="Filter" class="action big"
-            style="margin-top: 4px; margin-right: 10px; float: left;" />
+                <span class="authenticated">
+                    <input type="search" id="filterSearch" style="display: none; width: 0px; float: left; height: 32px; margin-right: 10px; margin-top: 5px; font-size: 1.2em; padding-left: 5px;" placeholder="Filter Your Items" />
+                    <img src="../../Content/icons/white/search.png" onclick="ToggleFilter();" title="Filter" class="action big"
+                        style="margin-top: 4px; margin-right: 10px; float: left;" />
 
-          <img src="~/Content/icons/white/settings.png" class="action big" onclick="ToggleSettings();"
-              style="margin-top: 4px; margin-right: 10px; float: left;" title="Settings" />
-              </span>
+                    <img src="~/Content/icons/white/settings.png" class="action big" onclick="ToggleSettings();"
+                        style="margin-top: 4px; margin-right: 10px; float: left;" title="Settings" />
+                </span>
 
-@*     <div class="initializing auth-box">
+                @*     <div class="initializing auth-box">
              <img src="~/Content/ajax-loader.gif" />
              @Text.Loading...
      </div>*@
 
+                <div id="auth-loggedin" class="authenticated">
 
+                    <div id="profileInfo">
+                        <span class="wide">@Text.Hi, <span id="auth-displayname"></span></span>
 
-    <div id="auth-loggedin" class="authenticated">
-        
-        <div id="profileInfo">
-            <span class="wide">@Text.Hi, <span id="auth-displayname"></span></span>
-            
-            <img src="" id="profileImage" height="18" width="18" />
-            <a href="#" id="auth-logoutlink">@Text.Logout</a>
-        </div>
-
-    </div>
-</div>
-@*
+                        <img src="" id="profileImage" height="18" width="18" />
+                        <a href="#" id="auth-logoutlink">@Text.Logout</a>
+                    </div>
+                </div>
+            </div>
+            @*
         <div id="propertiesDialog" data-bind="with: SelectedCatalog">
 
             <div id="propertiesHeader">
@@ -79,7 +78,6 @@
                         <td>
 
             <a class="backButton" href="#" title="Go Back" onclick="ToggleSearch();"><img src="../../Content/icons/white/back.png"  class="action" /></a>
-
                         </td>
                         <td>
 
@@ -97,88 +95,80 @@
                 </p>
                 </div>
             </div>
-
         </div>
 *@
 
-
-        <div id="toolbar" class="authenticated content">
-
-
-            &nbsp;
+            <div id="toolbar" class="authenticated content">
+                &nbsp;
             <img src="../../Content/icons/white/add.png" data-bind="click: CreateCatalog" class="action" title="New Collection" width="32" height="32" />
-            <img src="../../Content/icons/white/edit.png" data-bind="click: EditCatalog" class="action" title="Edit Collection" width="32" height="32" />
-            <img src="../../Content/icons/white/delete.png" data-bind="click: DeleteCatalog" class="action" title="Delete Collection" width="32" height="32" />
+                <img src="../../Content/icons/white/edit.png" data-bind="click: EditCatalog" class="action" title="Edit Collection" width="32" height="32" />
+                <img src="../../Content/icons/white/delete.png" data-bind="click: DeleteCatalog" class="action" title="Delete Collection" width="32" height="32" />
 
-            <img src="~/Content/icons/white/add.png" data-bind="click: AddItem" class="action" style="margin-left: 50px;" title="New Item" />
-            <img src="~/Content/icons/white/delete.png" data-bind="click: DeleteItems" class="action" title="Delete Item(s)"  />
-            
-            <img src="~/Content/icons/white/friends.png" onclick="ToggleFriends();" title="View/Hide Friends" class="action" style="float: right; margin-right: 8px;" />
+                <img src="~/Content/icons/white/add.png" data-bind="click: AddItem" class="action" style="margin-left: 50px;" title="New Item" />
+                <img src="~/Content/icons/white/delete.png" data-bind="click: DeleteItems" class="action" title="Delete Item(s)" />
 
-            <img src="~/Content/icons/white/sort_options.png" onclick="ToggleListOptions(this);" title="View sort and list options" class="action" style="float: right; margin-right: 110px;" />
-            
-            <div id="listOptions" style="float: right;">
-                <div class="balloon"><img src="../../Content/balloon.png" /></div><div class="options">
-                List Type:
+                <img src="~/Content/icons/white/friends.png" onclick="ToggleFriends();" title="View/Hide Friends" class="action" style="float: right; margin-right: 8px;" />
+
+                <img src="~/Content/icons/white/sort_options.png" onclick="ToggleListOptions(this);" title="View sort and list options" class="action" style="float: right; margin-right: 110px;" />
+
+                <div id="listOptions" style="float: right;">
+                    <div class="balloon">
+                        <img src="../../Content/balloon.png" />
+                    </div>
+                    <div class="options">
+                        List Type:
                 <select size="2">
                     <option>Details</option>
                     <option>Thumbnails</option>
                 </select>
-                <br />
-                Sort By:
+                        <br />
+                        Sort By:
                 <select size="10">
                     <option>Name</option>
                     <option>Added</option>
                     <option>Rating</option>
                 </select><br />
-                <select size="2">
-                    <option>Ascending</option>
-                    <option>Descending</option>
-                </select>
-
+                        <select size="2">
+                            <option>Ascending</option>
+                            <option>Descending</option>
+                        </select>
                     </div>
+                </div>
+
+                <img src="~/Content/icons/white/sort.png" onclick="ChangeListType(2);" title="List View" class="action wide" style="float: right; margin-right: 8px;" />
+                <img src="~/Content/icons/white/listview1.png" onclick="ChangeListType(1);" class="action wide" style="float: right; margin-right: 8px;" title="Thumbnails" />
+
+                @*<input type="range" id="thumbnailSize" onchange="ThumbnailRender();" min="32" max="256" value="128" step="8" style="float: right; margin-right: 8px;" />*@
+
+                <div id="slider" class="wide" title="Thumbnail Size"></div>
+            </div>
+        </header>
+
+        <div id="content" class="authenticated content stretch" style="clear: both;">
+            <div id="left-sidebar" class="stretch">
+
+                <div>
+                    <ul class="catalogsList" data-bind="foreach: Catalogs">
+                        <li class="button_flat" data-bind="click: $parent.SelectCatalog, css: { selected: $data == $root.SelectedCatalog() }">
+                            <span data-bind="text: Name"></span>
+                            <span data-bind="text: Count" style="float: right;"></span>
+                        </li>
+                    </ul>
+                </div>
             </div>
 
-            <img src="~/Content/icons/white/sort.png" onclick="ChangeListType(2);" title="List View" class="action wide" style="float: right; margin-right: 8px;" />
-            <img src="~/Content/icons/white/listview1.png" onclick="ChangeListType(1);" class="action wide" style="float: right; margin-right: 8px;" title="Thumbnails" />
-            
-            @*<input type="range" id="thumbnailSize" onchange="ThumbnailRender();" min="32" max="256" value="128" step="8" style="float: right; margin-right: 8px;" />*@
+            <div id="friends" class="stretch">
 
-            <div id="slider" class="wide" title="Thumbnail Size"></div>
-            
-
-        </div>
-
-    </header>
-
-
-    <div id="content" class="authenticated content stretch" style="clear: both;">
-        <div id="left-sidebar" class="stretch">
-
-            
-            <div>
-                <ul class="catalogsList" data-bind="foreach: Catalogs">
-                    <li class="button" data-bind="click: $parent.SelectCatalog, css: { selected: $data == $root.SelectedCatalog() }">
-                        <span data-bind="text: Name"></span>
-                        <span data-bind="text: Count" style="float: right;"></span>
-                    </li>
-                </ul>
-            </div>
-
-        </div>
-
-             <div id="friends" class="stretch">
-                
-                 <div id="friendlist">
+                <div id="friendlist">
                     <div data-bind="foreach: Friends">
                         <div>
-                        <a href="#" class="friendLink" data-bind="attr: { title: Name }">
-                            <img class="friendFace" data-bind="attr: { src: ImageUrl, title: Name }" /><span data-bind="text: Name"></span>
-                        </a>
+                            <a href="#" class="friendLink" data-bind="attr: { title: Name }">
+                                <img class="friendFace" data-bind="attr: { src: ImageUrl, title: Name }" /><span data-bind="text: Name"></span>
+                            </a>
                         </div>
                     </div>
                     <div data-bind="visible: Friends().length == 0" class="empty_friend_list">
-                     None of your Facebook friends use InTheBoks. <a href="#">Invite them</a> to tip your friends about our great app!
+                        None of your Facebook friends use InTheBoks. <a href="#">Invite them</a> to tip your friends about our great app!
                     </div>
                 </div>
 
@@ -187,65 +177,63 @@
                     <div data-bind="foreach: Activities">
                         <table class="activity">
                             <tr>
-                                <td><a data-bind="attr: { href: User.Link }" target="_blank"><img class="friendFace" data-bind="attr: { src: User.ProfileImageUrl, title: User.Name }" /></a></td>
-                                <td><a data-bind="attr: { href: User.Link }" target="_blank"><span data-bind="text: User.Name"></span></a> <span data-bind="text: StatusText"></span> <span data-bind="text: Item.Title"></span></td>
+                                <td><a data-bind="attr: { href: User.Link }" target="_blank">
+                                    <img class="friendFace" data-bind="attr: { src: User.ProfileImageUrl, title: User.Name }" /></a></td>
+                                <td><a data-bind="attr: { href: User.Link }" target="_blank"><span data-bind="text: User.Name"></span></a><span data-bind="text: StatusText"></span><span data-bind="text: Item.Title"></span></td>
                             </tr>
                         </table>
                     </div>
                 </div>
             </div>
 
-        <div id="main-content" class="stretch">
+            <div id="main-content" class="stretch">
 
-            <div class="margin">
-                @RenderBody()
+                <div class="margin">
+                    @RenderBody()
+                </div>
             </div>
-
         </div>
-       
-    </div>
 
-    <div id="anonymous" class="anonymous welcome-box stretch">
+        <div id="anonymous" class="anonymous welcome-box stretch">
 
-        <h1>Organize Your Stuff.</h1>
-        <p><img src="~/Content/intheboks_128.png" />
-            Keep track of your music, movies, books, games, software and more.
-        </p>
-        <p>
-            Click the Connect using <strong>Facebook</strong> button to logon using your Facebook account.
-        </p>
+            <h1>Organize Your Stuff.</h1>
+            <p>
+                <img src="~/Content/intheboks_128.png" />
+                Keep track of your music, movies, books, games, software and more.
+            </p>
+            <p>
+                Click the Connect using <strong>Facebook</strong> button to logon using your Facebook account.
+            </p>
 
-       @*<div id="auth-loggedout" class="anonymous">*@
-        <img id="auth-loginlink" src="../../Content/Facebook.png" />
-        @*</div>*@
+            @*<div id="auth-loggedout" class="anonymous">*@
+            <img id="auth-loginlink" src="../../Content/Facebook.png" />
+            @*</div>*@
 
-        <p style="clear: both; margin-top: 4px;font-size: 0.8em;">By clicking Connect, you agree to the <a href="/Terms">terms & conditions</a> and <a href="/Privacy">privacy policy</a>.</p>
-        <p>
-            Want to learn more first? <a href="javascript:DisplayIntroduction();">Click here</a>!
+            <p style="clear: both; margin-top: 4px; font-size: 0.8em;">By clicking Connect, you agree to the <a href="/Terms">terms & conditions</a> and <a href="/Privacy">privacy policy</a>.</p>
+            <p>
+                Want to learn more first? <a href="javascript:DisplayIntroduction();">Click here</a>!
+            </p>
+            @*@Html.Raw(Text.AnonymousWelcomeText)*@
+        </div>
 
-        </p>
-        @*@Html.Raw(Text.AnonymousWelcomeText)*@
-    </div>
+        <div id="updateNotification">
+            <h1>Update Available</h1>
+            <p>
+                A new version of InTheBoks is available. InTheBoks relies on offline caching mechanism, making the
+    web app available even if you are not connected to the network.
+            </p>
+            <p>Do you want to load new version now?</p>
+            <button onclick="AcceptUpdateNotification();">Update Now</button>
+            <button onclick="CancelUpdateNotification();">Cancel</button>
+        </div>
 
-<div id="updateNotification">
-    <h1>Update Available</h1>
-    <p>
-    A new version of InTheBoks is available. InTheBoks relies on offline caching mechanism, making the
-    web app available even if you are not connected to the network. 
-        </p>
-    <p>Do you want to load new version now?</p>
-    <button onclick="AcceptUpdateNotification();">Update Now</button>
-    <button onclick="CancelUpdateNotification();">Cancel</button>
-</div>
+        <div class="initializing welcome-box" id="initializingBox">
+            @Text.Initializing...
+        </div>
 
-
-    <div class="initializing welcome-box" id="initializingBox">
-        @Text.Initializing...
-    </div>
-    
         <div id="settings" class="stretchFull settings" data-bind="with: User">
             <div>
-            <h1>Settings</h1>
+                <h1>Settings</h1>
 
                 <p>
                     Privacy:<br />
@@ -265,6 +253,18 @@
                     <select data-bind="options: $parent.TimeZones, optionsValue: 'key', optionsText: 'value', value: TimeZone">
                     </select>
                 </p>
+                <fieldset>
+                    <p>
+                        <strong>Delete Your Account</strong><br />
+                        We give you the ability to wipe clean your account, all your catalogs, items, history and any details we
+                    have stored about you. For your own privacy and protection, this cannot be undone and everything will be
+                    delete permanently.
+                    </p>
+                    <p>
+                        <button onclick="ConfirmAccountRemoval();" class="normal">Delete My Account</button>
+                    </p>
+                </fieldset>
+
                 <p>
                     <img data-bind="click: $parent.SaveSettings" class="action big" title="Save" src="../../Content/icons/white/save.png" />
                     &nbsp;<img onclick="ToggleSettings();" class="action big" title="Cancel" src="../../Content/icons/white/cancel.png" />
@@ -274,102 +274,80 @@
 
         <div id="search" class="stretchFull search">
 
-            <a class="backButton" href="#" title="Go Back" onclick="ToggleSearch();"><img src="../../Content/icons/white/back.png"  class="action huge" /></a>
+            <a class="backButton" href="#" title="Go Back" onclick="ToggleSearch();">
+                <img src="../../Content/icons/white/back.png" class="action huge" /></a>
 
             <div id="searchContent">
 
-
-            <h1 data-bind="with: SelectedCatalog">Add New Items to "<span data-bind="text: Name"></span>"</h1>
+                <h1 data-bind="with: SelectedCatalog">Add New Items to "<span data-bind="text: Name"></span>"</h1>
                 <form data-bind="submit: Search">
-                <p><input type="search" data-bind="value: SearchTerm" style="font-size: 1.6em; padding: 6px;" placeholder="Keyword or Barcode" />
-                    <input type="submit" value="Search" />
-                    <button>Scan Barcode with webcam</button>
-                </p>
+                    <p>
+                        <input type="search" data-bind="value: SearchTerm" style="font-size: 1.6em; padding: 6px;" placeholder="Keyword or Barcode" />
+                        <input type="submit" value="Search" />
+                        <button>Scan Barcode with webcam</button>
+                    </p>
                 </form>
-                <div data-bind="visible: Results().length > 0">
-                Search Results:<br />
-                <div id="searchResults" class="thumbnails" data-bind="foreach: Results">
+                <div data-bind="visible: Results().length> 0">
+                    Search Results:<br />
+                    <div id="searchResults" class="thumbnails" data-bind="foreach: Results">
 
-                    <div class="thumbnail_container">
-                        <div class="wrapper" data-bind="click: $parent.SelectResult">   
-                            <img data-bind="attr: { src: ImageUrl, title: Title }" />  
-                            <div class="description">  
-                            <p class="description_content"><strong data-bind="text: Title">The Matrix</strong></p>  
-                            </div>  
-                        </div>  
-                        <span class="list_details"><strong data-bind="text: Title">The Matrix</strong></span>
-                        <span class="list_details right" data-bind="text: Title">Keanu Reeves, Laurence Fishburne, Carrie-anne Moss, et al.</span>
-                    </div>
+                        <div class="thumbnail_container">
+                            <div class="wrapper" data-bind="click: $parent.SelectResult">
+                                <img data-bind="attr: { src: ImageUrl, title: Title }" />
+                                <div class="description">
+                                    <p class="description_content"><strong data-bind="text: Title">The Matrix</strong></p>
+                                </div>
+                            </div>
+                            <span class="list_details"><strong data-bind="text: Title">The Matrix</strong></span>
+                            <span class="list_details right" data-bind="text: Title">Keanu Reeves, Laurence Fishburne, Carrie-anne Moss, et al.</span>
+                        </div>
 
                         @*<span><img data-bind="attr: { src: ImageUrl, title: Title }, click: $parent.SelectResult, css: { picked: Selected }" /></span>*@
-
-                </div>
-                    <br />
-
                     </div>
+                    <br />
+                </div>
             </div>
             <div id="searchTasks">
                 <div style="padding: 12px 20px 12px 20px;">
-                    
-                <div style="float: right;">
-                <img data-bind="click: SaveSelectedItems" title="Save Selected Item(s)" class="action huge" src="../../Content/icons/white/save.png" />
-                <br />Save selected item(s)
-                </div>
+
+                    <div style="float: right;">
+                        <img data-bind="click: SaveSelectedItems" title="Save Selected Item(s)" class="action huge" src="../../Content/icons/white/save.png" />
+                        <br />
+                        Save selected item(s)
+                    </div>
 
                     <div data-bind="text: SaveStatusText"></div>
 
-                <div style="float: left;">
-                <img src="~/Content/icons/white/cancel.png" class="action huge" /><br />
-                Clear selection
-                </div>
-
+                    <div style="float: left;">
+                        <img src="~/Content/icons/white/cancel.png" class="action huge" /><br />
+                        Clear selection
+                    </div>
 
                     @*<div style="float: right; text-align: center;">
                     <img onclick="ToggleSearch();" class="action huge" title="Cancel" src="../../Content/icons/white/cancel.png" />
                     <br />
                     </div>*@
-                    </div>
+                </div>
             </div>
         </div>
 
-        <div id="notificationDialog" style="
-            background-color: white;
-            color: black;
-            height: 84px;
-            border: 2px solid gray;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 370px;
-            font-size: 1.2em;
-            display: none;
-            opacity: 0.95;
-            ">
+        <div id="notificationDialog" style="background-color: white; color: black; height: 84px; border: 2px solid gray; position: absolute; top: 10px; right: 10px; width: 370px; font-size: 1.2em; display: none; opacity: 0.95;">
             <div style="padding: 10px;">
-
-            The collection was saved.
-                </div>
+                The collection was saved.
+            </div>
         </div>
 
-        <div data-bind="with: SelectedObject" id="confirmationDialog" 
-            style="background-color: white; 
-top: 25%; position: absolute; 
-border: 2px solid black; 
-opacity: 0;
-padding: 15px;
-display: none;
-color: Black;
-width: 450px;">
+        <div data-bind="with: SelectedObject" id="confirmationDialog"
+            style="background-color: white; top: 25%; position: absolute; border: 2px solid black; opacity: 0; padding: 15px; display: none; color: Black; width: 450px;">
             <div style="padding: 30px;">
-            <h1>Are you sure you want to delete the collection "<span data-bind="text: Name"></span>" and all it's items?
+                <h1>Are you sure you want to delete the collection "<span data-bind="text: Name"></span>" and all it's items?
                 </h1>
-            <p>
-                <button>&nbsp;OK&nbsp;</button>
-                <button onclick="HideConfirmationDialog();">Cancel</button>
-            </p>
-                </div>
+                <p>
+                    <button>&nbsp;OK&nbsp;</button>
+                    <button onclick="HideConfirmationDialog();">Cancel</button>
+                </p>
+            </div>
         </div>
-
 
         <div id="infoDialog">
             <div>
@@ -380,40 +358,40 @@ width: 450px;">
             </div>
         </div>
 
-        <div id="propertiesDialog" data-bind="with: SelectedObject" style="display: none; width: 0px; background-color:#dedede; color: gray; position: absolute; top: 0px; right: 0px; bottom: 0px;">
-            
-            <div style="width: 300px;">
-            <div style="background-color: gray; height: 80px;">
-                <div style="padding-top: 26px; padding-left: 30px; color: white; font-size: 2em;">
-                    <a class="backButtonProperties" href="#" title="Go Back" onclick="HideProperties();"><img src="../../Content/icons/white/back.png" class="action" style="vertical-align: middle;" /></a>
-                    
-                    <span data-bind="text: $parent.SelectedAction"></span>
+        <div id="propertiesDialog" data-bind="with: SelectedObject" style="display: none; width: 0px; background-color: #dedede; color: gray; position: absolute; top: 0px; right: 0px; bottom: 0px;">
 
-                </div>
-            </div>
-            <div>
-                <div style="padding-left: 30px;">
-                <p>Name</p>
-                <p><input type="text" data-bind="value: Name" placeholder="Enter name" /></p>
-                    <p>Visibility</p>
-                    <p><select>
-                        <option>Private</option>
-                        <option>Friends</option>
-                        <option>Public</option>
-                       </select></p>
-                <p>
-                    <button data-bind="click:$parent.SaveCatalog">Save</button>
-                </p>
+            <div style="width: 300px;">
+                <div style="background-color: gray; height: 80px;">
+                    <div style="padding-top: 26px; padding-left: 30px; color: white; font-size: 2em;">
+                        <a class="backButtonProperties" href="#" title="Go Back" onclick="HideProperties();">
+                            <img src="../../Content/icons/white/back.png" class="action" style="vertical-align: middle;" /></a>
+
+                        <span data-bind="text: $parent.SelectedAction"></span>
                     </div>
-            </div>
                 </div>
+                <div>
+                    <div style="padding-left: 30px;">
+                        <p>Name</p>
+                        <p>
+                            <input type="text" data-bind="value: Name" placeholder="Enter name" />
+                        </p>
+                        <p>Visibility</p>
+                        <p>
+                            <select>
+                                <option>Private</option>
+                                <option>Friends</option>
+                                <option>Public</option>
+                            </select>
+                        </p>
+                        <p>
+                            <button data-bind="click:$parent.SaveCatalog">Save</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-
-
-
-
-    @*    <div id="propertiesDialog">
+        @*    <div id="propertiesDialog">
 
             <table id="propertiesHeader">
 
@@ -431,125 +409,107 @@ width: 450px;">
 
             <div></div>
             Properties
-
             </div>
         </div>*@
-
-
-
-</div>
-
+    </div>
 
     <div id="gradient_transparent" class="gradient"></div>
 
     <div class="introduction_container">
 
-    <div id="introduction" class="introduction" style="padding-bottom: 0px; padding-top: 0px;">
+        <div id="introduction" class="introduction" style="padding-bottom: 0px; padding-top: 0px;">
 
-        <img src="~/Content/intheboks_banner.png" />
-
-    </div>
+            <img src="~/Content/intheboks_banner.png" />
+        </div>
 
         <div class="introduction banner">
 
-                    <img src="/Content/transformers_cover.png" style="float: right; margin-left: 20px;" width="250" />
+            <img src="/Content/transformers_cover.png" style="float: right; margin-left: 20px;" width="250" />
 
-        <h1>Organize Your Stuff!</h1>
-        <p>Music, Movies, Books, Games, Software and more. 
+            <h1>Organize Your Stuff!</h1>
+            <p>
+                Music, Movies, Books, Games, Software and more.
             </p>
 
-        <ul>
-            <li>Register everything you own</li>
-            <li>Remember what you borrow or rent</li>
-            <li>Share your list items with friends and family</li>
-            <li>Keep a wish-list of items</li>
-        </ul>
+            <ul>
+                <li>Register everything you own</li>
+                <li>Remember what you borrow or rent</li>
+                <li>Share your list items with friends and family</li>
+                <li>Keep a wish-list of items</li>
+            </ul>
 
-<p>Register everything you own of the above items and everything you'd want to own. Boks helps you remember and you can search your catalogs from anywhere, making sure you don't purchace multiple copies. You can register which items you are borrowing or renting from your friends, making it easier to remember to return them. </p>
-
-
+            <p>Register everything you own of the above items and everything you'd want to own. Boks helps you remember and you can search your catalogs from anywhere, making sure you don't purchace multiple copies. You can register which items you are borrowing or renting from your friends, making it easier to remember to return them. </p>
         </div>
 
         <div class="introduction box">
             <h1>What is it?</h1>
-<p>Boks is a rich interactive application that you can use to organize all your stuff, like books, CDs, movies and more. Basically it's a way to throw everything into a box, for storage and retrieval purposes. It will help you remember which movies, CDs and books you have purchased, which ones you have already read, planning on reading or watching. You can rent items out to your friends and colleagues and add an expiration date when they have to deliver the borrowed items back.
-    </p>
             <p>
-Registration of new items is really simple, you either type the title of what you're trying to archive or scan the bar code using a webcam. Boks will query different services for you, allowing you to find items for a variety of different items (books, movies, albums, software, games and in the future a lot more).
-                </p>
-            <p>
-Boks runs within your browser and stores all the information in the online cloud. This means all your items are available anywhere you are connected and from many different devices. Boks runs on Mac and PC and there is an optimized web client for iPhone and other mobiles. You can use any standard webcam to scan the barcode of your items and the app will recognize which product you try to add.
-        </p>
-                </div>
-    <div class="introduction box">
-        <h1>Works on every device</h1>
-        <p>
-            InTheBoks is built using modern web techniques and is thus supported on virtually every modern mobile device, including phones, tablets, laptops and desktop computers.
-
-        </p>
-    </div>
-
-
-    <div class="introduction box">
-        <h1>It's free of charge!</h1>
-        <p>
-            We will try our best to keep InTheBoks a free service. The service is hosted on servers which cost money for use and traffic; we therefore have the need to display advertisements on the web site to cover some of the charges. If you want to support us, please click on any of our banners or links within the app when you make a purchase on Amazon.com.
+                Boks is a rich interactive application that you can use to organize all your stuff, like books, CDs, movies and more. Basically it's a way to throw everything into a box, for storage and retrieval purposes. It will help you remember which movies, CDs and books you have purchased, which ones you have already read, planning on reading or watching. You can rent items out to your friends and colleagues and add an expiration date when they have to deliver the borrowed items back.
             </p>
-        <p>
-Donations are another way to support us, please click the button below to give a donation through PayPal.com. We appreciate immensely any support we receive.
+            <p>
+                Registration of new items is really simple, you either type the title of what you're trying to archive or scan the bar code using a webcam. Boks will query different services for you, allowing you to find items for a variety of different items (books, movies, albums, software, games and in the future a lot more).
+            </p>
+            <p>
+                Boks runs within your browser and stores all the information in the online cloud. This means all your items are available anywhere you are connected and from many different devices. Boks runs on Mac and PC and there is an optimized web client for iPhone and other mobiles. You can use any standard webcam to scan the barcode of your items and the app will recognize which product you try to add.
+            </p>
+        </div>
+        <div class="introduction box">
+            <h1>Works on every device</h1>
+            <p>
+                InTheBoks is built using modern web techniques and is thus supported on virtually every modern mobile device, including phones, tablets, laptops and desktop computers.
+            </p>
+        </div>
 
+        <div class="introduction box">
+            <h1>It's free of charge!</h1>
+            <p>
+                We will try our best to keep InTheBoks a free service. The service is hosted on servers which cost money for use and traffic; we therefore have the need to display advertisements on the web site to cover some of the charges. If you want to support us, please click on any of our banners or links within the app when you make a purchase on Amazon.com.
+            </p>
+            <p>
+                Donations are another way to support us, please click the button below to give a donation through PayPal.com. We appreciate immensely any support we receive.
+            </p>
+            <p>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=10337833" target="_blank">
+                    <img alt="Donate to InTheBoks!" src="/Content/donate.gif" /></a>
+            </p>
+        </div>
 
-
-        </p>
-        <p><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=10337833" target="_blank">
-        <img alt="Donate to InTheBoks!" src="/Content/donate.gif" /></a></p>
-
-    </div>
-
-
-
-
-    <div class="introduction box">
-        <h1>It's really, really free!</h1>
-        <p>
-         For your own safety and your enjoyment, the
+        <div class="introduction box">
+            <h1>It's really, really free!</h1>
+            <p>
+                For your own safety and your enjoyment, the
             source code for this system is available.
-        </p>
-        <p>
-            You can download a copy of the source, or clone the source, on
+            </p>
+            <p>
+                You can download a copy of the source, or clone the source, on
             the GitHub website:
-
-        </p>
-        <p>
-            <a href="https://github.com/sondreb/InTheBoks" target="_blank">https://github.com/sondreb/InTheBoks</a>
-
-        </p>
-    </div>
-
-        <div class="introduction box">
-            <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FInTheBoks&amp;width=280&amp;height=480&amp;colorscheme=light&amp;show_faces=true&amp;border_color&amp;stream=false&amp;header=false&amp;appId=122645277750670" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:280px; height:480px;" allowTransparency="true"></iframe>
+            </p>
+            <p>
+                <a href="https://github.com/sondreb/InTheBoks" target="_blank">https://github.com/sondreb/InTheBoks</a>
+            </p>
         </div>
 
         <div class="introduction box">
-            <h1>
-            Are you ready to get started? <a href="#">Go back up again</a> and connect using Facebook!
-                </h1>
+            <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FInTheBoks&amp;width=280&amp;height=480&amp;colorscheme=light&amp;show_faces=true&amp;border_color&amp;stream=false&amp;header=false&amp;appId=122645277750670" scrolling="no" frameborder="0" style="border: none; overflow: hidden; width: 280px; height: 480px;" allowtransparency="true"></iframe>
         </div>
 
-        
+        <div class="introduction box">
+            <h1>Are you ready to get started? <a href="#">Go back up again</a> and connect using Facebook!
+            </h1>
+        </div>
 
-    <div class="introduction" style="clear: both;">
+        <div class="introduction" style="clear: both;">
 
-        <a href="/">Home</a> // 
-        <a href="/Terms">Terms & Conditions</a> // 
-        <a href="/Privacy">Privacy Policy</a> // 
-        <a href="http://www.facebook.com/pages/Boks-Organize-Your-Stuff/270278054270">Facebook</a> // 
-        <a href="http://twitter.com/InTheBoks/">Twitter</a> // 
+            <a href="/">Home</a> //
+        <a href="/Terms">Terms & Conditions</a> //
+        <a href="/Privacy">Privacy Policy</a> //
+        <a href="http://www.facebook.com/pages/Boks-Organize-Your-Stuff/270278054270">Facebook</a> //
+        <a href="http://twitter.com/InTheBoks/">Twitter</a> //
         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=10337833">Donate</a>
 
-        <a class="backToTop" href="#">Back to top</a>
-    </div>
+            <a class="backToTop" href="#">Back to top</a>
         </div>
+    </div>
 
     <script>
         $(function () {
@@ -579,12 +539,12 @@ Donations are another way to support us, please click the button below to give a
             @{
                 var timeZones = TimeZoneInfo.GetSystemTimeZones();
 
-                for(int i = 0; i < timeZones.Count; i++)
+                for (int i = 0; i < timeZones.Count; i++)
                 {
                     var timeZoneInfo = timeZones[i];
                     var formattedZone = string.Format("\"key\":\"{0}\", \"value\":\"{1}\"", timeZoneInfo.Id, timeZoneInfo.DisplayName);
                     @Html.Raw("{" + formattedZone + "}")
-                    
+
                     if (i < timeZones.Count - 1)
                     {
                         @Html.Raw(",\r\n");
@@ -596,7 +556,6 @@ Donations are another way to support us, please click the button below to give a
 
     @RenderSection("scripts", required: false)
 
-
     <script type="text/javascript">
         var uvOptions = {};
         (function () {
@@ -605,7 +564,5 @@ Donations are another way to support us, please click the button below to give a
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
         })();
     </script>
-
-
 </body>
 </html>

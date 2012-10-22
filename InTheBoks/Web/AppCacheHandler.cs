@@ -1,9 +1,6 @@
 ﻿namespace InTheBoks.Web
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Web;
 
     public class AppCacheHandler : IHttpHandler
@@ -24,9 +21,9 @@
 
             response.Write("CACHE MANIFEST\r\n");
 
-        #if DEBUG
+#if DEBUG
             response.Write(string.Format("# This file was generated at {0} {1}\r", DateTime.Now.ToShortDateString(), DateTime.Now.ToShortTimeString()));
-        #endif
+#endif
 
             response.Write("\nCACHE:\r");
 
@@ -38,6 +35,7 @@
             response.Write("*\r");
 
             response.Write("\nFALLBACK:\r\r");
+
             //response.Write("/ /offline.html");
 
             //string[] filePatterns = TestWebSvc.Properties.Settings.Default.FilePatterns.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);

@@ -15,9 +15,9 @@
     {
         private static Logger _log = LogManager.GetCurrentClassLogger();
 
-        private readonly IItemRepository _itemRepository;
         private readonly ICatalogRepository _catalogRepository;
         private readonly ICommandBus _commandBus;
+        private readonly IItemRepository _itemRepository;
 
         public ItemsController(IItemRepository itemRepository, ICatalogRepository catalogRepository, ICommandBus commandBus)
         {
@@ -26,38 +26,33 @@
             _commandBus = commandBus;
         }
 
-        // UPDATE
-        public Item Put(long id, [FromBody]Item item)
+        public void Delete(int id)
         {
             var user = (FacebookIdentity)User.Identity;
 
-            if (item.Id == 0)
-            {
-                throw new InvalidOperationException("Put should be used for updating items. Use the Post method for creations.");
-            }
-
-            var dbItem = _itemRepository.Query().Where(i => i.Id == item.Id && i.User_Id == user.Id);
+            var dbItem = _itemRepository.GetById(id);
 
             if (dbItem == null)
             {
-                // This probably means someone is trying to update someone elses item. Let's verify so we can log
-                // all attempts to gain illicit access.
-
-                var existsOnAnotherUser = _itemRepository.Query().Where(i => i.Id == item.Id).Any();
-
-                if (existsOnAnotherUser)
-                {
-                    _log.Fatal("Someone is trying to update another user's item. User ID: " + user.Id + " Item ID: " + item.Id);
-                }
-                else
-                {
-                    _log.Error("User is trying to access item that does not exists. User ID: " + user.Id + " Item ID: " + item.Id);
-                }
-
                 throw new ItemNotFoundException("Item does not exists.");
             }
 
-            return item;  
+            if (dbItem.User_Id != user.Id)
+            {
+                _log.Warn("Someone is potentially trying to delete another users item. User ID: " + user.Id);
+                throw new ItemNotFoundException("Item does not exists.");
+            }
+
+            // Submit a delete operation to any handlers.
+            _commandBus.Submit(new DeleteItemCommand(dbItem.Id));
+        }
+
+        // GET
+        public IEnumerable<Item> Get(long id)
+        {
+            var user = (FacebookIdentity)User.Identity;
+            var query = _itemRepository.Query().Where(c => c.User_Id == user.Id && c.Catalog_Id == id);
+            return query.ToList();
         }
 
         // CREATE
@@ -96,33 +91,38 @@
             }
         }
 
-        // GET
-        public IEnumerable<Item> Get(long id)
-        {
-            var user = (FacebookIdentity)User.Identity;
-            var query = _itemRepository.Query().Where(c => c.User_Id == user.Id && c.Catalog_Id == id);
-            return query.ToList();
-        }
-
-        public void Delete(int id)
+        // UPDATE
+        public Item Put(long id, [FromBody]Item item)
         {
             var user = (FacebookIdentity)User.Identity;
 
-            var dbItem = _itemRepository.GetById(id);
+            if (item.Id == 0)
+            {
+                throw new InvalidOperationException("Put should be used for updating items. Use the Post method for creations.");
+            }
+
+            var dbItem = _itemRepository.Query().Where(i => i.Id == item.Id && i.User_Id == user.Id);
 
             if (dbItem == null)
             {
+                // This probably means someone is trying to update someone elses item. Let's verify so we can log
+                // all attempts to gain illicit access.
+
+                var existsOnAnotherUser = _itemRepository.Query().Where(i => i.Id == item.Id).Any();
+
+                if (existsOnAnotherUser)
+                {
+                    _log.Fatal("Someone is trying to update another user's item. User ID: " + user.Id + " Item ID: " + item.Id);
+                }
+                else
+                {
+                    _log.Error("User is trying to access item that does not exists. User ID: " + user.Id + " Item ID: " + item.Id);
+                }
+
                 throw new ItemNotFoundException("Item does not exists.");
             }
 
-            if (dbItem.User_Id != user.Id)
-            {
-                _log.Warn("Someone is potentially trying to delete another users item. User ID: " + user.Id);
-                throw new ItemNotFoundException("Item does not exists.");
-            }
-
-            // Submit a delete operation to any handlers.
-            _commandBus.Submit(new DeleteItemCommand(dbItem.Id));
+            return item;
         }
     }
 }

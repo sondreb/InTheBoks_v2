@@ -1,9 +1,7 @@
-﻿
-var State = { "Initializing": 0, "Authenticated": 1, "Anonymous": 2 };
+﻿var State = { "Initializing": 0, "Authenticated": 1, "Anonymous": 2 };
 
 // Onload event handler
 $(function () {
-
     console.log("OnLoad...");
 
     document.getElementById('auth-loginlink').addEventListener('click', function () {
@@ -20,7 +18,6 @@ $(function () {
     }).ajaxComplete(function () {
         $(this).fadeOut();
     }).ajaxError(function (event, request, settings) {
-
         //console.log(event);
         //console.log(request);
         //console.log(settings);
@@ -37,7 +34,6 @@ $(function () {
         //ShowInformationDialog("There was a problem", request.statusText + " (" + request.status + "): " + errorMessage, "Close", "");
 
         if (request.status == 401) { // Access is denied
-
             // Perhaps show popup for Facebook-logo?
             return;
         }
@@ -47,35 +43,24 @@ $(function () {
         } else if (request.status == 404) {
             console.log('Requested page not found. [404]');
         } else if (request.status == 400) {
-
             console.log("System Failure: Error.");
             ShowInformationDialog("System Failure", "Unable to process the request. Please contact your system administrator.<br />" + errorMessage, "Close");
-
         } else if (request.status == 500) {
             console.log("System Failure: Unable to process the request.");
             console.log(request);
 
             ShowInformationDialog("System Failure", "Unable to process the request. Internal Server Error.<br />" + errorMessage, "Close");
-
         } else if (exception === 'parsererror') {
-
             ShowInformationDialog("System Failure", "Requested JSON parse failed.<br />Invalid response from server.<br />" + errorMessage, "Close");
-
         } else if (exception === 'timeout') {
-
             ShowInformationDialog("System Failure", "Time out error.<br />Please try again.<br />" + errorMessage, "Close");
-
         } else if (exception === 'abort') {
-
             console.log('Ajax request aborted.');
-
         } else {
-
             console.log('Uncaught Error.\n' + request.responseText);
             ShowInformationDialog("There was a problem", errorMessage, "Close");
         }
     });
-
 
     $('img').live('dragstart', function (event) { event.preventDefault(); });
 
@@ -105,7 +90,6 @@ $(function () {
         e.preventDefault();
     }
 
-
     var ctrlDown = false;
     var ctrlKey = 17, vKey = 86, cKey = 67, aKey = 65;
 
@@ -115,11 +99,9 @@ $(function () {
         if (e.keyCode == ctrlKey) ctrlDown = false;
     });
 
-
     var selectAll = false;
 
     $(document).keydown(function (e) {
-
         if (ctrlDown && (e.keyCode == aKey)) {
             selectAll = !selectAll;
 
@@ -149,14 +131,11 @@ $(function () {
             //});
 
             alert("You selected " + i + " items to clipboard. These can now be pasted into another catalog.");
-
         };
     });
 
-
     // When clicking on the button close or the mask layer the popup closed
     $('#mask').live('click', function () {
-
         HideInformationDialog();
 
         return false;
@@ -172,7 +151,6 @@ $(function () {
         //$(this).children(".description").fadeIn(50);
         $(this).children(".description").show();
     }).live('mouseleave', function (source) {
-
         $(this).children(".description").hide();
         //$(this).children(".description").fadeOut(150);
     }).live('click', function (source) {
@@ -183,7 +161,6 @@ $(function () {
             $(this).addClass("selection");
         }
     });
-
 
     if (jQuery.ui) {
         // UI loaded
@@ -200,17 +177,13 @@ $(function () {
     }
 
     setTimeout(function () {
-
-        // Some corporations block Facebook URLs, 
+        // Some corporations block Facebook URLs,
         // try to inform the user about potential issues if not authenticated within a certain time.
 
         VerifyFacebookAccess();
-
     }, 5000);
 
-
     if (window.applicationCache) {
-
         //applicationCache.addEventListener('updateready', function () {
         //    if (confirm('An update is available. Reload now?')) {
         //        window.location.reload();
@@ -224,28 +197,22 @@ $(function () {
                 window.applicationCache.swapCache();
 
                 ShowUpdateNotification();
-                
-               // if (confirm('A new version of this site is available. Load it?')) {
-               //     window.location.reload();
-               // }
 
-
+                // if (confirm('A new version of this site is available. Load it?')) {
+                //     window.location.reload();
+                // }
             } else {
                 // Manifest didn't changed. Nothing new to server.
             }
         }, false);
 
-
-
         function handleCacheEvent(e) {
-            
             console.log(e);
-
         }
 
         function handleCacheError(e) {
             console.log(e);
-            alert('Error: Cache failed to update!' + e);
+            //alert('Error: Cache failed to update!' + e);
         };
 
         var appCache = window.applicationCache;
@@ -275,28 +242,22 @@ $(function () {
 
         // Fired when the manifest resources have been newly redownloaded.
         appCache.addEventListener('updateready', handleCacheEvent, false);
-
     }
-
 });
 
-function ShowUpdateNotification()
-{
+function ShowUpdateNotification() {
     $("#updateNotification").show();
 }
 
-function CancelUpdateNotification()
-{
+function CancelUpdateNotification() {
     $("#updateNotification").hide();
 }
 
-function AcceptUpdateNotification()
-{
+function AcceptUpdateNotification() {
     window.location.reload();
 }
 
-function VerifyFacebookAccess()
-{
+function VerifyFacebookAccess() {
     // TODO: Find the proper implementation to verify if Facebook has loaded or not.
     // The verification should handle two scenarios: www.facebook.com blocked and not connect.facebook.com,
     // and the scenario of both URLs unavailable.
@@ -324,7 +285,6 @@ function HideInformationDialog() {
 }
 
 function ShowInformationDialog(title, body, button1, button2, confirm) {
-
     $("#infoDialogTitle").html(title);
     $("#infoDialogBody").html(body);
 
@@ -359,18 +319,13 @@ function ShowInformationDialog(title, body, button1, button2, confirm) {
     // Add the mask to body
     $('body').append('<div id="mask"></div>');
     $('#mask').fadeIn(300);
-
-
-
 }
-
 
 function HookUpThumbnailEvents(wrapper) {
     $(wrapper).live('mouseenter', function (source) {
         //$(this).children(".description").fadeIn(50);
         $(this).children(".description").show();
     }).live('mouseleave', function (source) {
-
         $(this).children(".description").hide();
         //$(this).children(".description").fadeOut(150);
     }).live('click', function (source) {
@@ -421,15 +376,12 @@ function ThumbnailRender() {
         addCSSRule("div.thumbnail_container", "height", size + 12 + "px");
     }
     else {
-
         addCSSRule("div.thumbnail_container", "height", "auto");
     }
 
     addCSSRule(".thumbnails div img", "height", size + "px");
 
-
     //addCSSRule(".thumbnails>span:before", "margin-left", size + "px");
-
 }
 
 function addCSSRule(sel, prop, val) {
@@ -440,7 +392,6 @@ function addCSSRule(sel, prop, val) {
 
         for (var i2 = 0, len = rules.length; i2 < len; i2++) {
             if (rules[i2].selectorText && (rules[i2].selectorText.toLowerCase() == lsel)) {
-
                 if (val != null) {
                     rules[i2].style[prop] = val;
                     return;
@@ -470,13 +421,10 @@ function addCSSRule(sel, prop, val) {
     }
 }
 
-
 function ToggleSettings() {
     if ($('#settings').is(':visible')) {
-
         $(".settings").hide();
         $(".content").fadeIn(300);
-
     } else {
         $(".content").hide();
         $(".settings").fadeIn(300);
@@ -484,14 +432,10 @@ function ToggleSettings() {
 }
 
 function ToggleSearch() {
-
     if ($('#search').is(':visible')) {
-
         $(".search").hide();
         $(".content").fadeIn(300);
-
     } else {
-
         $(".content").hide();
         $(".search").fadeIn(300);
     }
@@ -500,7 +444,6 @@ function ToggleSearch() {
 }
 
 function HideProperties() {
-
     $("#propertiesDialog").animate({ width: 0 }, 300, function () {
         $("#propertiesDialog").hide();
     });
@@ -512,18 +455,13 @@ function ToggleProperties(title, action) {
     if (previousAction != action && !$("#propertiesDialog").is(":visible")) {
         $("#propertiesDialog").show();
         $("#propertiesDialog").animate({ width: 300 }, 300, function () {
-
         });
     }
     else if (previousAction == action && $("#propertiesDialog").is(":visible")) {
-
         HideProperties();
-
     } else {
-
         $("#propertiesDialog").show();
         $("#propertiesDialog").animate({ width: 300 }, 300, function () {
-
         });
     }
 
@@ -532,18 +470,12 @@ function ToggleProperties(title, action) {
 
 function ToggleFilter() {
     if ($('#filterSearch').is(':visible')) {
-
         /* for some unknown reason, the UI "jumps" if we animate to 0. */
         $("#filterSearch").animate({ width: 50 }, 300, function () {
-
             $("#filterSearch").hide();
             $("#filterSearch").val("");
-
         });
-
-
     } else {
-
         $("#filterSearch").show();
         $("#filterSearch").animate({ width: 200 }, 300);
     }
@@ -551,8 +483,10 @@ function ToggleFilter() {
 
 function ToggleListOptions(button) {
 
-    var left = $(button).position().left - 110;
+    var left = $(button).position().left;
     var top = $(button).position().top + 36;
+
+    left = left - $("#listOptions").width();
 
     $("#listOptions").css("left", left);
     $("#listOptions").css("top", top);
@@ -565,24 +499,18 @@ function ToggleListOptions(button) {
 }
 
 function ToggleFriends() {
-
     if ($('#friends').width() == 0) {
-
         // Before we can resize the friends list, we must shrink it so
         // it won't "jump" down below on the page.
         var sidebarwidth = $("#left-sidebar").width();
         $("#main-content").width($(window).width() - (sidebarwidth + 190));
         $("#friends").animate({ width: 190 }, 300, function () { ResizeContent(); });
-
     } else {
-
         $("#friends").animate({ width: 0 }, 300, function () { ResizeContent(); });
-
     }
 }
 
 function ResizeContent() {
-
     var logoHeight = $("#header").outerHeight();
     var headerheight = $("#header").outerHeight() + $("#toolbar").outerHeight();
     var friendswidth = $("#friends").width();
@@ -609,7 +537,6 @@ function ResizeContent() {
     var searchheight = $("#search").outerHeight();
 
     $("#searchContent").height(windowheight - (logoHeight + searchTasksHeight));
-
 }
 
 function DisplayIntroduction() {
@@ -647,7 +574,6 @@ function ChangeState(state) {
 
             // Hide the loading indicator for auth status.
             $("#logo").animate({ padding: "0px" }, 200, function () {
-
                 // Resize the content for the new state to ensure everything is up-to-speed.
                 // It's important that we do this after the animation.
                 ResizeContent();
@@ -660,7 +586,6 @@ function ChangeState(state) {
             $("#logo").addClass("logo_authenticated");
 
             //$("#AppContainer").css("padding", "0px");
-
 
             break;
 
@@ -676,9 +601,7 @@ function ChangeState(state) {
 
             break;
     }
-
 }
-
 
 var mainViewModel = function () {
     var self = this;
@@ -693,8 +616,7 @@ var mainViewModel = function () {
 
     self.User = ko.observable();
 
-    self.LoadUser = function ()
-    {
+    self.LoadUser = function () {
         $.ajax({
             url: "/Api/User",
             type: "GET",
@@ -704,7 +626,6 @@ var mainViewModel = function () {
                 xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
             }
         }).done(function (data) {
-
             console.log(data);
             var item = ko.mapping.fromJS(data);
             self.User(item);
@@ -727,8 +648,7 @@ var mainViewModel = function () {
 
     self.SelectedAction = ko.observable("Edit Catalog");
 
-    self.LoadActivities = function ()
-    {
+    self.LoadActivities = function () {
         //var now = new Date();
         //var utc = new Date(Date.UTC(
         //    now.getFullYear(),
@@ -744,14 +664,12 @@ var mainViewModel = function () {
         self.LoadActivitiesByTime(now);
     }
 
-    self.LoadActivitiesByTime = function (date)
-    {
+    self.LoadActivitiesByTime = function (date) {
         // TODO: Change this to use WebSockets: http://msdn.microsoft.com/en-us/library/ie/hh673567(v=vs.85).aspx
 
         var url = "/Api/Activities";
 
-        if (date != null)
-        {
+        if (date != null) {
             var queryDate = date.toISOString();
             var queryDateEncoded = encodeURIComponent(queryDate);
             url = url + "/?date=" + queryDateEncoded;
@@ -766,7 +684,6 @@ var mainViewModel = function () {
                 xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
             }
         }).done(function (data) {
-
             //self.Activities.removeAll();
             console.log(data);
 
@@ -784,16 +701,13 @@ var mainViewModel = function () {
     setInterval(self.LoadActivities, 60000);
 
     self.SelectCatalog = function (catalog) {
-
         self.SelectedCatalog(catalog);
         self.SelectedObject(catalog);
 
         self.LoadItems(catalog.Id);
-
     }
 
     self.SaveSettings = function () {
-
         //var catalog = self.SelectedObject();
         var user = ko.toJSON(self.User());
         //var json = JSON.stringify(user);
@@ -809,16 +723,13 @@ var mainViewModel = function () {
             }
         }
         ).done(function (data) {
-
             ToggleSettings();
             //$("#notificationDialog").fadeIn().delay(2000).fadeOut();
             //self.Catalogs.push(data);
-
         });
     }
 
     self.SaveCatalog = function () {
-
         HideProperties();
 
         var catalog = self.SelectedObject();
@@ -835,15 +746,12 @@ var mainViewModel = function () {
             }
         }
         ).done(function (data) {
-
             $("#notificationDialog").fadeIn().delay(2000).fadeOut();
             self.Catalogs.push(data);
-
         });
     }
 
     self.DeleteCatalog = function () {
-
         var catalog = self.SelectedCatalog();
 
         ShowInformationDialog("Confirm Catalog Delete",
@@ -851,7 +759,6 @@ var mainViewModel = function () {
             "Delete",
             "Cancel",
             function () {
-
                 $.ajax({
                     url: "/Api/Catalogs/" + catalog.Id,
                     type: "DELETE",
@@ -861,13 +768,9 @@ var mainViewModel = function () {
                         xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
                     }
                 }).done(function () {
-
                     self.Catalogs.remove(catalog);
                     self.Items.removeAll();
-
                 });
-
-
             })
 
         //var documentWidth = $(document).width();
@@ -878,8 +781,6 @@ var mainViewModel = function () {
         //$("#confirmationDialog").css("right", (leftPosition - 50) + "px");
         //$("#confirmationDialog").animate({ opacity: 1, right: leftPosition }, 500);
     }
-
-    
 
     self.CreateCatalog = function () {
         self.SelectedAction("Add Collection");
@@ -899,7 +800,6 @@ var mainViewModel = function () {
     }
 
     self.SelectResult = function (item) {
-
         if (item.Selected()) {
             self.SelectedResults.remove(item);
             item.Selected(false);
@@ -911,7 +811,6 @@ var mainViewModel = function () {
     }
 
     self.SelectItem = function (item) {
-
         if (item.Selected()) {
             self.SelectedItems.remove(item);
             item.Selected(false);
@@ -930,11 +829,9 @@ var mainViewModel = function () {
     }
 
     self.DeleteItems = function () {
-        
         var array = self.SelectedItems();
 
         for (i = 0; i < array.length; i++) {
-
             var item = array[i];
             //var json = JSON.stringify(item);
 
@@ -947,16 +844,13 @@ var mainViewModel = function () {
                     xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
                 }
             }).done(function () {
-
                 self.SelectedItems.remove(item);
                 self.Items.remove(item);
-
             });
         }
     }
 
-    self.onRemove = function (item)
-    {
+    self.onRemove = function (item) {
         //console.log(item);
 
         //if ($(item).length > 0)
@@ -968,12 +862,10 @@ var mainViewModel = function () {
         //console.log(item);
     }
 
-    self.SaveSelectedItems = function ()
-    {
+    self.SaveSelectedItems = function () {
         var array = self.SelectedResults();
 
         for (i = 0; i < array.length; i++) {
-
             var item = array[i];
             item.Catalog_Id = self.SelectedCatalog().Id;
             var json = JSON.stringify(item);
@@ -989,11 +881,8 @@ var mainViewModel = function () {
                 }
             }
                 ).done(function (data) {
-
                     self.SaveStatusText("Saved " + i + " of " + array.length);
-
-            });
-                
+                });
         }
     }
 
@@ -1007,7 +896,6 @@ var mainViewModel = function () {
                 xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
             }
         }).done(function (data) {
-
             self.Results.removeAll();
             console.log(data);
 
@@ -1029,7 +917,6 @@ var mainViewModel = function () {
                 xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
             }
         }).done(function (data) {
-
             self.Items.removeAll();
             console.log(data);
 
@@ -1038,7 +925,6 @@ var mainViewModel = function () {
                 item.Selected = ko.observable(false);
                 self.Items.push(item);
             }
-
         });
     }
 
@@ -1052,12 +938,10 @@ var mainViewModel = function () {
                 xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
             }
         }).done(function (data) {
-
             self.Friends.removeAll();
             console.log(data);
 
             for (i = 0; i < data.length; i++) {
-
                 data[i].ImageUrl = ko.observable("https://graph.facebook.com/" + data[i].FacebookId + "/picture");
 
                 self.Friends.push(data[i]);
@@ -1067,12 +951,10 @@ var mainViewModel = function () {
                 //    self.SelectedObject(data[i]);
                 //}
             }
-
         });
     }
 
     self.LoadData = function () {
-
         self.LoadCatalogs();
         self.LoadFriends();
 
@@ -1105,7 +987,6 @@ var mainViewModel = function () {
                 xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
             }
         }).done(function (data) {
-
             self.Catalogs.removeAll();
             console.log(data);
 
@@ -1117,7 +998,31 @@ var mainViewModel = function () {
                     self.SelectedObject(data[i]);
                 }
             }
-
         });
     }
+}
+
+function ConfirmAccountRemoval() {
+    ShowInformationDialog("Confirm Account Delete",
+            "Are you sure you want to delete your account and all the data it contains? This operation cannot be undone.",
+            "Delete",
+            "Cancel",
+            function () {
+                $.ajax({
+                    url: "/Api/Account/",
+                    type: "DELETE",
+                    dataType: "json",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("AccessToken", facebookAccessToken);
+                        xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
+                    }
+                }).done(function () {
+
+                    // TODO: Delete all the local cached files.
+                    // This is very important, or else the user will be re-created on the next HTTP request.
+                    facebookAccessToken = null;
+
+                    FB.logout();
+                });
+            })
 }

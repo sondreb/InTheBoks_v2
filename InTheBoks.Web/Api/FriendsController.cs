@@ -1,21 +1,18 @@
 ﻿namespace InTheBoks.Web.Api
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Http;
-    using System.Web.Http;
     using InTheBoks.Data.Infrastructure;
     using InTheBoks.Data.Repositories;
     using InTheBoks.Models;
     using InTheBoks.Security;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Http;
 
     public class FriendsController : ApiController
     {
-        private readonly IUserRepository _userRepository;
         private readonly IFriendRepository _friendRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserRepository _userRepository;
 
         public FriendsController(IUserRepository userRepository, IFriendRepository friendRepository, IUnitOfWork unitOfWork)
         {

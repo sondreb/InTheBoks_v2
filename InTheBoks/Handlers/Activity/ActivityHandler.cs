@@ -1,13 +1,10 @@
-﻿namespace InTheBoks.Handlers.Activity
+﻿namespace InTheBoks.Handlers
 {
     using InTheBoks.Command;
-using InTheBoks.Commands;
-using InTheBoks.Data.Infrastructure;
-using InTheBoks.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+    using InTheBoks.Commands;
+    using InTheBoks.Data.Infrastructure;
+    using InTheBoks.Data.Repositories;
+    using System;
 
     public class ActivityHandler : ICommandHandler<ActivityCommand>
     {

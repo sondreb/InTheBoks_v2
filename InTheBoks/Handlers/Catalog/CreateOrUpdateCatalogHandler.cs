@@ -1,4 +1,4 @@
-﻿namespace InTheBoks.Handlers.Item
+﻿namespace InTheBoks.Handlers
 {
     using InTheBoks.Command;
     using InTheBoks.Commands;
@@ -11,8 +11,8 @@
     public class CreateOrUpdateCatalogHandler : ICommandHandler<CreateOrUpdateCatalogCommand>
     {
         private readonly ICatalogRepository _catalogRepository;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly ICommandBus _commandBus;
+        private readonly IUnitOfWork _unitOfWork;
 
         public CreateOrUpdateCatalogHandler(ICatalogRepository catalogRepository, IUnitOfWork unitOfWork, ICommandBus commandBus)
         {

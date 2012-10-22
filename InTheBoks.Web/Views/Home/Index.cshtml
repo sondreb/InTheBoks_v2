@@ -6,36 +6,32 @@
 <!--<div class="thumbnails" data-bind="foreach: {data: Items, beforeRemove: onRemove}">-->
 <div class="thumbnails" data-bind="foreach: {data: Items}">
 
-
     <div class="thumbnail_container">
-        <div class="wrapper" data-bind="click: $parent.SelectItem">   
-            <img data-bind="attr: { src: ImageUrl, title: Title }" />  
-            <div class="description">  
-            <p class="description_content"><strong data-bind="text: Title"></strong></p>  
-            </div>  
-        </div>  
+        <div class="wrapper" data-bind="click: $parent.SelectItem">
+            <img data-bind="attr: { src: ImageUrl, title: Title }" />
+            <div class="description">
+                <p class="description_content"><strong data-bind="text: Title"></strong></p>
+            </div>
+        </div>
         <span class="list_details"><strong data-bind="text: Title"></strong></span>
         <span class="list_details right" data-bind="text: Title"></span>
     </div>
-
 </div>
 @section scripts
 {
-<script>
+    <script>
 
-    var mainVM = null;
+        var mainVM = null;
 
-    function InitializeUserData() {
+        function InitializeUserData() {
 
-        if (mainVM == null) {
-            mainVM = new mainViewModel();
-            ko.applyBindings(mainVM, document.getElementById("AppContainer"));
+            if (mainVM == null) {
+                mainVM = new mainViewModel();
+                ko.applyBindings(mainVM, document.getElementById("AppContainer"));
+            }
+
+            mainVM.LoadData();
         }
+    </script>
 
-        mainVM.LoadData();
-    }
-
-</script>
-
-    
 }

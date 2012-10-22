@@ -1,29 +1,30 @@
 ﻿namespace InTheBoks.Data
 {
-    using System.Data.Entity;
     using InTheBoks.Models;
+    using System.Data.Entity;
 
     public class DataContext : DbContext
     {
         public DataContext()
             : base("InTheBoks")
         {
-
+            Database.SetInitializer<DataContext>(new Initializer());
+            Database.Initialize(false);
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<Activity> Activities { get; set; }
 
         public DbSet<Catalog> Catalogs { get; set; }
 
-        public DbSet<Item> Items { get; set; }
+        public DbSet<Friend> Friends { get; set; }
 
-        public DbSet<Log> Logs { get; set; }
+        public DbSet<Item> Items { get; set; }
 
         public DbSet<Job> Jobs { get; set; }
 
-        public DbSet<Friend> Friends { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
-        public DbSet<Activity> Activities { get; set; }
+        public DbSet<User> Users { get; set; }
 
         public virtual void Commit()
         {
@@ -53,40 +54,39 @@
             //modelBuilder.Entity<User>().Property(p => p.FacebookId).IsRequired();
         }
 
-        public class Initializer : DropCreateDatabaseIfModelChanges<DataContext>
-        {
-            protected override void Seed(DataContext context)
-            {
-                //context.Database.ExecuteSqlCommand("CREATE INDEX IX_User_FacebookId ON User (FacebookId)");
+        //public class Initializer : DropCreateDatabaseIfModelChanges<DataContext>
+        //{
+        //    protected override void Seed(DataContext context)
+        //    {
+        //        //context.Database.ExecuteSqlCommand("CREATE INDEX IX_User_FacebookId ON User (FacebookId)");
 
-                var friend1 = new User();
-                var friend2 = new User();
-                var friend3 = new User();
+        //        var friend1 = new User();
+        //        var friend2 = new User();
+        //        var friend3 = new User();
 
-                friend1.FacebookId = 6212354;
-                friend1.Name = "Joel";
+        //        friend1.FacebookId = 6212354;
+        //        friend1.Name = "Joel";
 
-                friend2.FacebookId = 57904077;
-                friend2.Name = "Ed";
+        //        friend2.FacebookId = 57904077;
+        //        friend2.Name = "Ed";
 
-                context.Users.Add(friend1);
-                context.Users.Add(friend2);
+        //        context.Users.Add(friend1);
+        //        context.Users.Add(friend2);
 
-                context.SaveChanges();
+        //        context.SaveChanges();
 
-                base.Seed(context);
-            }
+        //        base.Seed(context);
+        //    }
 
-            //public void InitializeDatabase(DataContext context)
-            //{
-            //    if (!context.Database.Exists() || !context.Database.CompatibleWithModel(false))
-            //    {
-            //        context.Database.Delete();
-            //        context.Database.Create();
+        //    //public void InitializeDatabase(DataContext context)
+        //    //{
+        //    //    if (!context.Database.Exists() || !context.Database.CompatibleWithModel(false))
+        //    //    {
+        //    //        context.Database.Delete();
+        //    //        context.Database.Create();
 
-                    
-            //    }
-            //}
-        }
+        //    //    }
+        //    //}
+        //}
     }
 }

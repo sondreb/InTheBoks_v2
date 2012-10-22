@@ -2,8 +2,8 @@
 {
     public interface ICommandResult
     {
-        bool Success { get; }
         long Id { get; }
+
+        bool Success { get; }
     }
 }
-

@@ -1,6 +1,5 @@
 ﻿namespace InTheBoks.Web
 {
-    using System.Web;
     using System.Web.Http.Filters;
     using System.Web.Mvc;
 

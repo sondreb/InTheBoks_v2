@@ -1,4 +1,4 @@
-﻿namespace InTheBoks.Handlers.Item
+﻿namespace InTheBoks.Handlers
 {
     using InTheBoks.Command;
     using InTheBoks.Commands;
@@ -8,9 +8,9 @@
 
     public class DeleteItemHandler : ICommandHandler<DeleteItemCommand>
     {
+        private readonly ICommandBus _commandBus;
         private readonly IItemRepository _itemRepository;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ICommandBus _commandBus;
 
         public DeleteItemHandler(IItemRepository itemRepository, IUnitOfWork unitOfWork, ICommandBus commandBus)
         {

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Facebook;
+using System;
 using System.Security.Principal;
-using System.Text;
-using Facebook;
 
 namespace InTheBoks.Security
 {
@@ -20,31 +17,25 @@ namespace InTheBoks.Security
             Language = language;
         }
 
-        public long Id { get; private set; }
-
-        public long FacebookId { get; private set; }
-
-        public string Email { get; private set; }
-
-        public string Token { get; private set; }
-
-        public string Link { get; private set; }
-
-        public FacebookClient CreateClient()
-        {
-            var fb = new FacebookClient(Token);
-            return fb;
-        }
-
         public string AuthenticationType
         {
             get { return "Facebook"; }
         }
 
+        public string Email { get; private set; }
+
+        public long FacebookId { get; private set; }
+
+        public long Id { get; private set; }
+
         public bool IsAuthenticated
         {
             get { return true; }
         }
+
+        public string Language { get; private set; }
+
+        public string Link { get; private set; }
 
         public string Name { get; private set; }
 
@@ -65,6 +56,12 @@ namespace InTheBoks.Security
             }
         }
 
-        public string Language { get; private set; }
+        public string Token { get; private set; }
+
+        public FacebookClient CreateClient()
+        {
+            var fb = new FacebookClient(Token);
+            return fb;
+        }
     }
 }

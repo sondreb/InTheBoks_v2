@@ -1,12 +1,8 @@
-﻿using System;
+﻿using InTheBoks.Models;
+using InTheBoks.Services;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Xml.Linq;
-using InTheBoks.Models;
-using InTheBoks.Services;
 
 namespace InTheBoks.Web.Api
 {
@@ -59,9 +55,8 @@ namespace InTheBoks.Web.Api
                 {
                     largeImageUrl = "/Content/albums/missing.jpg";
                 }
-                
 
-                items.Add(new Item{ ASIN = asin, Url = url, ImageUrl = largeImageUrl, Title = title });
+                items.Add(new Item { ASIN = asin, Url = url, ImageUrl = largeImageUrl, Title = title });
             }
 
             return items;

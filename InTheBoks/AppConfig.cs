@@ -7,12 +7,17 @@
     {
         private static string[] _configuration;
 
-        private static void InitializeConfigurationFile()
+        public static string Get(string name)
         {
-            if (_configuration == null)
+            var value = ConfigurationManager.AppSettings[name];
+
+            if (string.IsNullOrWhiteSpace(value))
             {
-                _configuration = File.ReadAllLines("C:\\InTheBoks\\InTheBoks.ini");
+                InitializeConfigurationFile();
+                value = GetValue(name);
             }
+
+            return value;
         }
 
         private static string GetValue(string name)
@@ -33,17 +38,12 @@
             return string.Empty;
         }
 
-        public static string Get(string name)
+        private static void InitializeConfigurationFile()
         {
-            var value = ConfigurationManager.AppSettings[name];
-
-            if (string.IsNullOrWhiteSpace(value))
+            if (_configuration == null)
             {
-                InitializeConfigurationFile();
-                value = GetValue(name);
+                _configuration = File.ReadAllLines("C:\\InTheBoks\\InTheBoks.ini");
             }
-
-            return value;
         }
     }
 }

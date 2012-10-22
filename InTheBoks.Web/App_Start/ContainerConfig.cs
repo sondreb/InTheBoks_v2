@@ -1,8 +1,5 @@
 ﻿namespace InTheBoks.Web
 {
-    using System.Reflection;
-    using System.Web.Http;
-    using System.Web.Mvc;
     using Autofac;
     using Autofac.Integration.Mvc;
     using Autofac.Integration.WebApi;
@@ -10,6 +7,9 @@
     using InTheBoks.Data.Infrastructure;
     using InTheBoks.Data.Repositories;
     using InTheBoks.Dispatcher;
+    using System.Reflection;
+    using System.Web.Http;
+    using System.Web.Mvc;
 
     public class ContainerConfig
     {

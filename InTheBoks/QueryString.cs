@@ -1,24 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Web;
 
 namespace InTheBoks
 {
-    internal class ParamComparer : IComparer<string>
-    {
-        public int Compare(string p1, string p2)
-        {
-            return string.CompareOrdinal(p1, p2);
-        }
-    }
-
     public class QueryString : Dictionary<string, string>
     {
         public QueryString()
         {
-     
+        }
+
+        public void Signature()
+        {
+            //_params = _params.OrderByKey();
+
+            StringBuilder str = new StringBuilder();
+            str.Append("GET\n");
+            str.Append("webservices.amazon.com\n");
+            str.Append("/onca/xml\n");
+            str.Append(this.ToString());
         }
 
         public override string ToString()
@@ -39,18 +40,6 @@ namespace InTheBoks
 
         //    _params.Add(key, HttpUtility.UrlEncode(value));
         //}
-
-        public void Signature()
-        {
-            //_params = _params.OrderByKey();
-
-            StringBuilder str = new StringBuilder();
-            str.Append("GET\n");
-            str.Append("webservices.amazon.com\n");
-            str.Append("/onca/xml\n");
-            str.Append(this.ToString());
-        }
-
         private string PercentEncodeRfc3986(string str)
         {
             str = HttpUtility.UrlEncode(str, System.Text.Encoding.UTF8);
@@ -69,6 +58,14 @@ namespace InTheBoks
                 }
             }
             return sbuilder.ToString();
+        }
+    }
+
+    internal class ParamComparer : IComparer<string>
+    {
+        public int Compare(string p1, string p2)
+        {
+            return string.CompareOrdinal(p1, p2);
         }
     }
 }

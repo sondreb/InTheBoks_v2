@@ -36,7 +36,6 @@
             _unitOfWork.Commit();
 
             return new CommandResult(true);
-            
         }
     }
 }

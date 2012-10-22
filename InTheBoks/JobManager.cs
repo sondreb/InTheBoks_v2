@@ -5,28 +5,23 @@ using System.Text;
 
 namespace InTheBoks
 {
+    public interface IJobManager
+    {
+        string Description { get; set; }
+
+        string Operation { get; set; }
+
+        void Progress(long current, long total);
+
+        void Progress(long current);
+
+        void Start();
+
+        void Stop();
+    }
+
     public class JobManager : IJobManager
     {
-        public void Start()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Stop()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Progress(long current, long total)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Progress(long current)
-        {
-            throw new NotImplementedException();
-        }
-
         public string Description
         {
             get
@@ -50,15 +45,25 @@ namespace InTheBoks
                 throw new NotImplementedException();
             }
         }
-    }
 
-    public interface IJobManager
-    {
-        void Start();
-        void Stop();
-        void Progress(long current, long total);
-        void Progress(long current);
-        string Description { get; set; }
-        string Operation { get; set; }
+        public void Progress(long current, long total)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Progress(long current)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Start()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Stop()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace InTheBoks.Handlers.Item
+﻿namespace InTheBoks.Handlers
 {
     using InTheBoks.Command;
     using InTheBoks.Commands;
@@ -10,9 +10,9 @@
 
     public class CreateOrUpdateUserHandler : ICommandHandler<CreateOrUpdateUserCommand>
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IUnitOfWork _unitOfWork;
         private readonly ICommandBus _commandBus;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserRepository _userRepository;
 
         public CreateOrUpdateUserHandler(IUserRepository userRepository, IUnitOfWork unitOfWork, ICommandBus commandBus)
         {
@@ -49,6 +49,7 @@
             {
                 //_log.Info("Updating User: " + id + " - " + me.name);
                 dbUser.Modified = DateTime.UtcNow;
+
                 //dbUser.Name = user.Name;
                 //dbUser.Email = user.Email;
                 //dbUser.Link = user.Link;

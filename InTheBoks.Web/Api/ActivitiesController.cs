@@ -2,7 +2,6 @@
 {
     using InTheBoks.Data.Repositories;
     using InTheBoks.Models;
-    using InTheBoks.Security;
     using NLog;
     using System;
     using System.Collections.Generic;

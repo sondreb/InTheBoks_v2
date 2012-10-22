@@ -7,4 +7,3 @@
         bool Success { get; }
     }
 }
-
