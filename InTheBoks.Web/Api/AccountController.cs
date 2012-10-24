@@ -8,6 +8,7 @@
     using System.Web;
     using System.Web.Http;
 
+    [Authorize]
     public class AccountController : ApiController
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
@@ -25,7 +26,7 @@
 
             var ipAddress = GetClientIp(Request);
 
-            _log.Info(string.Format("{0} ({1} - {2}) requested to be deleted. Email: {3}. IP address: {4}. Link: {5}. Proceeding to delete all his data and account.", user.Name, user.Id, user.FacebookId, user.Email, ipAddress, user.Link));
+            _log.Info(string.Format("{0} (ID: {1} - FB: {2}) requested to be deleted. Email: {3}. IP address: {4}. Link: {5}. Proceeding to delete all his data and account.", user.Name, user.Id, user.FacebookId, user.Email, ipAddress, user.Link));
 
             _commandBus.Submit(new DeleteUserCommand(user.Id));
         }

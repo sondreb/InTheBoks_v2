@@ -703,8 +703,7 @@ var mainViewModel = function () {
     self.SelectCatalog = function (catalog) {
         self.SelectedCatalog(catalog);
         self.SelectedObject(catalog);
-
-        self.LoadItems(catalog.Id);
+        self.LoadItems(catalog.Id());
     }
 
     self.SaveSettings = function () {
@@ -733,12 +732,24 @@ var mainViewModel = function () {
         HideProperties();
 
         var catalog = self.SelectedObject();
-        var json = JSON.stringify(catalog);
+        var json = ko.mapping.toJSON(catalog);
+        var jsonText = JSON.stringify(catalog);
+
+        var id = catalog.Id();
+
+        var url = "/api/Catalogs";
+        var method = "post";
+
+        if (id > 0)
+        {
+            url += "/" + id;
+            method = "put";
+        }
 
         $.ajax({
-            url: "/api/Catalogs",
+            url: url,
             data: json,
-            type: "post",
+            type: method,
             contentType: "application/json",
             beforeSend: function (xhr) {
                 xhr.setRequestHeader("AccessToken", facebookAccessToken);
@@ -746,8 +757,17 @@ var mainViewModel = function () {
             }
         }
         ).done(function (data) {
+
             $("#notificationDialog").fadeIn().delay(2000).fadeOut();
-            self.Catalogs.push(data);
+
+            if (id > 0)
+            {
+                ko.mapping.updateFromJSON(catalog, data);
+            }
+            else
+            {
+                self.Catalogs.push(data);
+            }
         });
     }
 
@@ -836,7 +856,7 @@ var mainViewModel = function () {
             //var json = JSON.stringify(item);
 
             $.ajax({
-                url: "/Api/Items/" + item.Id,
+                url: "/Api/Items/" + item.Id(),
                 type: "DELETE",
                 dataType: "json",
                 beforeSend: function (xhr) {
@@ -921,7 +941,7 @@ var mainViewModel = function () {
             console.log(data);
 
             for (i = 0; i < data.length; i++) {
-                var item = data[i];
+                var item = ko.mapping.fromJS(data[i]);
                 item.Selected = ko.observable(false);
                 self.Items.push(item);
             }
@@ -942,9 +962,10 @@ var mainViewModel = function () {
             console.log(data);
 
             for (i = 0; i < data.length; i++) {
-                data[i].ImageUrl = ko.observable("https://graph.facebook.com/" + data[i].FacebookId + "/picture");
 
-                self.Friends.push(data[i]);
+                var item = ko.mapping.fromJS(data[i]);
+                item.ImageUrl = ko.observable("https://graph.facebook.com/" + item.FacebookId() + "/picture");
+                self.Friends.push(item);
 
                 //if (i == 0) {
                 //    self.SelectCatalog(data[i]);
@@ -991,11 +1012,14 @@ var mainViewModel = function () {
             console.log(data);
 
             for (i = 0; i < data.length; i++) {
-                self.Catalogs.push(data[i]);
+
+                var item = ko.mapping.fromJS(data[i]);
+
+                self.Catalogs.push(item);
 
                 if (i == 0) {
-                    self.SelectCatalog(data[i]);
-                    self.SelectedObject(data[i]);
+                    self.SelectCatalog(item);
+                    self.SelectedObject(item);
                 }
             }
         });

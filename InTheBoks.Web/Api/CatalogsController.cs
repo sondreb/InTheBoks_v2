@@ -11,8 +11,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
+    using System.Net.Http;
     using System.Web.Http;
 
+    [Authorize]
     public class CatalogsController : ApiController
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
@@ -46,6 +49,8 @@
 
             // Submit a delete operation to any handlers.
             _commandBus.Submit(new DeleteCatalogCommand(dbItem.Id));
+
+            //return new HttpResponseMessage(HttpStatusCode.NoContent);
         }
 
         public IEnumerable<Catalog> Get()
@@ -102,7 +107,7 @@
         }
 
         // UPDATE
-        public Item Put(int id, [FromBody]Item item)
+        public Catalog Put(int id, Catalog item)
         {
             var user = (FacebookIdentity)User.Identity;
 
@@ -131,8 +136,21 @@
 
                 throw new ItemNotFoundException("Catalog does not exists.");
             }
+            else
+            {
+                CreateOrUpdateCatalogCommand cmd = new CreateOrUpdateCatalogCommand(item.Id, item.Name, user.Id, item.Visibility);
+                var result = _commandBus.Submit(cmd);
 
-            return item;
+                if (result.Success)
+                {
+                    //item.Id = result.Id;
+                    return item;
+                }
+                else
+                {
+                    throw new Exception("Failed to save catalog.");
+                }
+            }
         }
     }
 }

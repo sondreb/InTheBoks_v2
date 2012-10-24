@@ -12,6 +12,7 @@
     using System.Web;
     using System.Web.Http;
 
+    [Authorize]
     public class ActivitiesController : ApiController
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();

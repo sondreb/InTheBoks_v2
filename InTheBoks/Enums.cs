@@ -2,8 +2,8 @@
 {
     public enum Privacy
     {
-        Private,
-        Friends,
-        Public
+        Private = 0,
+        Friends = 1,
+        Public = 2
     }
 }

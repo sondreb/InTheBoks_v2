@@ -8,6 +8,7 @@
     using System.Linq;
     using System.Web.Http;
 
+    [Authorize]
     public class FriendsController : ApiController
     {
         private readonly IFriendRepository _friendRepository;
@@ -21,7 +22,6 @@
             _unitOfWork = unitOfWork;
         }
 
-        [Authorize]
         public IEnumerable<dynamic> Get()
         {
             var user = (FacebookIdentity)User.Identity;

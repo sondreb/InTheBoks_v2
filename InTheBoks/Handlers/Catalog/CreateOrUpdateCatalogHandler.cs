@@ -46,6 +46,7 @@
 
                 // TODO: This should be auto-mapped.
                 catalog.Name = command.Name;
+                catalog.Visibility = command.Visibility;
                 catalog.Modified = DateTime.UtcNow;
 
                 _catalogRepository.Update(catalog);

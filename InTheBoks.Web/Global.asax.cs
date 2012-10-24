@@ -21,7 +21,7 @@
         {
             var accessToken = Request.Headers["AccessToken"];
 
-            if (string.IsNullOrWhiteSpace(accessToken))
+            if (string.IsNullOrWhiteSpace(accessToken) || accessToken == "null")
             {
                 return;
             }
@@ -34,12 +34,17 @@
             dynamic me = fb.Get("me"); // TODO: Add exception handling for renewing old tokens.
             long facebookUserId = long.Parse(me.id);
 
-            var user = CreateUserIfNotExists(facebookUserId, me, accessToken, tokenExpireDate);
-            var principal = new FacebookPrincipal(user.Id, facebookUserId, me.name, me.email, me.link, accessToken, user.Language, user.TimeZone);
-
-            Context.User = principal;
-
-            _log.Info("User Logged On: " + facebookUserId);
+            try
+            {
+                var user = CreateUserIfNotExists(facebookUserId, me, accessToken, tokenExpireDate);
+                var principal = new FacebookPrincipal(user.Id, facebookUserId, me.name, me.email, me.link, accessToken, user.Language, user.TimeZone);
+                Context.User = principal;
+                _log.Info("User Logged On: " + facebookUserId);
+            }
+            catch (Exception ex)
+            {
+                _log.ErrorException("Failed while create/verify user.", ex);
+            }
         }
 
         protected void Application_BeginRequest(object sender, EventArgs e)
@@ -70,40 +75,43 @@
         {
             using (DataContext db = new DataContext())
             {
-                var dbUser = db.Users.SingleOrDefault(u => u.FacebookId == id);
-
-                if (dbUser == null)
+                lock (db) // Trying to see if this fixes race problems on initial user creation.
                 {
-                    _log.Info("Creating User: " + id + " - " + me.name);
+                    var dbUser = db.Users.SingleOrDefault(u => u.FacebookId == id);
 
-                    dbUser = new Models.User();
-                    dbUser.Created = DateTime.UtcNow;
-                    dbUser.FacebookId = id;
-                    dbUser.Name = me.name;
-                    dbUser.Email = me.email;
-                    dbUser.Link = me.link;
-                    dbUser.Token = token;
-                    dbUser.TokenExpire = expireDate;
-                    dbUser.ShareActivity = true; // We share activity inside InTheBoks by default.
-                    dbUser.ShareFacebook = false; // We don't share to Facebook by default.
+                    if (dbUser == null)
+                    {
+                        _log.Info("Creating User: " + id + " - " + me.name);
 
-                    db.Users.Add(dbUser);
-                    db.SaveChanges();
+                        dbUser = new Models.User();
+                        dbUser.Created = DateTime.UtcNow;
+                        dbUser.FacebookId = id;
+                        dbUser.Name = me.name;
+                        dbUser.Email = me.email;
+                        dbUser.Link = me.link;
+                        dbUser.Token = token;
+                        dbUser.TokenExpire = expireDate;
+                        dbUser.ShareActivity = true; // We share activity inside InTheBoks by default.
+                        dbUser.ShareFacebook = false; // We don't share to Facebook by default.
+
+                        db.Users.Add(dbUser);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        _log.Info("Updating User: " + id + " - " + me.name);
+
+                        dbUser.Name = me.name;
+                        dbUser.Email = me.email;
+                        dbUser.Link = me.link;
+                        dbUser.Token = token;
+                        dbUser.TokenExpire = expireDate;
+
+                        db.SaveChanges();
+                    }
+
+                    return dbUser;
                 }
-                else
-                {
-                    _log.Info("Updating User: " + id + " - " + me.name);
-
-                    dbUser.Name = me.name;
-                    dbUser.Email = me.email;
-                    dbUser.Link = me.link;
-                    dbUser.Token = token;
-                    dbUser.TokenExpire = expireDate;
-
-                    db.SaveChanges();
-                }
-
-                return dbUser;
             }
         }
     }

@@ -6,6 +6,7 @@ using System.Xml.Linq;
 
 namespace InTheBoks.Web.Api
 {
+    [Authorize]
     public class SearchController : ApiController
     {
         //[Authorize]

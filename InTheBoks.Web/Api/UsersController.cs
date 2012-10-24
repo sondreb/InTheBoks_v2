@@ -8,13 +8,14 @@
     using NLog;
     using System.Web.Http;
 
-    public class UserController : ApiController
+    [Authorize]
+    public class UsersController : ApiController
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private readonly ICommandBus _commandBus;
         private readonly IUserRepository _userRepository;
 
-        public UserController(IUserRepository userRepository, ICommandBus commandBus)
+        public UsersController(IUserRepository userRepository, ICommandBus commandBus)
         {
             _userRepository = userRepository;
             _commandBus = commandBus;

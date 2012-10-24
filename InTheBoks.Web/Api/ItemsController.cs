@@ -11,6 +11,7 @@
     using System.Linq;
     using System.Web.Http;
 
+    [Authorize]
     public class ItemsController : ApiController
     {
         private static Logger _log = LogManager.GetCurrentClassLogger();
