@@ -1,7 +1,8 @@
 ﻿@using InTheBoks.Resources
 
 <!DOCTYPE html>
-<html manifest="offline2.appcache">
+@*<html manifest="offline2.appcache">*@
+<html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -25,7 +26,11 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/signalr")
     @Scripts.Render("~/bundles/app")
+
+    <script src="~/signalr/hubs"></script>
+
 </head>
 <body>
 
@@ -168,7 +173,9 @@
                         </div>
                     </div>
                     <div data-bind="visible: Friends().length == 0" class="empty_friend_list">
-                        None of your Facebook friends use InTheBoks. <a href="#">Invite them</a> to tip your friends about our great app!
+                        None of your Facebook friends use InTheBoks. 
+                        <button id="notifyButton">Notify</button>
+                        <a href="#">Invite them</a> to tip your friends about our great app!
                     </div>
                 </div>
 
@@ -378,9 +385,9 @@
                         <p>Visibility</p>
                         <p>
                             <select>
-                                <option>Private</option>
-                                <option>Friends</option>
-                                <option>Public</option>
+                                <option value="0">Private</option>
+                                <option value="1">Friends</optio>
+                                <option value="2">Public</option>
                             </select>
                         </p>
                         <p>

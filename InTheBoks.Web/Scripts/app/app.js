@@ -1,5 +1,54 @@
 ﻿var State = { "Initializing": 0, "Authenticated": 1, "Anonymous": 2 };
 
+
+
+
+
+
+$(document).ready(function () {
+    // executes when HTML-Document is loaded and DOM is ready
+    console.log("document.ready");
+
+});
+
+$(window).load(function () {
+    // executes when complete page is fully loaded, including all frames, objects and images
+    console.log("window.loaded");
+
+    //$.connection.hub.logging = true;
+
+    var hub = $.connection.activities;
+
+    hub.client.notify = function (message)
+    {
+        console.log(message);
+        alert(message);
+
+        //$.each(data, function () {
+        //    $('#messages').append('<li>' + this + '</li>');
+        //});
+
+
+    }
+
+    $.connection.hub.start().done(function () {
+
+        hub.server.notifyClients();
+
+
+        $("#notifyButton").click(function () {
+            hub.server.notifyClients();
+        });
+
+        
+    });
+
+  
+
+
+});
+
+
 // Onload event handler
 $(function () {
     console.log("OnLoad...");
@@ -62,9 +111,10 @@ $(function () {
         }
     });
 
-    $('img').live('dragstart', function (event) { event.preventDefault(); });
+    //$('img').live('dragstart', function (event) { event.preventDefault(); });
+    $("img").on("dragstart", function (event) { event.preventDefault(); });
 
-    $(document).live("dragstart", function () {
+    $(document).on("dragstart", function () {
         return false;
     });
 
@@ -135,7 +185,7 @@ $(function () {
     });
 
     // When clicking on the button close or the mask layer the popup closed
-    $('#mask').live('click', function () {
+    $("#mask").on("click", function () {
         HideInformationDialog();
 
         return false;
@@ -147,13 +197,13 @@ $(function () {
     //    $(this).children(".description").fadeOut(100);
     //});
 
-    $('.wrapper').live('mouseenter', function (source) {
+    $('.wrapper').on('mouseenter', function (source) {
         //$(this).children(".description").fadeIn(50);
         $(this).children(".description").show();
-    }).live('mouseleave', function (source) {
+    }).on('mouseleave', function (source) {
         $(this).children(".description").hide();
         //$(this).children(".description").fadeOut(150);
-    }).live('click', function (source) {
+    }).on('click', function (source) {
         if ($(this).hasClass("selection")) {
             $(this).removeClass("selection");
         }
@@ -322,13 +372,13 @@ function ShowInformationDialog(title, body, button1, button2, confirm) {
 }
 
 function HookUpThumbnailEvents(wrapper) {
-    $(wrapper).live('mouseenter', function (source) {
+    $(wrapper).on('mouseenter', function (source) {
         //$(this).children(".description").fadeIn(50);
         $(this).children(".description").show();
-    }).live('mouseleave', function (source) {
+    }).on('mouseleave', function (source) {
         $(this).children(".description").hide();
         //$(this).children(".description").fadeOut(150);
-    }).live('click', function (source) {
+    }).on('click', function (source) {
         if ($(this).hasClass("selection")) {
             $(this).removeClass("selection");
         }
@@ -775,12 +825,12 @@ var mainViewModel = function () {
         var catalog = self.SelectedCatalog();
 
         ShowInformationDialog("Confirm Catalog Delete",
-            "Are you sure you want to delete the collection " + catalog.Name + " and all it's items?",
+            "Are you sure you want to delete the collection \"" + catalog.Name() + "\" and all it's items?",
             "Delete",
             "Cancel",
             function () {
                 $.ajax({
-                    url: "/Api/Catalogs/" + catalog.Id,
+                    url: "/Api/Catalogs/" + catalog.Id(),
                     type: "DELETE",
                     dataType: "json",
                     beforeSend: function (xhr) {
@@ -788,8 +838,12 @@ var mainViewModel = function () {
                         xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
                     }
                 }).done(function () {
-                    self.Catalogs.remove(catalog);
+
+                    $("#notificationDialog").fadeIn().delay(2000).fadeOut();
+
                     self.Items.removeAll();
+                    self.Catalogs.remove(catalog);
+                    
                 });
             })
 

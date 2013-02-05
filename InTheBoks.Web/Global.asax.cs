@@ -19,7 +19,10 @@
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
-            var accessToken = Request.Headers["AccessToken"];
+            var accessToken = Request.Cookies["AccessToken"].Value;
+            var expiresIn = Request.Cookies["AccessTokenExpiresIn"].Value;
+
+            //var accessToken = Request.Headers["AccessToken"];
 
             if (string.IsNullOrWhiteSpace(accessToken) || accessToken == "null")
             {
@@ -27,7 +30,7 @@
             }
 
             int accessTokenExpiresIn;
-            int.TryParse(Request.Headers["AccessTokenExpiresIn"], out accessTokenExpiresIn);
+            int.TryParse(expiresIn, out accessTokenExpiresIn);
             DateTime tokenExpireDate = DateTime.UtcNow + TimeSpan.FromSeconds(accessTokenExpiresIn);
 
             var fb = new FacebookClient(accessToken);
@@ -60,6 +63,9 @@
 
         protected void Application_Start()
         {
+            // Register the default hubs route: ~/signalr, has to happen before other routes.
+            RouteTable.Routes.MapHubs();
+
             MvcHandler.DisableMvcResponseHeader = true;
             GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Never;
             AreaRegistration.RegisterAllAreas();
@@ -69,6 +75,7 @@
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             ContainerConfig.RegisterContainer(GlobalConfiguration.Configuration);
+
         }
 
         private User CreateUserIfNotExists(long id, dynamic me, string token, DateTime expireDate)

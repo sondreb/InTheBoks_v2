@@ -7,6 +7,7 @@
     using InTheBoks.Data.Infrastructure;
     using InTheBoks.Data.Repositories;
     using InTheBoks.Dispatcher;
+    using Microsoft.AspNet.SignalR;
     using System.Reflection;
     using System.Web.Http;
     using System.Web.Mvc;
@@ -43,6 +44,8 @@
 
             // Set the resolver for MVC Controllers.
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
+            //GlobalHost.DependencyResolver = new SignalRExtensions.Autofa
         }
     }
 }

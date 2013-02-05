@@ -30,6 +30,9 @@ window.fbAsyncInit = function () {
             var accessToken = response.authResponse.accessToken;
             facebookAccessToken = accessToken;
 
+            $.cookie("AccessToken", accessToken);
+            $.cookie("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
+
             // API query to get the user's metadata.
             FB.api('/me', function (me) {
                 if (me.name) {

@@ -897,3 +897,8 @@ textarea {
 .validation-summary-valid {
     display: none;
 }
+
+
+#infoDialogButton2 {
+    margin-left: 6px;
+}
