@@ -2,9 +2,6 @@
 
 
 
-
-
-
 $(document).ready(function () {
     // executes when HTML-Document is loaded and DOM is ready
     console.log("document.ready");
@@ -17,9 +14,15 @@ $(window).load(function () {
 
     //$.connection.hub.logging = true;
 
-    var hub = $.connection.activities;
+    var hubs = new function ()
+    {
+        var self = this;
 
-    hub.client.notify = function (message)
+        self.activities = $.connection.activities;
+        self.catalogs = $.connection.catalogs;
+    }
+
+    hubs.activities.client.notify = function (message)
     {
         console.log(message);
         alert(message);
@@ -27,24 +30,24 @@ $(window).load(function () {
         //$.each(data, function () {
         //    $('#messages').append('<li>' + this + '</li>');
         //});
+    }
 
-
+    hubs.catalogs.client.catalog = function (catalog)
+    {
+        alert("CATALOG!");
+        console.log(catalog);
+        alert(catalog);
     }
 
     $.connection.hub.start().done(function () {
 
-        hub.server.notifyClients();
-
+        //activities.server.notifyClients();
 
         $("#notifyButton").click(function () {
-            hub.server.notifyClients();
+            hubs.activities.server.notifyClients();
         });
 
-        
     });
-
-  
-
 
 });
 
@@ -293,6 +296,9 @@ $(function () {
         // Fired when the manifest resources have been newly redownloaded.
         appCache.addEventListener('updateready', handleCacheEvent, false);
     }
+
+    IdleTimer();
+
 });
 
 function ShowUpdateNotification() {
@@ -306,6 +312,43 @@ function CancelUpdateNotification() {
 function AcceptUpdateNotification() {
     window.location.reload();
 }
+
+
+// Whenever the user is idle, we will disconnect from the SignalR hub.
+// We do this to improve the scability of the system to avoid too many
+// multiple concurrent connections to the server.
+function IdleTimer()
+{
+    // NOTE: SIGNALR DOES NOT SUPPORT MANUAL CONNECT/DISCONNECT PATTERN,
+    // UNTIL THEN, THIS METHOD DOES NOTHING BUT LOG.
+
+    // Consider reducing this value whenever the user base of the
+    // system increases. This will ensure that users with the
+    // app in the background won't keep a live connection for too long.
+
+    // 2013-02-08: Set the idle time to 10 minutes (600 000)
+    $(document).idleTimer(600000);
+
+    $(document).on("idle.idleTimer", function () {
+        console.log(Date() + "Disconnect from hubs...");
+    });
+
+    $(document).on("active.idleTimer", function () {
+        console.log(Date() + "Connect to hubs...");
+    });
+}
+
+
+function ConnectToHubs()
+{
+
+}
+
+function DisconnectToHubs()
+{
+
+}
+
 
 function VerifyFacebookAccess() {
     // TODO: Find the proper implementation to verify if Facebook has loaded or not.
@@ -1062,6 +1105,7 @@ var mainViewModel = function () {
                 xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
             }
         }).done(function (data) {
+
             self.Catalogs.removeAll();
             console.log(data);
 

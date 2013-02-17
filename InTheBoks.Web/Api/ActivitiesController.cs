@@ -13,7 +13,7 @@
     using System.Web.Http;
 
     [Authorize]
-    public class ActivitiesController : ApiController
+    public class ActivitiesController : BaseApiController
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private readonly IActivityRepository _activityRepository;

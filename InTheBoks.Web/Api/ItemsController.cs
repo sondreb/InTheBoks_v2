@@ -12,7 +12,7 @@
     using System.Web.Http;
 
     [Authorize]
-    public class ItemsController : ApiController
+    public class ItemsController : BaseApiController
     {
         private static Logger _log = LogManager.GetCurrentClassLogger();
 

@@ -30,12 +30,38 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.0.1\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.3.0.1\lib\net40\Autofac.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc">
+      <HintPath>..\packages\Autofac.Mvc4.3.0.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi">
+      <HintPath>..\packages\Autofac.WebApi.3.0.0\lib\net40\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Facebook.6.1.4\lib\net40-client\Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.1.0.0-rc2\lib\net40\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Owin.1.0.0-rc2\lib\net40\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.1.0.0-rc2\lib\net40\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.1.0.0-rc2\lib\net40\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -47,6 +73,9 @@
     </Reference>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -116,6 +145,7 @@
     <Compile Include="Command\ICommandHandler.cs" />
     <Compile Include="Command\ICommandResult.cs" />
     <Compile Include="Command\ICommandResults.cs" />
+    <Compile Include="Command\ICommandSuccessHandler.cs" />
     <Compile Include="Command\IValidationHandler.cs" />
     <Compile Include="Command\ValidationHandlerNotFoundException.cs" />
     <Compile Include="Data\DataContext.cs" />
@@ -146,6 +176,10 @@
     <Compile Include="Handlers\Catalog\DeleteCatalogHandler.cs" />
     <Compile Include="Handlers\User\CreateOrUpdateUserHandler.cs" />
     <Compile Include="Handlers\User\DeleteUserHandler.cs" />
+    <Compile Include="Hubs\ActivitiesHub.cs" />
+    <Compile Include="Hubs\CatalogsHub.cs" />
+    <Compile Include="Hubs\BaseHub.cs" />
+    <Compile Include="Web\ApiBase.cs" />
     <Compile Include="Web\AppCacheHandler.cs" />
     <Compile Include="Handlers\Item\DeleteItemHandler.cs" />
     <Compile Include="Handlers\Item\ItemsModifiedHandler.cs" />
@@ -174,12 +208,20 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Scripts\jquery-1.9.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\InTheBoks.Resources\InTheBoks.Resources.csproj">
       <Project>{6a8af7be-dbe1-4348-a778-569dd723b6af}</Project>
       <Name>InTheBoks.Resources</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery.signalR-1.0.0-rc2.js" />
+    <Content Include="Scripts\jquery.signalR-1.0.0-rc2.min.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

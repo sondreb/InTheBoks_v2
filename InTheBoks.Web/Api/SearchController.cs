@@ -7,7 +7,7 @@ using System.Xml.Linq;
 namespace InTheBoks.Web.Api
 {
     [Authorize]
-    public class SearchController : ApiController
+    public class SearchController : BaseApiController
     {
         //[Authorize]
         public IEnumerable<Item> Get(string id)

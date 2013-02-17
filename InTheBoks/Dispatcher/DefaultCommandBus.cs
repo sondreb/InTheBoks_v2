@@ -14,7 +14,22 @@
             {
                 throw new CommandHandlerNotFoundException(typeof(TCommand));
             }
-            return handler.Execute(command);
+
+            var results = handler.Execute(command);
+
+            // If the command was successfull, find the success handler and notify.
+            if (results.Success)
+            {
+                //dynamic successHandler = Microsoft.AspNet.SignalR.GlobalHost.DependencyResolver.GetService(typeof(ICommandSuccessHandler<TCommand>));
+                var successHandler = DependencyResolver.Current.GetService<ICommandSuccessHandler<TCommand>>();
+
+                if (successHandler != null)
+                {
+                    successHandler.Notify(results);
+                }
+            }
+
+            return results;
         }
 
         public IEnumerable<ValidationResult> Validate<TCommand>(TCommand command) where TCommand : ICommand

@@ -9,7 +9,7 @@
     using System.Web.Http;
 
     [Authorize]
-    public class FriendsController : ApiController
+    public class FriendsController : BaseApiController
     {
         private readonly IFriendRepository _friendRepository;
         private readonly IUnitOfWork _unitOfWork;

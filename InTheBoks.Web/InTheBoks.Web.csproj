@@ -46,17 +46,24 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac, Version=2.6.1.841, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\binaries\Autofac\Autofac.dll</HintPath>
+      <HintPath>..\packages\Autofac.3.0.1\lib\net40\Autofac.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Integration.Mvc, Version=2.6.1.841, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\binaries\Autofac\Autofac.Integration.Mvc.dll</HintPath>
+      <HintPath>..\packages\Autofac.3.0.1\lib\net40\Autofac.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Autofac.Integration.WebApi, Version=2.6.1.841, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac.Integration.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\binaries\Autofac\Autofac.Integration.WebApi.dll</HintPath>
+      <HintPath>..\packages\Autofac.Mvc4.3.0.0\lib\net40\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.SignalR">
+      <HintPath>..\packages\Autofac.SignalR.3.0.0\lib\net40\Autofac.Integration.SignalR.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Autofac.WebApi.3.0.0\lib\net40\Autofac.Integration.WebApi.dll</HintPath>
     </Reference>
     <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -72,13 +79,13 @@
       <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.1.0.0-rc2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Data.Edm, Version=5.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Data.Edm, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Data.Edm.5.0.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Data.Edm.5.2.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Data.OData, Version=5.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Data.OData, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.Data.OData.5.0.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Data.OData.5.2.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb">
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.1.0.0-rc2\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
@@ -91,9 +98,6 @@
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.ServiceRuntime, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <Private>False</Private>
-    </Reference>
-    <Reference Include="Microsoft.WindowsAzure.Storage, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WindowsAzure.Storage.2.0.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -111,9 +115,9 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Services.Client" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Spatial, Version=5.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Spatial, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\System.Spatial.5.0.2\lib\net40\System.Spatial.dll</HintPath>
+      <HintPath>..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -195,19 +199,18 @@
     <Compile Include="Api\ItemsController.cs" />
     <Compile Include="Api\SearchController.cs" />
     <Compile Include="Api\UsersController.cs" />
-    <Content Include="App_Code\AutofacDependencyResolver.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\ContainerConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LicensesController.cs" />
     <Compile Include="Controllers\PrivacyController.cs" />
     <Compile Include="Controllers\TermsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Hubs\ActivitiesHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebRole.cs" />
   </ItemGroup>
@@ -408,9 +411,19 @@
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <Content Include="Scripts\app\app.js" />
     <Content Include="Scripts\app\fb.js" />
-    <None Include="Scripts\jquery-1.9.0.intellisense.js" />
-    <Content Include="Scripts\jquery-1.9.0.js" />
-    <Content Include="Scripts\jquery-1.9.0.min.js" />
+    <Content Include="Scripts\idle-timer.min.js" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Views\Licenses\Index.cshtml" />
+    <TypeScriptCompile Include="Scripts\app\intheboks.ts" />
+    <Content Include="Scripts\app\intheboks.js">
+      <DependentUpon>intheboks.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\idle-timer.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
     <Content Include="Scripts\jquery.cookie.js" />
@@ -418,16 +431,14 @@
     <Content Include="Scripts\jquery.signalR-1.0.0-rc2.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery-1.9.0.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\knockout-2.2.1.debug.js" />
     <Content Include="Scripts\knockout-2.2.1.js" />
+    <Content Include="Scripts\knockout.d.ts" />
     <Content Include="Scripts\knockout.mapping-latest.debug.js" />
     <Content Include="Scripts\knockout.mapping-latest.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -452,6 +463,7 @@
     <Content Include="Views\Privacy\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>

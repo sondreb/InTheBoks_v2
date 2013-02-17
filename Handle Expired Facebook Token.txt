@@ -1,0 +1,6 @@
+(OAuthException - #190) Error validating access token: Session has expired at unix time 1361142000. The current unix time is 1361143008.
+
+Happens in Global.asax.cs
+
+dynamic me = fb.Get("me"); // TODO: Add exception handling for renewing old tokens.
+

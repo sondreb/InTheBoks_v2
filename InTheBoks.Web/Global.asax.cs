@@ -4,6 +4,7 @@
     using InTheBoks.Data;
     using InTheBoks.Models;
     using InTheBoks.Security;
+    using Microsoft.AspNet.SignalR;
     using NLog;
     using System;
     using System.Data.Entity;
@@ -19,6 +20,11 @@
 
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
+            if (Request.Cookies["AccessToken"] == null)
+            {
+                return;
+            }
+
             var accessToken = Request.Cookies["AccessToken"].Value;
             var expiresIn = Request.Cookies["AccessTokenExpiresIn"].Value;
 
@@ -34,7 +40,22 @@
             DateTime tokenExpireDate = DateTime.UtcNow + TimeSpan.FromSeconds(accessTokenExpiresIn);
 
             var fb = new FacebookClient(accessToken);
-            dynamic me = fb.Get("me"); // TODO: Add exception handling for renewing old tokens.
+
+            dynamic me = null;
+
+            try
+            {
+                me = fb.Get("me"); // TODO: Add exception handling for renewing old tokens.
+            }
+            catch (FacebookApiException fex)
+            {
+                if (fex.ErrorCode == 190)
+                {
+                    //{"(OAuthException - #190) Error validating access token: Session has expired at unix time 1361142000. The current unix time is 1361143214."}
+                    throw new TokenExpiredException("Token has expired, please renew.");
+                }
+            }
+
             long facebookUserId = long.Parse(me.id);
 
             try
@@ -63,6 +84,9 @@
 
         protected void Application_Start()
         {
+            // IoC registration
+            ContainerConfig.RegisterContainer(GlobalConfiguration.Configuration);
+
             // Register the default hubs route: ~/signalr, has to happen before other routes.
             RouteTable.Routes.MapHubs();
 
@@ -74,7 +98,6 @@
             FilterConfig.RegisterHttpFilters(GlobalConfiguration.Configuration.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            ContainerConfig.RegisterContainer(GlobalConfiguration.Configuration);
 
         }
 

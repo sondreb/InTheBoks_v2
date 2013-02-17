@@ -7,6 +7,7 @@
     using InTheBoks.Data.Infrastructure;
     using InTheBoks.Data.Repositories;
     using InTheBoks.Dispatcher;
+    using InTheBoks.Hubs;
     using Microsoft.AspNet.SignalR;
     using System.Reflection;
     using System.Web.Http;
@@ -32,9 +33,12 @@
 
             var services = Assembly.Load("InTheBoks");
             builder.RegisterAssemblyTypes(services).AsClosedTypesOf(typeof(ICommandHandler<>)).InstancePerHttpRequest();
+            //builder.RegisterAssemblyTypes(services).AsClosedTypesOf(typeof(ICommandSuccessHandler<>)).InstancePerHttpRequest();
             builder.RegisterAssemblyTypes(services).AsClosedTypesOf(typeof(IValidationHandler<>)).InstancePerHttpRequest();
 
-            //builder.RegisterType<DefaultFormsAuthentication>().As<IFormsAuthentication>().InstancePerHttpRequest();
+            builder.RegisterType<ActivitiesHub>().AsSelf().AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterType<CatalogsHub>().AsSelf().AsImplementedInterfaces().InstancePerLifetimeScope();
+
             builder.RegisterFilterProvider();
             IContainer container = builder.Build();
 
@@ -45,7 +49,8 @@
             // Set the resolver for MVC Controllers.
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
-            //GlobalHost.DependencyResolver = new SignalRExtensions.Autofa
+            // Set the resolver for SignalR.
+            GlobalHost.DependencyResolver = new Autofac.Integration.SignalR.AutofacDependencyResolver(container);
         }
     }
 }

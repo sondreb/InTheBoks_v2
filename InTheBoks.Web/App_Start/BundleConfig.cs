@@ -13,6 +13,7 @@
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                         "~/Scripts/knockout*",
+                        "~/Scripts/idle-timer.js",
                         "~/Scripts/app/app.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(

@@ -9,7 +9,7 @@
     using System.Web.Http;
 
     [Authorize]
-    public class UsersController : ApiController
+    public class UsersController : BaseApiController
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private readonly ICommandBus _commandBus;

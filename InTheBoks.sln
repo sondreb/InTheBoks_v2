@@ -23,6 +23,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InTheBoks.Resources", "InTh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InTheBoks.Services", "InTheBoks.Services\InTheBoks.Services.csproj", "{6A9DF656-0BCE-4E6B-8265-391F8BBE23C8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backlog", "Backlog", "{7A50BC12-0A21-4FF5-8C2F-62F0AB858960}"
+	ProjectSection(SolutionItems) = preProject
+		Backlog\Add Reference to App Store links when apps are ready.txt = Backlog\Add Reference to App Store links when apps are ready.txt
+		Handle Expired Facebook Token.txt = Handle Expired Facebook Token.txt
+		Backlog\Refactor the JavaScript into namespaces.txt = Backlog\Refactor the JavaScript into namespaces.txt
+		Backlog\User should be able to delete catalog.txt = Backlog\User should be able to delete catalog.txt
+		Backlog\User should be able to delete items.txt = Backlog\User should be able to delete items.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

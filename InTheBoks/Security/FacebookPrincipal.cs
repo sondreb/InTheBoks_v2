@@ -10,11 +10,18 @@ namespace InTheBoks.Security
             Identity = new FacebookIdentity(id, facebookId, name, email, link, token, language, timeZone);
         }
 
-        public IIdentity Identity { get; private set; }
+        public long Id { get { return FacebookIdentity.FacebookId; } }
+
+        public FacebookIdentity FacebookIdentity
+        {
+            get { return (FacebookIdentity)Identity; }
+        }
 
         public bool IsInRole(string role)
         {
             throw new NotImplementedException("Roles are not implemented");
         }
+
+        public IIdentity Identity { get; private set; }
     }
 }

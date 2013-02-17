@@ -5,5 +5,7 @@
         long Id { get; }
 
         bool Success { get; }
+
+        object Entity { get; }
     }
 }

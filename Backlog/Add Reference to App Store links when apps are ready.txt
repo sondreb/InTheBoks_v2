@@ -1,0 +1,4 @@
+Examples:
+
+<meta content='app-id=XXXX' name='apple-itunes-app'>
+<meta property="fb:app_id" content="XXXX">

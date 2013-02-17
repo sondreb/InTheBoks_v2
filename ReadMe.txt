@@ -58,6 +58,7 @@ Libraries:
 	- Facebook C# (Apache License, 2.0)
 	- Modernizr (MIT license)
 	- JSON.NET (?)
+	- idle.timer (https://github.com/mikesherov/jquery-idletimer)
 	- Microsoft Web Platform (?)
 	- html5slider
 	- Autofac

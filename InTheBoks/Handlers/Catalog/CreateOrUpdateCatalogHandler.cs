@@ -5,7 +5,9 @@
     using InTheBoks.Data.Infrastructure;
     using InTheBoks.Data.Repositories;
     using InTheBoks.Dispatcher;
+    using InTheBoks.Hubs;
     using InTheBoks.Models;
+    using Microsoft.AspNet.SignalR;
     using System;
 
     public class CreateOrUpdateCatalogHandler : ICommandHandler<CreateOrUpdateCatalogCommand>
@@ -54,7 +56,10 @@
 
             _unitOfWork.Commit();
 
-            return new CommandResult(true, catalog.Id);
+            //var context = GlobalHost.ConnectionManager.GetHubContext<CatalogsHub>();
+            //context.Clients.All
+
+            return new CommandResult(true, catalog.Id, catalog);
         }
     }
 }

@@ -16,7 +16,7 @@
     using System.Web.Http;
 
     [Authorize]
-    public class CatalogsController : ApiController
+    public class CatalogsController : BaseApiController
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private readonly ICatalogRepository _catalogRepository;
@@ -109,14 +109,12 @@
         // UPDATE
         public Catalog Put(int id, Catalog item)
         {
-            var user = (FacebookIdentity)User.Identity;
-
             if (item.Id == 0)
             {
                 throw new InvalidOperationException("Put should be used for updating items. Use the Post method for creations.");
             }
 
-            var dbItem = _catalogRepository.Query().Where(i => i.Id == item.Id && i.User_Id == user.Id);
+            var dbItem = _catalogRepository.Query().Where(i => i.Id == item.Id && i.User_Id == User.Id);
 
             if (dbItem == null)
             {
@@ -127,18 +125,18 @@
 
                 if (existsOnAnotherUser)
                 {
-                    _log.Fatal("Someone is trying to update another user's catalog. User ID: " + user.Id + " Catalog ID: " + item.Id);
+                    _log.Fatal("Someone is trying to update another user's catalog. User ID: " + User.Id + " Catalog ID: " + item.Id);
                 }
                 else
                 {
-                    _log.Error("User is trying to access item that does not exists. User ID: " + user.Id + " Catalog ID: " + item.Id);
+                    _log.Error("User is trying to access item that does not exists. User ID: " + User.Id + " Catalog ID: " + item.Id);
                 }
 
                 throw new ItemNotFoundException("Catalog does not exists.");
             }
             else
             {
-                CreateOrUpdateCatalogCommand cmd = new CreateOrUpdateCatalogCommand(item.Id, item.Name, user.Id, item.Visibility);
+                CreateOrUpdateCatalogCommand cmd = new CreateOrUpdateCatalogCommand(item.Id, item.Name, User.Id, item.Visibility);
                 var result = _commandBus.Submit(cmd);
 
                 if (result.Success)
