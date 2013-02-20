@@ -3,14 +3,11 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class Friend
+    public class Friend : ModelBase
     {
         public string FacebookFriendIds { get; set; }
 
         public string FriendIds { get; set; }
-
-        [Key]
-        public long Id { get; set; }
 
         public User User { get; set; }
 

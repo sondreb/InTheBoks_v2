@@ -179,6 +179,7 @@
     <Compile Include="Hubs\ActivitiesHub.cs" />
     <Compile Include="Hubs\CatalogsHub.cs" />
     <Compile Include="Hubs\BaseHub.cs" />
+    <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Web\ApiBase.cs" />
     <Compile Include="Web\AppCacheHandler.cs" />
     <Compile Include="Handlers\Item\DeleteItemHandler.cs" />

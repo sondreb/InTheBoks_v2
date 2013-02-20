@@ -36,8 +36,11 @@
             //builder.RegisterAssemblyTypes(services).AsClosedTypesOf(typeof(ICommandSuccessHandler<>)).InstancePerHttpRequest();
             builder.RegisterAssemblyTypes(services).AsClosedTypesOf(typeof(IValidationHandler<>)).InstancePerHttpRequest();
 
-            builder.RegisterType<ActivitiesHub>().AsSelf().AsImplementedInterfaces().InstancePerLifetimeScope();
-            builder.RegisterType<CatalogsHub>().AsSelf().AsImplementedInterfaces().InstancePerLifetimeScope();
+            //builder.RegisterType<ActivitiesHub>().AsSelf().AsImplementedInterfaces().InstancePerLifetimeScope();
+            //builder.RegisterType<CatalogsHub>().AsSelf().AsImplementedInterfaces().InstancePerLifetimeScope();
+            builder.RegisterType<ActivitiesHub>().AsSelf();
+            builder.RegisterType<CatalogsHub>().AsSelf();
+
 
             builder.RegisterFilterProvider();
             IContainer container = builder.Build();

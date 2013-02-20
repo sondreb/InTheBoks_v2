@@ -11,10 +11,13 @@
                         "~/Scripts/app/fb.js",
                         "~/Scripts/html5slider.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+            bundles.Add(new ScriptBundle("~/bundles/libs").Include(
                         "~/Scripts/knockout*",
                         "~/Scripts/idle-timer.js",
-                        "~/Scripts/app/app.js"));
+                        "~/Scripts/html5slider.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                 "~/Scripts/app/*.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",

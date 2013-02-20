@@ -1,68 +1,73 @@
-﻿var State = { "Initializing": 0, "Authenticated": 1, "Anonymous": 2 };
+﻿/// <reference path="ViewModels.js" />
+/// <reference path="Hubs.js" />
+/// <reference path="Facebook.js" />
+
+var State = { "Initializing": 0, "Authenticated": 1, "Anonymous": 2 };
 
 
 
-$(document).ready(function () {
-    // executes when HTML-Document is loaded and DOM is ready
-    console.log("document.ready");
+//$(document).ready(function () {
+//    // executes when HTML-Document is loaded and DOM is ready
+//    console.log("document.ready");
 
-});
+//});
 
-$(window).load(function () {
-    // executes when complete page is fully loaded, including all frames, objects and images
-    console.log("window.loaded");
+//$(window).load(function () {
+//    // executes when complete page is fully loaded, including all frames, objects and images
+//    console.log("window.loaded");
 
-    //$.connection.hub.logging = true;
+//    //$.connection.hub.logging = true;
 
-    var hubs = new function ()
-    {
-        var self = this;
+//    var hubs = new function ()
+//    {
+//        var self = this;
 
-        self.activities = $.connection.activities;
-        self.catalogs = $.connection.catalogs;
-    }
+//        self.activities = $.connection.activities;
+//        self.catalogs = $.connection.catalogs;
+//    }
 
-    hubs.activities.client.notify = function (message)
-    {
-        console.log(message);
-        alert(message);
+//    hubs.activities.client.notify = function (message)
+//    {
+//        console.log(message);
+//        alert(message);
 
-        //$.each(data, function () {
-        //    $('#messages').append('<li>' + this + '</li>');
-        //});
-    }
+//        //$.each(data, function () {
+//        //    $('#messages').append('<li>' + this + '</li>');
+//        //});
+//    }
 
-    hubs.catalogs.client.catalog = function (catalog)
-    {
-        alert("CATALOG!");
-        console.log(catalog);
-        alert(catalog);
-    }
+//    hubs.catalogs.client.catalog = function (catalog)
+//    {
+//        alert("CATALOG!");
+//        console.log(catalog);
+//        alert(catalog);
+//    }
 
-    $.connection.hub.start().done(function () {
+//    $.connection.hub.start().done(function () {
 
-        //activities.server.notifyClients();
+//        //activities.server.notifyClients();
 
-        $("#notifyButton").click(function () {
-            hubs.activities.server.notifyClients();
-        });
+//        //$.connection.activities.notifyClients();
 
-    });
+//        $("#notifyButton").click(function () {
+//            hubs.activities.server.notifyClients();
+//        });
+//    });
 
-});
+//});
 
 
 // Onload event handler
 $(function () {
     console.log("OnLoad...");
 
-    document.getElementById('auth-loginlink').addEventListener('click', function () {
-        FB.login(function (response) { console.log(response); }, { scope: 'email,user_about_me,friends_about_me' });
-    });
+    //document.getElementById('auth-loginlink').addEventListener('click', function () {
+    //    FB.login(function (response) { console.log(response); }, { scope: 'email,user_about_me,friends_about_me' });
+    //});
 
-    document.getElementById('auth-logoutlink').addEventListener('click', function () {
-        FB.logout();
-    });
+    //document.getElementById('auth-logoutlink').addEventListener('click', function () {
+    //    FB.logout();
+    //});
 
     // Using jQuery for Ajax loading indicator.
     $(".loading").ajaxStart(function () {
@@ -115,11 +120,11 @@ $(function () {
     });
 
     //$('img').live('dragstart', function (event) { event.preventDefault(); });
-    $("img").on("dragstart", function (event) { event.preventDefault(); });
+    //$("img").on("dragstart", function (event) { event.preventDefault(); });
 
-    $(document).on("dragstart", function () {
-        return false;
-    });
+    //$(document).on("dragstart", function () {
+    //    return false;
+    //});
 
     // register onLoad event with anonymous function
     window.onload = function (e) {
@@ -215,26 +220,21 @@ $(function () {
         }
     });
 
-    if (jQuery.ui) {
-        // UI loaded
-        $("#slider").slider({
-            value: 128,
-            min: 32,
-            max: 256,
-            step: 32,
-            slide: function (event, ui) {
-                thumbnailSize = ui.value;
-                ThumbnailRender();
-            }
-        });
-    }
+    //if (jQuery.ui) {
+    //    // UI loaded
+    //    $("#slider").slider({
+    //        value: 128,
+    //        min: 32,
+    //        max: 256,
+    //        step: 32,
+    //        slide: function (event, ui) {
+    //            thumbnailSize = ui.value;
+    //            ThumbnailRender();
+    //        }
+    //    });
+    //}
 
-    setTimeout(function () {
-        // Some corporations block Facebook URLs,
-        // try to inform the user about potential issues if not authenticated within a certain time.
 
-        VerifyFacebookAccess();
-    }, 5000);
 
     if (window.applicationCache) {
         //applicationCache.addEventListener('updateready', function () {
@@ -709,27 +709,27 @@ var mainViewModel = function () {
 
     self.User = ko.observable();
 
-    self.LoadUser = function () {
-        $.ajax({
-            url: "/Api/User",
-            type: "GET",
-            dataType: "json",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("AccessToken", facebookAccessToken);
-                xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
-            }
-        }).done(function (data) {
-            console.log(data);
-            var item = ko.mapping.fromJS(data);
-            self.User(item);
-        });
-    }
+    //self.LoadUser = function () {
+    //    $.ajax({
+    //        url: "/Api/User",
+    //        type: "GET",
+    //        dataType: "json",
+    //        beforeSend: function (xhr) {
+    //            xhr.setRequestHeader("AccessToken", facebookAccessToken);
+    //            xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
+    //        }
+    //    }).done(function (data) {
+    //        console.log(data);
+    //        var item = ko.mapping.fromJS(data);
+    //        self.User(item);
+    //    });
+    //}
 
-    self.Languages = ko.observableArray([
-    { key: "auto", value: "Auto-detect" },
-    { key: "en-US", value: "English" },
-    { key: "nb-NO", value: "Norwegian" }
-    ]);
+    //self.Languages = ko.observableArray([
+    //{ key: "auto", value: "Auto-detect" },
+    //{ key: "en-US", value: "English" },
+    //{ key: "nb-NO", value: "Norwegian" }
+    //]);
 
     //self.SelectedItem = ko.observable();
     self.SelectedCatalog = ko.observable();
@@ -1093,35 +1093,35 @@ var mainViewModel = function () {
         //self.TimeZones(timeZonesJson);
     }
 
-    self.TimeZones = ko.observableArray();
+    //self.TimeZones = ko.observableArray();
 
-    self.LoadCatalogs = function () {
-        $.ajax({
-            url: "/Api/Catalogs",
-            type: "GET",
-            dataType: "json",
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("AccessToken", facebookAccessToken);
-                xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
-            }
-        }).done(function (data) {
+    //self.LoadCatalogs = function () {
+    //    $.ajax({
+    //        url: "/Api/Catalogs",
+    //        type: "GET",
+    //        dataType: "json",
+    //        beforeSend: function (xhr) {
+    //            xhr.setRequestHeader("AccessToken", facebookAccessToken);
+    //            xhr.setRequestHeader("AccessTokenExpiresIn", facebookAccessTokenExpiresIn);
+    //        }
+    //    }).done(function (data) {
 
-            self.Catalogs.removeAll();
-            console.log(data);
+    //        self.Catalogs.removeAll();
+    //        console.log(data);
 
-            for (i = 0; i < data.length; i++) {
+    //        for (i = 0; i < data.length; i++) {
 
-                var item = ko.mapping.fromJS(data[i]);
+    //            var item = ko.mapping.fromJS(data[i]);
 
-                self.Catalogs.push(item);
+    //            self.Catalogs.push(item);
 
-                if (i == 0) {
-                    self.SelectCatalog(item);
-                    self.SelectedObject(item);
-                }
-            }
-        });
-    }
+    //            if (i == 0) {
+    //                self.SelectCatalog(item);
+    //                self.SelectedObject(item);
+    //            }
+    //        }
+    //    });
+    //}
 }
 
 function ConfirmAccountRemoval() {

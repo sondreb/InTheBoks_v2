@@ -18,9 +18,8 @@
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private readonly IActivityRepository _activityRepository;
 
-        public ActivitiesHub(IActivityRepository activityRepository)
+        public ActivitiesHub()
         {
-            _activityRepository = activityRepository;
         }
 
         //public ActivitiesHub(IActivityRepository activityRepository)

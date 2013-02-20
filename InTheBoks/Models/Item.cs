@@ -1,10 +1,10 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace InTheBoks.Models
+﻿namespace InTheBoks.Models
 {
-    public class Item
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    public class Item : ModelBase
     {
         [MaxLength(200)]
         public string ASIN { get; set; }
@@ -14,14 +14,7 @@ namespace InTheBoks.Models
         [ForeignKey("Catalog")]
         public long Catalog_Id { get; set; }
 
-        public DateTime Created { get; set; }
-
-        [Key]
-        public long Id { get; set; }
-
         public string ImageUrl { get; set; }
-
-        public DateTime? Modified { get; set; }
 
         [MaxLength(1000)]
         public string Title { get; set; }

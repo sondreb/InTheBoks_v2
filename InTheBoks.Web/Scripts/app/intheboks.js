@@ -1,19 +1,23 @@
-var Shapes;
-(function (Shapes) {
-
-    var Point = Shapes.Point = (function () {
-        function Point(x, y) {
-            this.x = x;
-            this.y = y;
+var InTheBoks;
+(function (InTheBoks) {
+    var ServiceClient = (function () {
+        function ServiceClient(action) {
+            if (typeof action === "undefined") { action = ""; }
+            this.Action = action;
         }
-        Point.prototype.getDist = function () {
-            return Math.sqrt((this.x * this.x) + (this.y * this.y));
+        ServiceClient.prototype.Execute = function (callback, type, action) {
+            if (typeof type === "undefined") { type = "GET"; }
+            if (typeof action === "undefined") { action = ""; }
+            var a = (action != "") ? action : this.Action;
+            $.ajax({
+                url: "/Api/" + a,
+                type: type,
+                dataType: "json"
+            }).done(callback);
         };
-        Point.origin = new Point(0, 0);
-        return Point;
+        return ServiceClient;
     })();
-
-})(Shapes || (Shapes = {}));
-
-var p = new Shapes.Point(3, 4);
-var dist = p.getDist(); 
+    InTheBoks.ServiceClient = ServiceClient;    
+})(InTheBoks || (InTheBoks = {}));
+var listViewType = 1;
+var thumbnailSize = 128;

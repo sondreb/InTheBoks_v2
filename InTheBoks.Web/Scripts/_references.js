@@ -8,5 +8,4 @@
 /// <reference path="jquery.signalR-1.0.0-rc2.js" />
 /// <reference path="app/fb.js" />
 /// <reference path="jquery.cookie.js" />
-/// <reference path="knockout.d.ts" />
 /// <reference path="idle.timer.js" />

@@ -21,7 +21,9 @@
             if (results.Success)
             {
                 //dynamic successHandler = Microsoft.AspNet.SignalR.GlobalHost.DependencyResolver.GetService(typeof(ICommandSuccessHandler<TCommand>));
-                var successHandler = DependencyResolver.Current.GetService<ICommandSuccessHandler<TCommand>>();
+                //var successHandler = DependencyResolver.Current.GetService<ICommandSuccessHandler<TCommand>>();
+
+                var successHandler = DependencyResolver.Current.GetService<InTheBoks.Hubs.CatalogsHub>();
 
                 if (successHandler != null)
                 {

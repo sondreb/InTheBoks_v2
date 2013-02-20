@@ -409,8 +409,61 @@
     <Content Include="offline.appcache" />
     <Content Include="Content\themes\ui-darkness\images\Thumbs.db" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
-    <Content Include="Scripts\app\app.js" />
-    <Content Include="Scripts\app\fb.js" />
+    <None Include="Scripts\app\app._js" />
+    <TypeScriptCompile Include="Scripts\app\Facebook.ts" />
+    <TypeScriptCompile Include="Scripts\app\Events.ts" />
+    <TypeScriptCompile Include="Scripts\app\Application.ts" />
+    <Content Include="Scripts\app\Application.js">
+      <DependentUpon>Application.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\app\Application.min.js">
+      <DependentUpon>Application.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\app\Events.js">
+      <DependentUpon>Events.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\app\Events.min.js">
+      <DependentUpon>Events.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\app\Facebook.js">
+      <DependentUpon>Facebook.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\app\Facebook.min.js">
+      <DependentUpon>Facebook.ts</DependentUpon>
+    </Content>
+    <None Include="Scripts\app\fb._js" />
+    <TypeScriptCompile Include="Scripts\app\Hubs.ts" />
+    <Content Include="Scripts\app\Hubs.js">
+      <DependentUpon>Hubs.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\app\Hubs.min.js">
+      <DependentUpon>Hubs.ts</DependentUpon>
+    </Content>
+    <TypeScriptCompile Include="Scripts\app\InTheBoks.ts" />
+    <Content Include="Scripts\app\InTheBoks.js">
+      <DependentUpon>InTheBoks.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\app\InTheBoks.min.js">
+      <DependentUpon>InTheBoks.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\app\ViewModels.js">
+      <DependentUpon>ViewModels.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\app\ViewModels.min.js">
+      <DependentUpon>ViewModels.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\app\_references.js">
+      <DependentUpon>_references.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\app\_references.min.js">
+      <DependentUpon>_references.ts</DependentUpon>
+    </Content>
+    <Content Include="Scripts\app\_references.ts" />
+    <Content Include="Scripts\definitions\jquery.cookie.d.ts" />
+    <Content Include="Scripts\definitions\jquery.d.ts" />
+    <Content Include="Scripts\definitions\jqueryui.d.ts" />
+    <Content Include="Scripts\definitions\knockout.d.ts" />
+    <Content Include="Scripts\definitions\knockout.mapping.d.ts" />
     <Content Include="Scripts\idle-timer.min.js" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
@@ -419,10 +472,7 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Views\Licenses\Index.cshtml" />
-    <TypeScriptCompile Include="Scripts\app\intheboks.ts" />
-    <Content Include="Scripts\app\intheboks.js">
-      <DependentUpon>intheboks.ts</DependentUpon>
-    </Content>
+    <TypeScriptCompile Include="Scripts\app\ViewModels.ts" />
     <Content Include="Scripts\idle-timer.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.js" />
     <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
@@ -438,7 +488,7 @@
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\knockout-2.2.1.debug.js" />
     <Content Include="Scripts\knockout-2.2.1.js" />
-    <Content Include="Scripts\knockout.d.ts" />
+    <Content Include="Scripts\definitions\_knockout.d.ts" />
     <Content Include="Scripts\knockout.mapping-latest.debug.js" />
     <Content Include="Scripts\knockout.mapping-latest.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />

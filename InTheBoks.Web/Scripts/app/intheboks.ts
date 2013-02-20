@@ -1,43 +1,28 @@
+/// <reference path="_references.ts" />
+
 module InTheBoks
 {
-    export interface ICatalog
-    {
-        load(): any;
-    }
+    export class ServiceClient {
 
-    export class Catalog implements ICatalog
-    {
-        constructor(public id: number)
-        { }
+        Action: string;
 
-        load() { return null; }
+        constructor(action:string = "")
+        {
+            this.Action = action;
+        }
 
-        static instance = new Catalog(123);
+        Execute(callback:any, type:string = "GET", action:string = "") {
+
+            var a = (action != "") ? action: this.Action;
+
+            $.ajax({
+                url: "/Api/" + a,
+                type: type,
+                dataType: "json"
+            }).done(callback);
+        }
     }
 }
 
-// Interface
-interface IPoint {
-    getDist(): number;
-}
-
-// Module
-module Shapes {
-
-    // Class
-    export class Point implements IPoint {
-        // Constructor
-        constructor (public x: number, public y: number) { }
-
-        // Instance member
-        getDist() { return Math.sqrt(this.x * this.x + this.y * this.y); }
-
-        // Static member
-        static origin = new Point(0, 0);
-    }
-
-}
-
-// Local variables
-var p: IPoint = new Shapes.Point(3, 4);
-var dist = p.getDist();
+var listViewType = 1; // 1 = Thumbnail, 2 = Medium, 3 = List
+var thumbnailSize = 128;

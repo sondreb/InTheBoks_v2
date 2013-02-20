@@ -1,14 +1,12 @@
-﻿using InTheBoks.Data.Infrastructure;
-using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-
-namespace InTheBoks.Models
+﻿namespace InTheBoks.Models
 {
-    public class User
-    {
-        public DateTime Created { get; set; }
+    using InTheBoks.Data.Infrastructure;
+    using System;
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
 
+    public class User : ModelBase
+    {
         [MaxLength(250)]
         public string Email { get; set; }
 
@@ -17,19 +15,11 @@ namespace InTheBoks.Models
 
         public DateTime? FriendsLastChecked { get; set; }
 
-        [Key]
-        public long Id { get; set; }
-
         [MaxLength(10)]
         public string Language { get; set; }
 
         [MaxLength(250)]
         public string Link { get; set; }
-
-        public DateTime? Modified { get; set; }
-
-        [MaxLength(250)]
-        public string Name { get; set; }
 
         public bool ShareActivity { get; set; }
 

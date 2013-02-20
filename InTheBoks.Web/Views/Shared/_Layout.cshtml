@@ -27,6 +27,8 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/signalr")
+
+    @Scripts.Render("~/bundles/libs")
     @Scripts.Render("~/bundles/app")
 
     <script src="~/signalr/hubs"></script>
@@ -70,7 +72,7 @@
                         <span class="wide">@Text.Hi, <span id="auth-displayname"></span></span>
 
                         <img src="" id="profileImage" height="18" width="18" />
-                        <a href="#" id="auth-logoutlink">@Text.Logout</a>
+                        <a href="#" id="auth-logoutlink" data-bind="click: Logout">@Text.Logout</a>
                     </div>
                 </div>
             </div>
@@ -213,7 +215,7 @@
             </p>
 
             @*<div id="auth-loggedout" class="anonymous">*@
-            <img id="auth-loginlink" src="../../Content/Facebook.png" />
+            <img id="auth-loginlink" data-bind="click: Login" src="../../Content/Facebook.png" />
             @*</div>*@
 
             <p style="clear: both; margin-top: 4px; font-size: 0.8em;">By clicking Connect, you agree to the <a href="/Terms">terms & conditions</a> and <a href="/Privacy">privacy policy</a>.</p>
