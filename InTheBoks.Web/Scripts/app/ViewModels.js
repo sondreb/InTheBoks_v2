@@ -9,10 +9,11 @@ var InTheBoks;
         var MainViewModel = (function () {
             function MainViewModel() {
                 var self = this;
-                self.Catalogs = ko.observableArray();
-                self.Friends = ko.observableArray();
+                self.Catalogs = new CatalogsViewModel();
+                self.Items = new ItemsViewModel();
+                self.Friends = new FriendsViewModel();
+                self.Activities = new ActivitiesViewModel();
                 self.SelectedItems = ko.observableArray();
-                self.Activities = ko.observableArray();
                 self.User = ko.observable();
                 self.States = {
                     "Initializing": 0,
@@ -50,6 +51,13 @@ var InTheBoks;
                     console.log(item);
                 });
             };
+            MainViewModel.prototype.ToggleFriends = function () {
+                if($('#friends').width() == 0) {
+                    var sidebarwidth = $("#left-sidebar").width();
+                    $("#main-content").width($(window).width() - (sidebarwidth + 190));
+                } else {
+                }
+            };
             return MainViewModel;
         })();
         ViewModels.MainViewModel = MainViewModel;        
@@ -75,9 +83,34 @@ var InTheBoks;
                 self.Items = ko.observableArray();
                 self.Selected = ko.observable();
             }
+            CollectionModelBase.prototype.Create = function (item) {
+            };
+            CollectionModelBase.prototype.Delete = function (item) {
+            };
+            CollectionModelBase.prototype.Edit = function (item) {
+            };
+            CollectionModelBase.prototype.Select = function (item) {
+                console.log(item);
+            };
             return CollectionModelBase;
         })();
         ViewModels.CollectionModelBase = CollectionModelBase;        
+        var ActivitiesViewModel = (function (_super) {
+            __extends(ActivitiesViewModel, _super);
+            function ActivitiesViewModel() {
+                        _super.call(this);
+            }
+            return ActivitiesViewModel;
+        })(CollectionModelBase);
+        ViewModels.ActivitiesViewModel = ActivitiesViewModel;        
+        var FriendsViewModel = (function (_super) {
+            __extends(FriendsViewModel, _super);
+            function FriendsViewModel() {
+                        _super.call(this);
+            }
+            return FriendsViewModel;
+        })(CollectionModelBase);
+        ViewModels.FriendsViewModel = FriendsViewModel;        
         var ItemsViewModel = (function (_super) {
             __extends(ItemsViewModel, _super);
             function ItemsViewModel() {

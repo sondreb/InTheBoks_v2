@@ -31,6 +31,12 @@ var InTheBoks;
             alert("InTheBoks.Facebook.Logout");
             FB.logout();
         };
+        Facebook.prototype.CheckStatus = function () {
+            FB.getLoginStatus(function (response) {
+                console.log(response);
+                alert("Check Status...");
+            });
+        };
         Facebook.prototype.Initialize = function () {
             var self = this;
             self.AppId = "407544339296631";

@@ -5,7 +5,6 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title // InTheBoks</title>
     <meta name="description" content="InTheBoks - Organize Your Stuff">
     <meta name="author" content="Sondre Bjellås">
@@ -107,14 +106,14 @@
 
             <div id="toolbar" class="authenticated content">
                 &nbsp;
-            <img src="../../Content/icons/white/add.png" data-bind="click: CreateCatalog" class="action" title="New Collection" width="32" height="32" />
-                <img src="../../Content/icons/white/edit.png" data-bind="click: EditCatalog" class="action" title="Edit Collection" width="32" height="32" />
-                <img src="../../Content/icons/white/delete.png" data-bind="click: DeleteCatalog" class="action" title="Delete Collection" width="32" height="32" />
+            <img src="../../Content/icons/white/add.png" data-bind="click: Catalogs.Create" class="action" title="New Collection" width="32" height="32" />
+                <img src="../../Content/icons/white/edit.png" data-bind="click: Catalogs.Edit" class="action" title="Edit Collection" width="32" height="32" />
+                <img src="../../Content/icons/white/delete.png" data-bind="click: Catalogs.Delete" class="action" title="Delete Collection" width="32" height="32" />
 
-                <img src="~/Content/icons/white/add.png" data-bind="click: AddItem" class="action" style="margin-left: 50px;" title="New Item" />
-                <img src="~/Content/icons/white/delete.png" data-bind="click: DeleteItems" class="action" title="Delete Item(s)" />
+                <img src="~/Content/icons/white/add.png" data-bind="click: Items.Add" class="action" style="margin-left: 50px;" title="New Item" />
+                <img src="~/Content/icons/white/delete.png" data-bind="click: Items.Delete" class="action" title="Delete Item(s)" />
 
-                <img src="~/Content/icons/white/friends.png" onclick="ToggleFriends();" title="View/Hide Friends" class="action" style="float: right; margin-right: 8px;" />
+                <img src="~/Content/icons/white/friends.png" data-bind="click: ToggleFriends" title="View/Hide Friends" class="action" style="float: right; margin-right: 8px;" />
 
                 <img src="~/Content/icons/white/sort_options.png" onclick="ToggleListOptions(this);" title="View sort and list options" class="action" style="float: right; margin-right: 110px;" />
 
@@ -154,9 +153,9 @@
         <div id="content" class="authenticated content stretch" style="clear: both;">
             <div id="left-sidebar" class="stretch">
 
-                <div>
-                    <ul class="catalogsList" data-bind="foreach: Catalogs">
-                        <li class="button_flat" data-bind="click: $parent.SelectCatalog, css: { selected: $data == $root.SelectedCatalog() }">
+                <div data-bind="with: Catalogs">
+                    <ul class="catalogsList" data-bind="foreach: Items">
+                        <li class="button_flat" data-bind="click: $parent.Select, css: { selected: $data == $root.Selected() }">
                             <span data-bind="text: Name"></span>
                             <span data-bind="text: Count" style="float: right;"></span>
                         </li>
@@ -166,15 +165,16 @@
 
             <div id="friends" class="stretch">
 
-                <div id="friendlist">
-                    <div data-bind="foreach: Friends">
+                <div id="friendlist" data-bind="with: Friends">
+                    <div data-bind="foreach: Items">
                         <div>
                             <a href="#" class="friendLink" data-bind="attr: { title: Name }">
-                                <img class="friendFace" data-bind="attr: { src: ImageUrl, title: Name }" /><span data-bind="text: Name"></span>
+                                   @*<img class="friendFace" data-bind="attr: { src: ImageUrl, title: Name }" /><span data-bind="text: Name"></span>
+                                    *@
                             </a>
                         </div>
                     </div>
-                    <div data-bind="visible: Friends().length == 0" class="empty_friend_list">
+                    <div data-bind="visible: Items().length == 0" class="empty_friend_list">
                         None of your Facebook friends use InTheBoks. 
                         <button id="notifyButton">Notify</button>
                         <a href="#">Invite them</a> to tip your friends about our great app!
@@ -183,7 +183,7 @@
 
                 <div id="friendfeed">
 
-                    <div data-bind="foreach: Activities">
+                    <div data-bind="foreach: Activities.Items">
                         <table class="activity">
                             <tr>
                                 <td><a data-bind="attr: { href: User.Link }" target="_blank">
@@ -286,6 +286,9 @@
             <a class="backButton" href="#" title="Go Back" onclick="ToggleSearch();">
                 <img src="../../Content/icons/white/back.png" class="action huge" /></a>
 
+
+
+            <!--
             <div id="searchContent">
 
                 <h1 data-bind="with: SelectedCatalog">Add New Items to "<span data-bind="text: Name"></span>"</h1>
@@ -338,6 +341,10 @@
                     </div>*@
                 </div>
             </div>
+        -->
+        
+        
+        
         </div>
 
         <div id="notificationDialog" style="background-color: white; color: black; height: 84px; border: 2px solid gray; position: absolute; top: 10px; right: 10px; width: 370px; font-size: 1.2em; display: none; opacity: 0.95;">
@@ -346,7 +353,7 @@
             </div>
         </div>
 
-        <div data-bind="with: SelectedObject" id="confirmationDialog"
+        <div data-bind="with: Catalogs.Selected" id="confirmationDialog"
             style="background-color: white; top: 25%; position: absolute; border: 2px solid black; opacity: 0; padding: 15px; display: none; color: Black; width: 450px;">
             <div style="padding: 30px;">
                 <h1>Are you sure you want to delete the collection "<span data-bind="text: Name"></span>" and all it's items?
@@ -367,7 +374,7 @@
             </div>
         </div>
 
-        <div id="propertiesDialog" data-bind="with: SelectedObject" style="display: none; width: 0px; background-color: #dedede; color: gray; position: absolute; top: 0px; right: 0px; bottom: 0px;">
+        <div id="propertiesDialog" data-bind="with: Catalogs.Selected" style="display: none; width: 0px; background-color: #dedede; color: gray; position: absolute; top: 0px; right: 0px; bottom: 0px;">
 
             <div style="width: 300px;">
                 <div style="background-color: gray; height: 80px;">
@@ -519,25 +526,6 @@
             <a class="backToTop" href="#">Back to top</a>
         </div>
     </div>
-
-    <script>
-        $(function () {
-            // Define the resources on a global level. We should do this before
-            // we create any view models, etc.
-            Resource = $.parseJSON($("#resources").html());
-
-            $(window).resize(function () {
-
-                //$('#log').append('<div>Handler for .resize() called.</div>');
-
-                ResizeContent();
-
-            });
-
-            ResizeContent();
-
-        });
-    </script>
 
     <script id="resources" type="application/json">
         @Html.Raw(Resource.RenderJson())

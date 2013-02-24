@@ -4,7 +4,9 @@
     ViewBag.Title = "InTheBoks.com - Organize Your Stuff";
 }
 <!--<div class="thumbnails" data-bind="foreach: {data: Items, beforeRemove: onRemove}">-->
-<div class="thumbnails" data-bind="foreach: {data: Items}">
+
+
+@*<div class="thumbnails" data-bind="foreach: {data: Items}">
 
     <div class="thumbnail_container">
         <div class="wrapper" data-bind="click: $parent.SelectItem">
@@ -16,10 +18,13 @@
         <span class="list_details"><strong data-bind="text: Title"></strong></span>
         <span class="list_details right" data-bind="text: Title"></span>
     </div>
-</div>
+</div>*@
+
+
+
 @section scripts
 {
-    <script>
+@*    <script>
 
         var mainVM = null;
 
@@ -32,6 +37,6 @@
 
             mainVM.LoadData();
         }
-    </script>
+    </script>*@
 
 }

@@ -591,17 +591,7 @@ function ToggleListOptions(button) {
     }
 }
 
-function ToggleFriends() {
-    if ($('#friends').width() == 0) {
-        // Before we can resize the friends list, we must shrink it so
-        // it won't "jump" down below on the page.
-        var sidebarwidth = $("#left-sidebar").width();
-        $("#main-content").width($(window).width() - (sidebarwidth + 190));
-        $("#friends").animate({ width: 190 }, 300, function () { ResizeContent(); });
-    } else {
-        $("#friends").animate({ width: 0 }, 300, function () { ResizeContent(); });
-    }
-}
+
 
 function ResizeContent() {
     var logoHeight = $("#header").outerHeight();

@@ -4,11 +4,14 @@ module InTheBoks.ViewModels
 {
     export class MainViewModel
     {
-        Catalogs: KnockoutObservableArray;
-        Friends: KnockoutObservableArray;
+        Catalogs: CatalogsViewModel;
+        Items: ItemsViewModel;
+        Friends: FriendsViewModel;
+
+        //Friends: KnockoutObservableArray;
         SelectedItems: KnockoutObservableArray;
         SelectedCatalog: KnockoutObservableAny;
-        Activities: KnockoutObservableArray;
+        Activities: ActivitiesViewModel;
         User: KnockoutObservableAny;
         States: any;
         State: KnockoutObservableAny;
@@ -22,10 +25,12 @@ module InTheBoks.ViewModels
         {
             var self = this;
 
-            self.Catalogs = ko.observableArray();
-            self.Friends = ko.observableArray();
+            self.Catalogs = new CatalogsViewModel();
+            self.Items = new ItemsViewModel();
+            self.Friends = new FriendsViewModel();
+            self.Activities = new ActivitiesViewModel();
+
             self.SelectedItems = ko.observableArray();
-            self.Activities = ko.observableArray();
             self.User = ko.observable();
 
             self.States = { "Initializing": 0, "Authenticated": 1, "Anonymous": 2 };
@@ -64,6 +69,18 @@ module InTheBoks.ViewModels
                 //self.User(item);
             });
 
+        }
+
+        ToggleFriends() {
+            if ($('#friends').width() == 0) {
+                // Before we can resize the friends list, we must shrink it so
+                // it won't "jump" down below on the page.
+                var sidebarwidth = $("#left-sidebar").width();
+                $("#main-content").width($(window).width() - (sidebarwidth + 190));
+                //$("#friends").animate({ width: 190 }, 300, function () { ResizeContent(); });
+            } else {
+                //$("#friends").animate({ width: 0 }, 300, function () { ResizeContent(); });
+            }
         }
     }
 
@@ -105,6 +122,39 @@ module InTheBoks.ViewModels
 
             self.Items = ko.observableArray();
             self.Selected = ko.observable();
+        }
+
+        Create(item)
+        { }
+
+        Delete(item)
+        { }
+
+        Edit(item)
+        { }
+
+        Select(item)
+        {
+            console.log(item);
+        }
+
+
+           
+    }
+
+    export class ActivitiesViewModel extends CollectionModelBase
+    {
+        constructor()
+        {
+            super();
+        }
+    }
+
+    export class FriendsViewModel extends CollectionModelBase
+    {
+        constructor()
+        {
+            super();
         }
     }
 

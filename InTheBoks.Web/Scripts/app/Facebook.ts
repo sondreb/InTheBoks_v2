@@ -29,6 +29,15 @@ module InTheBoks
             alert("InTheBoks.Facebook.Logout");
             FB.logout();
         }
+
+        // Run this function to get a fresh token.
+        CheckStatus()
+        {
+            FB.getLoginStatus(function (response) {
+                console.log(response);
+                alert("Check Status...");
+            });
+        }
         
         Initialize()
         {
