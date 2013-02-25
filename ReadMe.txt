@@ -65,6 +65,7 @@ Libraries:
 	- NLog
 	- Windows Phone 7 inspired icons (http://metro.windowswiki.info/mi/)
 	- Windows Touch Icons (http://windows7tablet.blogspot.no/2011/06/metro-icons-and-requests-for-keyboard.html)
+	- Bootstrap (http://twitter.github.com/bootstrap/) (Apache License, 2.0)
 
 Thanks to all the developers of these great libaries, this project could not be
 realized without them.

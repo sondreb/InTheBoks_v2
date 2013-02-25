@@ -229,6 +229,10 @@
     <Content Include="Content\balloon.png" />
     <Content Include="Content\bg.jpg" />
     <Content Include="Content\bg.png" />
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\button_bg.png" />
     <Content Include="Content\button_bg_2.png" />
     <Content Include="Content\donate.gif" />
@@ -272,6 +276,8 @@
     <Content Include="Content\icons\black\video.png" />
     <Content Include="Content\icons\checked.png" />
     <Content Include="Content\icons\checked2.png" />
+    <Content Include="Content\icons\glyphicons-halflings-white.png" />
+    <Content Include="Content\icons\glyphicons-halflings.png" />
     <Content Include="Content\icons\white\add.png" />
     <Content Include="Content\icons\white\back.png" />
     <Content Include="Content\icons\white\basecircle.png" />
@@ -459,6 +465,8 @@
       <DependentUpon>_references.ts</DependentUpon>
     </Content>
     <Content Include="Scripts\app\_references.ts" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\definitions\jquery.cookie.d.ts" />
     <Content Include="Scripts\definitions\jquery.d.ts" />
     <Content Include="Scripts\definitions\jqueryui.d.ts" />

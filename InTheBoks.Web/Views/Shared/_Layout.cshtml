@@ -68,10 +68,31 @@
                 <div id="auth-loggedin" class="authenticated">
 
                     <div id="profileInfo">
-                        <span class="wide">@Text.Hi, <span id="auth-displayname"></span></span>
+                        
 
-                        <img src="" id="profileImage" height="18" width="18" />
-                        <a href="#" id="auth-logoutlink" data-bind="click: Logout">@Text.Logout</a>
+                        <div class="btn-group">
+                          <a class="btn btn-large btn-primary btn-inverse" href="#">
+                              @*<i class="icon-user icon-white"></i> *@
+                              <img src="" id="profileImage" height="18" width="18" />
+                              <span class="wide">@Text.Hi, <span id="auth-displayname"></span></span>
+
+                          </a>
+                          <a class="btn btn-large btn-primary btn-inverse dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
+                          <ul class="dropdown-menu">
+                            <li><a href="#"><i class="icon-pencil"></i> Profile</a></li>
+                            @*<li><a href="#"><i class="icon-trash"></i> Delete</a></li>
+                            <li><a href="#"><i class="icon-ban-circle"></i> Ban</a></li>*@
+                            <li class="divider"></li>
+                            @*<li><a href="#"><i class="i"></i> Make admin</a></li>*@
+                              <li>
+
+                                  <a href="#" id="auth-logoutlink" data-bind="click: Logout">@Text.Logout</a>
+
+                              </li>
+                          </ul>
+                        </div>
+
+
                     </div>
                 </div>
             </div>

@@ -14,7 +14,8 @@
             bundles.Add(new ScriptBundle("~/bundles/libs").Include(
                         "~/Scripts/knockout*",
                         "~/Scripts/idle-timer.js",
-                        "~/Scripts/html5slider.js"));
+                        "~/Scripts/html5slider.js",
+                        "~/Scripts/bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                  "~/Scripts/app/*.js"));
@@ -38,7 +39,9 @@
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/app.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/app.css",
+                "~/Content/bootstrap*"));
 
             bundles.Add(new StyleBundle("~/Content/themes/ui-darkness/css").Include(
             "~/Content/themes/ui-darkness/jquery-ui.css"));
