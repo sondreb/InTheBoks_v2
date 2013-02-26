@@ -20,7 +20,6 @@ var InTheBoks;
             configurable: true
         });
         Facebook.prototype.Login = function () {
-            alert("InTheBoks.Facebook.Login");
             FB.login(function (response) {
                 console.log(response);
             }, {
@@ -28,7 +27,6 @@ var InTheBoks;
             });
         };
         Facebook.prototype.Logout = function () {
-            alert("InTheBoks.Facebook.Logout");
             FB.logout();
         };
         Facebook.prototype.CheckStatus = function () {

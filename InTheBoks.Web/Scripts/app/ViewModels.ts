@@ -58,6 +58,15 @@ module InTheBoks.ViewModels
             self.Logout = () => { self.Auth.Logout(); };
         }
 
+        Load()
+        {
+            var self = this;
+
+            // Load the catalogs.
+            self.Catalogs.Load();
+
+        }
+
         LoadUser() {
 
             var service = new InTheBoks.ServiceClient("User");
@@ -175,24 +184,28 @@ module InTheBoks.ViewModels
 
         private service = new InTheBoks.ServiceClient("Catalogs");
 
+        // Loads the users catalogs from disk or api.
         Load() {
             var self = this;
 
             self.service.Execute(function (data) {
 
-                self.Items.removeAll();
+                //self.Items.removeAll();
+                ko.mapping.fromJS(data, {}, self.Items);
 
-                for (var i = 0; i < data.length; i++) {
+                self.Selected(self.Items()[0]);
 
-                    var item = ko.mapping.fromJS(data[i]);
+                //for (var i = 0; i < data.length; i++) {
 
-                    self.Items.push(item);
+                //    var item = ko.mapping.fromJS(data[i]);
 
-                    if (i == 0) {
-                        self.Selected(item);
-                    }
+                //    self.Items.push(item);
 
-                };
+                //    if (i == 0) {
+                //        self.Selected(item);
+                //    }
+
+                //};
             
             });
         }

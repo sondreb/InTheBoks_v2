@@ -43,6 +43,10 @@ var InTheBoks;
                     self.Auth.Logout();
                 };
             }
+            MainViewModel.prototype.Load = function () {
+                var self = this;
+                self.Catalogs.Load();
+            };
             MainViewModel.prototype.LoadUser = function () {
                 var service = new InTheBoks.ServiceClient("User");
                 service.Execute(function (data) {
@@ -129,15 +133,9 @@ var InTheBoks;
             CatalogsViewModel.prototype.Load = function () {
                 var self = this;
                 self.service.Execute(function (data) {
-                    self.Items.removeAll();
-                    for(var i = 0; i < data.length; i++) {
-                        var item = ko.mapping.fromJS(data[i]);
-                        self.Items.push(item);
-                        if(i == 0) {
-                            self.Selected(item);
-                        }
-                    }
-                    ;
+                    ko.mapping.fromJS(data, {
+                    }, self.Items);
+                    self.Selected(self.Items()[0]);
                 });
             };
             CatalogsViewModel.prototype.Save = function () {

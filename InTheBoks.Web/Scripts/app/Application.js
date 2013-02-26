@@ -35,11 +35,11 @@ var InTheBoks;
             App.prototype.InitFacebook = function () {
                 var self = this;
                 self.Auth.LoggedIn.on(function () {
-                    console.log("Logged in");
+                    console.log("FB: Logged in");
                     ChangeState(1);
                 });
                 self.Auth.LoggedOut.on(function () {
-                    console.log("Logged out");
+                    console.log("FB: Logged out");
                     ChangeState(2);
                 });
                 self.Auth.Initialize();
@@ -71,6 +71,7 @@ function ChangeState(state) {
             $(".anonymous, .initializing").hide();
             $(".authenticated").fadeIn(700);
             $("#logo").addClass("logo_authenticated");
+            InTheBoks.Application.App.Instance.ViewModel.Load();
             break;
         case 2:
             $("body").removeClass("bodybg");

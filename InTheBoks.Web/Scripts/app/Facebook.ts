@@ -20,13 +20,11 @@ module InTheBoks
 
         Login()
         {
-            alert("InTheBoks.Facebook.Login");
             FB.login(function (response) { console.log(response); }, { scope: 'email,user_about_me,friends_about_me' });
         }
 
         Logout()
         {
-            alert("InTheBoks.Facebook.Logout");
             FB.logout();
         }
 

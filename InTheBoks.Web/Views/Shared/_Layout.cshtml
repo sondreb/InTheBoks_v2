@@ -1,5 +1,4 @@
 ﻿@using InTheBoks.Resources
-
 <!DOCTYPE html>
 @*<html manifest="offline2.appcache">*@
 <html>
@@ -67,10 +66,7 @@
 
                 <div id="auth-loggedin" class="authenticated">
 
-                    <div id="profileInfo">
-                        
-
-                        <div class="btn-group">
+                    <div class="btn-group">
                           <a class="btn btn-large btn-primary btn-inverse" href="#">
                               @*<i class="icon-user icon-white"></i> *@
                               <img src="" id="profileImage" height="18" width="18" />
@@ -80,6 +76,8 @@
                           <a class="btn btn-large btn-primary btn-inverse dropdown-toggle" data-toggle="dropdown" href="#"><span class="caret"></span></a>
                           <ul class="dropdown-menu">
                             <li><a href="#"><i class="icon-pencil"></i> Profile</a></li>
+                            <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
+                            <li><a href="#"><i class="icon-search"></i> Search</a></li>
                             @*<li><a href="#"><i class="icon-trash"></i> Delete</a></li>
                             <li><a href="#"><i class="icon-ban-circle"></i> Ban</a></li>*@
                             <li class="divider"></li>
@@ -93,7 +91,12 @@
                         </div>
 
 
-                    </div>
+
+                    @*<div id="profileInfo">
+                        
+                    </div>*@
+
+
                 </div>
             </div>
             @*
@@ -174,9 +177,9 @@
         <div id="content" class="authenticated content stretch" style="clear: both;">
             <div id="left-sidebar" class="stretch">
 
-                <div data-bind="with: Catalogs">
-                    <ul class="catalogsList" data-bind="foreach: Items">
-                        <li class="button_flat" data-bind="click: $parent.Select, css: { selected: $data == $root.Selected() }">
+                <div>
+                    <ul class="catalogsList" data-bind="foreach: Catalogs.Items">
+                        <li class="button_flat" data-bind="click: $parent.Select, css: { selected: $data == $root.Catalogs.Selected() }">
                             <span data-bind="text: Name"></span>
                             <span data-bind="text: Count" style="float: right;"></span>
                         </li>

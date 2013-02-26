@@ -59,8 +59,8 @@ module InTheBoks.Application
             var self = this;
 
             // Hook up the auth events.
-            self.Auth.LoggedIn.on(() => { console.log("Logged in"); ChangeState(1); });
-            self.Auth.LoggedOut.on(() => { console.log("Logged out"); ChangeState(2); });
+            self.Auth.LoggedIn.on(() => { console.log("FB: Logged in"); ChangeState(1); });
+            self.Auth.LoggedOut.on(() => { console.log("FB: Logged out"); ChangeState(2); });
 
             // Initialize the auth provider.
             self.Auth.Initialize();
@@ -107,6 +107,9 @@ function ChangeState(state) {
             $(".anonymous, .initializing").hide();
             $(".authenticated").fadeIn(700);
             $("#logo").addClass("logo_authenticated");
+
+            // Start loading data
+            InTheBoks.Application.App.Instance.ViewModel.Load();
 
             //$("#AppContainer").css("padding", "0px");
 
