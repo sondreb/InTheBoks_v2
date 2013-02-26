@@ -325,6 +325,10 @@ p.description_content {
 	width: 150px;
 	overflow: auto;
 	float: left;
+	background-image: url('/Content/menu_bg.png');
+    background-repeat: repeat-y;
+    background-position: top right;
+    
 }
 
 #content #friends {
