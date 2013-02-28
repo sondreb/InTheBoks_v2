@@ -47,7 +47,7 @@
     @Scripts.Render("~/bundles/libs")
     @Scripts.Render("~/bundles/app")
 
-    <script src="~/signalr/hubs"></script>
+    @*<script src="~/signalr/hubs"></script>*@
 
 </head>
 <body>
@@ -199,7 +199,7 @@
 
                 <div>
                     <ul class="catalogsList" data-bind="foreach: Catalogs.Items">
-                        <li class="button_flat" data-bind="click: $parent.Select, css: { selected: $data == $root.Catalogs.Selected() }">
+                        <li class="button_flat" data-bind="click: $parent.Catalogs.Select, css: { selected: $data == $root.Catalogs.SelectedFirst() }">
                             <span data-bind="text: Name"></span>
                             <span data-bind="text: Count" style="float: right;"></span>
                         </li>

@@ -14,7 +14,6 @@ module InTheBoks.WebSocket {
         }
 
         Start() {
-
             var self = this;
 
             self.Activities = $.connection.activities;
@@ -57,6 +56,6 @@ $(document).ready(function () {
 $(window).load(function () {
     // executes when complete page is fully loaded, including all frames, objects and images
     console.log("InTheBoks.WebSockets: window.loaded");
-    InTheBoks.WebSocket.Hubs.Instance.Start();
+    //InTheBoks.WebSocket.Hubs.Instance.Start();
 
 });

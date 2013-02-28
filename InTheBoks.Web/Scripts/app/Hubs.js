@@ -36,5 +36,4 @@ $(document).ready(function () {
 });
 $(window).load(function () {
     console.log("InTheBoks.WebSockets: window.loaded");
-    InTheBoks.WebSocket.Hubs.Instance.Start();
 });

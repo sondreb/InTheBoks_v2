@@ -1,7 +1,26 @@
 /// <reference path="_references.ts" />
 
+declare var Modernizer: any;
+
 module InTheBoks
 {
+    export class Storage
+    {
+        Name: string;
+        Supported: bool;
+
+        constructor(name:string = "")
+        {
+            this.Name = name;
+            this.Supported = Modernizr.localstorage;
+        }
+
+        Open()
+        {
+            
+        }
+    }
+
     export class ServiceClient {
 
         Action: string;

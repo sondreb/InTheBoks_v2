@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		ReadMe - Source.txt = ReadMe - Source.txt
 		ReadMe.txt = ReadMe.txt
 		SolutionInfo.cs = SolutionInfo.cs
+		WE-settings.xml = WE-settings.xml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InTheBoks", "InTheBoks\InTheBoks.csproj", "{13BAB0DC-4879-47B0-BDF1-A35ADB9118B5}"

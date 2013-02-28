@@ -1,5 +1,16 @@
 var InTheBoks;
 (function (InTheBoks) {
+    var Storage = (function () {
+        function Storage(name) {
+            if (typeof name === "undefined") { name = ""; }
+            this.Name = name;
+            this.Supported = Modernizr.localstorage;
+        }
+        Storage.prototype.Open = function () {
+        };
+        return Storage;
+    })();
+    InTheBoks.Storage = Storage;    
     var ServiceClient = (function () {
         function ServiceClient(action) {
             if (typeof action === "undefined") { action = ""; }

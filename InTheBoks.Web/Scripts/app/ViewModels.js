@@ -8,19 +8,19 @@ var InTheBoks;
     (function (ViewModels) {
         var MainViewModel = (function () {
             function MainViewModel() {
-                var self = this;
-                self.Catalogs = new CatalogsViewModel();
-                self.Items = new ItemsViewModel();
-                self.Friends = new FriendsViewModel();
-                self.Activities = new ActivitiesViewModel();
-                self.SelectedItems = ko.observableArray();
-                self.User = ko.observable();
-                self.States = {
+                var _this = this;
+                Rebind(this);
+                this.Catalogs = new CatalogsViewModel();
+                this.Items = new ItemsViewModel();
+                this.Friends = new FriendsViewModel();
+                this.Activities = new ActivitiesViewModel();
+                this.User = ko.observable();
+                this.States = {
                     "Initializing": 0,
                     "Authenticated": 1,
                     "Anonymous": 2
                 };
-                self.Languages = ko.observableArray([
+                this.Languages = ko.observableArray([
                     {
                         key: "auto",
                         value: "Auto-detect"
@@ -34,13 +34,12 @@ var InTheBoks;
                         value: "Norwegian"
                     }
                 ]);
-                self.SelectedCatalog = ko.observable();
-                self.Auth = new InTheBoks.Facebook();
-                self.Login = function () {
-                    self.Auth.Login();
+                this.Auth = new InTheBoks.Facebook();
+                this.Login = function () {
+                    _this.Auth.Login();
                 };
-                self.Logout = function () {
-                    self.Auth.Logout();
+                this.Logout = function () {
+                    _this.Auth.Logout();
                 };
             }
             MainViewModel.prototype.Load = function () {
@@ -83,18 +82,30 @@ var InTheBoks;
         ViewModels.SettingsViewModel = SettingsViewModel;        
         var CollectionModelBase = (function () {
             function CollectionModelBase() {
+                Rebind(this);
                 var self = this;
                 self.Items = ko.observableArray();
-                self.Selected = ko.observable();
+                self.Selected = ko.observableArray();
+                self.SingleSelect = ko.observable();
+                self.SelectedFirst = ko.computed(function () {
+                    if(self.Selected().length > 0) {
+                        return self.Selected()[0];
+                    } else {
+                        return null;
+                    }
+                });
             }
-            CollectionModelBase.prototype.Create = function (item) {
+            CollectionModelBase.prototype.Add = function (item) {
+                this.Items.push(item);
             };
-            CollectionModelBase.prototype.Delete = function (item) {
-            };
-            CollectionModelBase.prototype.Edit = function (item) {
+            CollectionModelBase.prototype.Remove = function (item) {
+                this.Items.remove(item);
             };
             CollectionModelBase.prototype.Select = function (item) {
-                console.log(item);
+                if(this.SingleSelect()) {
+                    this.Selected.removeAll();
+                }
+                this.Selected.push(item);
             };
             return CollectionModelBase;
         })();
@@ -128,14 +139,34 @@ var InTheBoks;
             function CatalogsViewModel() {
                         _super.call(this);
                 this.service = new InTheBoks.ServiceClient("Catalogs");
+                this.storage = new InTheBoks.Storage("Catalogs");
+                Rebind(this);
                 var self = this;
+                self.SingleSelect(true);
             }
             CatalogsViewModel.prototype.Load = function () {
                 var self = this;
+                if(self.storage.Supported) {
+                    console.log("Reading from local storage...");
+                }
                 self.service.Execute(function (data) {
                     ko.mapping.fromJS(data, {
                     }, self.Items);
-                    self.Selected(self.Items()[0]);
+                    if(self.Items().length > 0) {
+                        self.Select(self.Items()[0]);
+                    }
+                    var itemsObject = ko.toJS(self.Items());
+                    var itemsJson = JSON.stringify(itemsObject);
+                    var parsedObject = JSON.parse(itemsJson);
+                    localStorage.setItem("Catalogs", itemsJson);
+                    localStorage.setItem("1|3|timestamp", "ThisIsAnItem");
+                    localStorage.setItem("1|4|timestamp", "ThisIsAnItem #2");
+                    localStorage.setItem("2|3|timestamp", "ThisIsAnItem #2");
+                    for(var i in window.localStorage) {
+                        var val = localStorage.getItem(i);
+                        console.log(i);
+                        console.log(val);
+                    }
                 });
             };
             CatalogsViewModel.prototype.Save = function () {
@@ -205,3 +236,12 @@ var InTheBoks;
     })(InTheBoks.ViewModels || (InTheBoks.ViewModels = {}));
     var ViewModels = InTheBoks.ViewModels;
 })(InTheBoks || (InTheBoks = {}));
+function Rebind(obj) {
+    var prototype = obj.constructor.prototype;
+    for(var name in prototype) {
+        if(!obj.hasOwnProperty(name) && typeof prototype[name] === "function") {
+            var method = prototype[name];
+            obj[name] = method.bind(obj);
+        }
+    }
+}
